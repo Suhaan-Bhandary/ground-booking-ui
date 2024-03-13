@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../../types/User";
+import { TUser } from "../../types/user";
 
-const initialState: IUser = {
-  count: 0,
-};
+const initialState: TUser = null;
 
 export const userSlice = createSlice({
   name: "user",
