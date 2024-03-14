@@ -16,6 +16,7 @@ export interface IUserLocalStorage {
   token: string;
 }
 
+// Types of user register
 export interface IUserRegisterRequest {
   user: {
     user_name: string;
@@ -25,6 +26,19 @@ export interface IUserRegisterRequest {
 }
 
 export interface IUserRegisterResponse {
+  user: IUser;
+  token: string;
+}
+
+// Types of user login
+export interface IUserLoginRequest {
+  user: {
+    mobile_no: string;
+    password: string;
+  };
+}
+
+export interface IUserLoginResponse {
   user: IUser;
   token: string;
 }

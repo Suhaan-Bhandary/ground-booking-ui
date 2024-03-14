@@ -19,3 +19,13 @@ export const userRegisterSchema = Yup.object({
     })
     .required("Confirm Password is required"),
 });
+
+export const userLoginInitialValues = {
+  mobile_no: "",
+  password: "",
+};
+
+export const userLoginSchema = Yup.object({
+  mobile_no: Yup.string().required("Mobile is required"),
+  password: Yup.string().required("Password is required"),
+});
