@@ -8,6 +8,7 @@ import { USER_LOALSTORAGE_KEY } from "../../constants/user";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
 import { IUserLocalStorage, IUserLoginRequest } from "../../types/user";
+import { isApiResponse } from "../../helpers/api";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -37,7 +38,13 @@ const UserLogin = () => {
           navigate("/");
         } catch (error) {
           console.error("Rejected:", error);
-          toast.error("Error while Login user");
+          if (isApiResponse(error)) {
+            error.data.errors.forEach((errMessage) => {
+              toast.error(errMessage);
+            });
+          } else {
+            toast.error("Something went wrong");
+          }
         }
       },
     });

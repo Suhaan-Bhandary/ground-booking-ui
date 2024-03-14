@@ -11,6 +11,7 @@ import {
   userRegisterSchema,
 } from "../../helpers/user";
 import { IUserLocalStorage, IUserRegisterRequest } from "../../types/user";
+import { isApiResponse } from "../../helpers/api";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -41,7 +42,13 @@ const UserRegister = () => {
           navigate("/");
         } catch (error) {
           console.error("Rejected:", error);
-          toast.error("Error while registering user");
+          if (isApiResponse(error)) {
+            error.data.errors.forEach((errMessage) => {
+              toast.error(errMessage);
+            });
+          } else {
+            toast.error("Something went wrong");
+          }
         }
       },
     });
