@@ -1,4 +1,10 @@
+import { useAppSelector } from "../../hooks/redux";
+import Logout from "../Logout/Logout";
+
 const Header = () => {
+  const userData = useAppSelector((state) => state.userState.user);
+  const isLoggedIn = userData ? true : false;
+
   return (
     <header>
       <div>
@@ -7,6 +13,8 @@ const Header = () => {
       <nav>
         <ul>
           <li>Home</li>
+          {isLoggedIn ? <p>{userData?.user_name}</p> : null}
+          {isLoggedIn ? <Logout>Logout</Logout> : null}
         </ul>
       </nav>
     </header>

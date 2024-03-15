@@ -9,3 +9,7 @@ export const getLocalStorageData = <T>(key: string): T | null => {
 
   return JSON.parse(jsonString);
 };
+
+export const resetLocalStorageData = (key: string) => {
+  localStorage.removeItem(key);
+};
