@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../app/features/userSlice";
 import { RootState } from "../app/store";
 import { USER_LOALSTORAGE_KEY } from "../constants/user";
 import { getLocalStorageData } from "../helpers/localStorage";
 import { IUserLocalStorage } from "../types/user";
+import { useAppDispatch, useAppSelector } from "./redux";
 
 const useUserLoginStatus = () => {
-  const dispatch = useDispatch();
-  const userData = useSelector((store: RootState) => store.userState.user);
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector((store: RootState) => store.userState.user);
 
   useEffect(() => {
     // Load data from local storage

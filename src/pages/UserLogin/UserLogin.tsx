@@ -1,18 +1,18 @@
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
+import { isApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
+import { useAppDispatch } from "../../hooks/redux";
 import { IUserLocalStorage, IUserLoginRequest } from "../../types/user";
-import { isApiResponse } from "../../helpers/api";
 
 const UserLogin = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [loginUser, loginUserResult] = useLoginUserMutation();
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
