@@ -25,6 +25,17 @@ export interface IUserRegisterRequest {
   };
 }
 
+export interface IUserRegisterRawResponse {
+  user: {
+    user_name: string;
+    mobile_no: string;
+    access_role: {
+      role: string;
+    };
+  };
+  token: string;
+}
+
 export interface IUserRegisterResponse {
   user: IUser;
   token: string;
@@ -36,6 +47,17 @@ export interface IUserLoginRequest {
     mobile_no: string;
     password: string;
   };
+}
+
+export interface IUserLoginRawResponse {
+  user: {
+    user_name: string;
+    mobile_no: string;
+    access_role: {
+      role: string;
+    };
+  };
+  token: string;
 }
 
 export interface IUserLoginResponse {

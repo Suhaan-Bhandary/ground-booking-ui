@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../constants/app";
 import {
+  IUserLoginRawResponse,
   IUserLoginRequest,
   IUserLoginResponse,
+  IUserRegisterRawResponse,
   IUserRegisterRequest,
   IUserRegisterResponse,
+  TUserRole,
 } from "../../types/user";
 
 export const userApi = createApi({
@@ -21,7 +24,7 @@ export const userApi = createApi({
           body: data,
         }),
 
-        transformResponse: (response: IUserRegisterResponse) => {
+        transformResponse: (response: IUserRegisterRawResponse) => {
           const token = response?.token;
           const user = response?.user;
 
@@ -30,7 +33,7 @@ export const userApi = createApi({
             user: {
               user_name: user.user_name,
               mobile_no: user.mobile_no,
-              role: user.role,
+              role: user.access_role.role.toUpperCase() as TUserRole,
             },
           };
         },
@@ -44,7 +47,7 @@ export const userApi = createApi({
         body: data,
       }),
 
-      transformResponse: (response: IUserLoginResponse) => {
+      transformResponse: (response: IUserLoginRawResponse) => {
         const token = response?.token;
         const user = response?.user;
 
@@ -53,7 +56,7 @@ export const userApi = createApi({
           user: {
             user_name: user.user_name,
             mobile_no: user.mobile_no,
-            role: user.role,
+            role: user.access_role.role.toUpperCase() as TUserRole,
           },
         };
       },
