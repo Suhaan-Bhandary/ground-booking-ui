@@ -1,9 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
-import { TUser, TUserRole } from "../types/user";
+import { IUser, TUserRole } from "../types/user";
 
 export interface IAuthRouteLayout {
   roleRequired: TUserRole;
-  userData: TUser;
+  userData: IUser | null;
 }
 
 function AuthRouteLayout({ roleRequired, userData }: IAuthRouteLayout) {
