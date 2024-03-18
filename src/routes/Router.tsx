@@ -27,14 +27,14 @@ const Router = () => {
         </Route>
 
         {/* User Routes */}
-        <Route element={<UserRoutes userData={userData} />}>
-          <Route path="/user" Component={Home} />
+        <Route path="/user" element={<UserRoutes userData={userData} />}>
+          <Route path="" Component={Home} />
         </Route>
       </Route>
 
       {/* Admin Routes */}
-      <Route element={<AdminRoutes userData={userData} />}>
-        <Route path="/admin" Component={Home} />
+      <Route path="/admin" element={<AdminRoutes userData={userData} />}>
+        <Route path="" Component={Home} />
       </Route>
     </Routes>
   );
