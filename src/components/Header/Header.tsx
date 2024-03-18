@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux";
 import Logout from "../Logout/Logout";
 
@@ -12,9 +13,31 @@ const Header = () => {
       </div>
       <nav>
         <ul>
-          <li>Home</li>
-          {isLoggedIn ? <p>{userData?.user_name}</p> : null}
-          {isLoggedIn ? <Logout>Logout</Logout> : null}
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/events">Events</Link>
+          </li>
+          {isLoggedIn ? (
+            <>
+              <li>
+                <Link to="/profile">{userData?.user_name}</Link>
+              </li>
+              <li>
+                <Logout>Logout</Logout>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </header>
