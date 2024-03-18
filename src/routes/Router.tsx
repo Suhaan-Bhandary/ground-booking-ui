@@ -27,6 +27,8 @@ const Router = () => {
         {/* Public Routes */}
         <Route index Component={Home} />
         <Route path="/" Component={Home} />
+        <Route path="/events" Component={Events} />
+        <Route path="/events/:eventId/slots" Component={Slots} />
         <Route path="*" Component={NotFound} />
 
         {/* Not LoggedIn Routes */}
@@ -37,8 +39,6 @@ const Router = () => {
 
         {/* User Routes */}
         <Route element={<UserRoutes userData={userData} />}>
-          <Route path="/events" Component={Events} />
-          <Route path="/events/:eventId/slots" Component={Slots} />
           <Route path="/profile" Component={Profile} />
         </Route>
       </Route>
