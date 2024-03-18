@@ -1,13 +1,14 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ADMIN_ROLE } from "../../constants/user";
 import { IUser } from "../../types/user";
+import AdminLayout from "../layouts/AdminLayout";
 
 type AdminRoutesProps = {
   userData: IUser | null;
 };
 
 function AdminRoutes({ userData }: AdminRoutesProps) {
-  if (userData?.role === ADMIN_ROLE) return <Outlet />;
+  if (userData?.role === ADMIN_ROLE) return <AdminLayout />;
 
   return (
     <div>
