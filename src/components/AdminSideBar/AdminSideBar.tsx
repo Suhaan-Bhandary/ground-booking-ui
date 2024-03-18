@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
+import { FaUsers } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { GrNotes } from "react-icons/gr";
+import { MdCalendarMonth, MdOutlineSpaceDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 import AdminSideBarLink from "../AdminSideBarLink/AdminSideBarLink";
 import Logout from "../Logout/Logout";
@@ -13,6 +15,21 @@ const sideBarLinks = [
     title: "Dashboard",
     Icon: MdOutlineSpaceDashboard,
     link: "/admin",
+  },
+  {
+    title: "Events",
+    Icon: MdCalendarMonth,
+    link: "/admin/events",
+  },
+  {
+    title: "Registerations",
+    Icon: GrNotes,
+    link: "/admin/registerations",
+  },
+  {
+    title: "Users",
+    Icon: FaUsers,
+    link: "/admin/users",
   },
 ];
 

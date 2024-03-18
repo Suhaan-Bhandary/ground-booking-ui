@@ -1,5 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import useUserLoginStatus from "../hooks/useUserLoginStatus";
+import Dashboard from "../pages/Admin/Dashboard/Dashboard";
+import EventSlots from "../pages/Admin/EventSlots/EventSlots";
+import Events from "../pages/Admin/Events/Events";
+import Registerations from "../pages/Admin/Registerations/Registerations";
+import UserRegisterations from "../pages/Admin/UserRegisterations/UserRegisterations";
+import Users from "../pages/Admin/Users/Users";
 import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
 import UserLogin from "../pages/UserLogin/UserLogin";
@@ -34,7 +40,15 @@ const Router = () => {
 
       {/* Admin Routes */}
       <Route path="/admin" element={<AdminRoutes userData={userData} />}>
-        <Route path="" Component={Home} />
+        <Route path="" Component={Dashboard} />
+        <Route path="events" Component={Events} />
+        <Route path="events/:eventId/slots" Component={EventSlots} />
+        <Route path="registerations" Component={Registerations} />
+        <Route path="users" Component={Users} />
+        <Route
+          path="users/:userId/registerations"
+          Component={UserRegisterations}
+        />
       </Route>
     </Routes>
   );
