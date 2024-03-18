@@ -1,0 +1,8 @@
+.Dashboard {
+  min-height: 100vh;
+  background-color: rgb(245, 246, 250);
+}
+
+.dashboardMainContent {
+  padding-top: var(--navbar-height);
+}

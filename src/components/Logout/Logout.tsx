@@ -6,9 +6,10 @@ import { useAppDispatch } from "../../hooks/redux";
 
 type LogoutProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
-const Logout = ({ children }: LogoutProps) => {
+const Logout = ({ children, className = "" }: LogoutProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -21,7 +22,11 @@ const Logout = ({ children }: LogoutProps) => {
     navigate("/");
   };
 
-  return <button onClick={handleUseLogout}>{children}</button>;
+  return (
+    <button className={className} onClick={handleUseLogout}>
+      {children}
+    </button>
+  );
 };
 
 export default Logout;

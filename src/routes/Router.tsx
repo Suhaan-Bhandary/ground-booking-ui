@@ -18,6 +18,7 @@ const Router = () => {
         {/* Public Routes */}
         <Route index Component={Home} />
         <Route path="/" Component={Home} />
+        <Route path="*" Component={NotFound} />
 
         {/* Not LoggedIn Routes */}
         <Route element={<NotLoggedInRoutes userData={userData} />}>
@@ -29,13 +30,11 @@ const Router = () => {
         <Route element={<UserRoutes userData={userData} />}>
           <Route path="/user" Component={Home} />
         </Route>
+      </Route>
 
-        {/* Admin Routes */}
-        <Route element={<AdminRoutes userData={userData} />}>
-          <Route path="/admin" Component={Home} />
-        </Route>
-
-        <Route path="*" Component={NotFound} />
+      {/* Admin Routes */}
+      <Route element={<AdminRoutes userData={userData} />}>
+        <Route path="/admin" Component={Home} />
       </Route>
     </Routes>
   );
