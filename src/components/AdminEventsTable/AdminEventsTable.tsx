@@ -3,11 +3,16 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../api/event";
-import { eventStatusOptions } from "../../helpers/event";
+import {
+  eventStatusDisplayName,
+  eventStatusOptions,
+} from "../../helpers/event";
 import { IEvent, TEventStatus } from "../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
 import Table from "../Table/Table";
 import UpdateEventModal from "../UpdateEventModal/UpdateEventModal";
+import styles from "./AdminEventsTable.module.css";
+import Moment from "moment";
 
 const AdminEventsTable = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
@@ -55,30 +60,32 @@ const AdminEventsTable = () => {
   }
 
   return (
-    <div>
-      <div>
-        <label htmlFor="event_status">Event Status</label>
-        <select
-          name="event_status"
-          value={eventStatus}
-          onChange={(event) =>
-            setEventStatus(event.target.value as TEventStatus)
-          }
-        >
-          <option value="" key="">
-            All
-          </option>
-          {eventStatusOptions.map((option) => (
-            <option value={option.value} key={option.value}>
-              {option.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
+    <div className={styles.AdminEventsTable}>
       {events && events.length !== 0 && (
         <Table>
           <thead>
+            <tr>
+              <td colSpan={5} className={styles.eventStatusCell}>
+                <label htmlFor="event_status">Event Status</label>
+                <select
+                  name="event_status"
+                  value={eventStatus}
+                  onChange={(event) =>
+                    setEventStatus(event.target.value as TEventStatus)
+                  }
+                >
+                  <option value="" key="">
+                    All
+                  </option>
+                  {eventStatusOptions.map((option) => (
+                    <option value={option.value} key={option.value}>
+                      {option.name}
+                    </option>
+                  ))}
+                </select>
+              </td>
+            </tr>
+
             <tr>
               <th>Event Date</th>
               <th>Status</th>
@@ -87,14 +94,15 @@ const AdminEventsTable = () => {
               <th>Delete</th>
             </tr>
           </thead>
+
           <tbody>
             {events.map((event, index) => {
               // Conditionally adding ref
               const refProp = index === events.length - 1 ? { ref: ref } : {};
               return (
                 <tr key={event.id} {...refProp}>
-                  <td>{event.date}</td>
-                  <td>{event.event_status}</td>
+                  <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
+                  <td>{eventStatusDisplayName[event.event_status]}</td>
                   <td>
                     <Link to={`/admin/events/${event.id}/slots`}>View</Link>
                   </td>

@@ -6,8 +6,10 @@ function AdminLayout() {
   return (
     <div className={styles.Dashboard}>
       <AdminSideBar />
-      <div className={styles.dashboardMainContent}>
-        <Outlet />
+      <div className={styles.dashboardWrapper}>
+        <div className={styles.dashboardMainContent}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

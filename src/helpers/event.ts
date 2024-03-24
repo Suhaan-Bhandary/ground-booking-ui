@@ -15,6 +15,12 @@ export const eventStatusOptions = [
   },
 ] as const;
 
+export const eventStatusDisplayName = {
+  AVAILABLE: "Available",
+  IN_PROGRESS: "In Progress",
+  BOOKED: "Booked",
+};
+
 export const createEventInitialValues = {
   date: new Date(),
 };

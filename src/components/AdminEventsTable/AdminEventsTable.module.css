@@ -1,0 +1,20 @@
+.AdminEventsTable {
+  overflow: auto;
+  margin-block: 1rem;
+}
+
+.AdminEventsTable :where(th, td) {
+  text-wrap: nowrap;
+}
+
+.eventStatusCell {
+  text-align: left;
+
+  padding: 0;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.eventStatusCell select {
+  cursor: pointer;
+}
