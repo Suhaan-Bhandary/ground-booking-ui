@@ -1,3 +1,4 @@
+import CreateEvent from "../../../components/CreateEvent/CreateEvent";
 import Table from "../../../components/Table/Table";
 
 const Events = () => {
@@ -6,7 +7,7 @@ const Events = () => {
       <div className="container">
         <div>
           <h1>Events</h1>
-          <button>Create Event</button>
+          <CreateEvent />
         </div>
 
         <div>

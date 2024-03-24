@@ -16,3 +16,24 @@ export function isApiResponse(error: unknown): error is ApiErrorResponse {
     Array.isArray(error.data.errors)
   );
 }
+
+export interface ApiErrorMessageResponse {
+  status: number;
+  data: { message: string };
+}
+
+export function isApiErrorMessage(
+  error: unknown,
+): error is ApiErrorMessageResponse {
+  return (
+    typeof error === "object" &&
+    error != null &&
+    "status" in error &&
+    typeof error.status === "number" &&
+    "data" in error &&
+    typeof error.data === "object" &&
+    error.data != null &&
+    "message" in error.data &&
+    typeof error.data.message === "string"
+  );
+}
