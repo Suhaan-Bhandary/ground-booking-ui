@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../api/event";
 import { IEvent } from "../../types/event";
-import DeleteEventModal from "../DeleteEventButton/DeleteEventModal";
+import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
 import Table from "../Table/Table";
 import UpdateEventModal from "../UpdateEventModal/UpdateEventModal";
 
