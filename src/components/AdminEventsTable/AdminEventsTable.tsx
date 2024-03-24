@@ -21,16 +21,22 @@ const AdminEventsTable = () => {
     threshold: 0,
   });
 
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteQuery({
-      queryKey: ["admin-events", eventStatus],
-      queryFn: ({ pageParam }) => fetchEvents({ page: pageParam, eventStatus }),
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["admin-events", eventStatus],
+    queryFn: ({ pageParam }) => fetchEvents({ page: pageParam, eventStatus }),
 
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.events.length > 0 ? allPages.length + 1 : undefined;
-      },
-    });
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.events.length > 0 ? allPages.length + 1 : undefined;
+    },
+  });
 
   useEffect(() => {
     if (!inView || !hasNextPage) return;
@@ -44,7 +50,7 @@ const AdminEventsTable = () => {
   // Making the data flat
   const events = data?.pages.flatMap((page) => page.events);
 
-  if (!events?.length) {
+  if (!isError && !events?.length) {
     return <div>No events found!!</div>;
   }
 
@@ -70,43 +76,47 @@ const AdminEventsTable = () => {
         </select>
       </div>
 
-      <Table>
-        <thead>
-          <tr>
-            <th>Event Date</th>
-            <th>Status</th>
-            <th>Slots</th>
-            <th>Update</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event, index) => {
-            // Conditionally adding ref
-            const refProp = index === events.length - 1 ? { ref: ref } : {};
-            return (
-              <tr key={event.id} {...refProp}>
-                <td>{event.date}</td>
-                <td>{event.event_status}</td>
-                <td>
-                  <Link to={`/admin/events/${event.id}/slots`}>View</Link>
-                </td>
-                <td>
-                  <button onClick={() => setUpdateEventModalData(event)}>
-                    Update
-                  </button>
-                </td>
-                <td>
-                  <button onClick={() => setDeleteEventModalData(event)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      <div>{isFetchingNextPage && <p>Fetching Events...</p>}</div>
+      {events && events.length !== 0 && (
+        <Table>
+          <thead>
+            <tr>
+              <th>Event Date</th>
+              <th>Status</th>
+              <th>Slots</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {events.map((event, index) => {
+              // Conditionally adding ref
+              const refProp = index === events.length - 1 ? { ref: ref } : {};
+              return (
+                <tr key={event.id} {...refProp}>
+                  <td>{event.date}</td>
+                  <td>{event.event_status}</td>
+                  <td>
+                    <Link to={`/admin/events/${event.id}/slots`}>View</Link>
+                  </td>
+                  <td>
+                    <button onClick={() => setUpdateEventModalData(event)}>
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button onClick={() => setDeleteEventModalData(event)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
+
+      {isError && <p>Error loading events</p>}
+      {isFetchingNextPage && <p>Fetching events...</p>}
 
       {/* Modals */}
       {deleteEventModalData ? (

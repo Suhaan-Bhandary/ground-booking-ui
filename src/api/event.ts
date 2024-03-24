@@ -20,6 +20,7 @@ export const fetchEvents = async ({
   });
 
   if (!response.ok) {
+    if (response.status !== 400) throw Error("Something went wrong");
     return { events: [] } as IEventPaginatedResponse;
   }
 
