@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../constants/app";
 import { getUserAuthToken } from "../../helpers/authToken";
-import { IEventCreateRequest, IEventCreateResponse } from "../../types/event";
+import {
+  IEventCreateRequest,
+  IEventCreateResponse,
+  IEventUpdateRequest,
+  TEventStatus,
+} from "../../types/event";
 
 export const eventApi = createApi({
   reducerPath: "eventApi",
@@ -20,6 +25,15 @@ export const eventApi = createApi({
       }),
     }),
 
+    updateEvent: builder.mutation<IEventCreateResponse, IEventUpdateRequest>({
+      query: (data) => ({
+        url: `/${data.id}`,
+        method: "PUT",
+        body: { event: { event_status: data.event_status } },
+        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+      }),
+    }),
+
     deleteEvent: builder.mutation<IEventCreateResponse, number>({
       query: (id) => ({
         url: `/${id}`,
@@ -30,4 +44,8 @@ export const eventApi = createApi({
   }),
 });
 
-export const { useCreateEventMutation, useDeleteEventMutation } = eventApi;
+export const {
+  useCreateEventMutation,
+  useUpdateEventMutation,
+  useDeleteEventMutation,
+} = eventApi;

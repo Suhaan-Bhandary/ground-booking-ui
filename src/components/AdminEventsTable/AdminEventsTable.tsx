@@ -6,9 +6,12 @@ import { fetchEvents } from "../../api/event";
 import { IEvent } from "../../types/event";
 import DeleteEventModal from "../DeleteEventButton/DeleteEventModal";
 import Table from "../Table/Table";
+import UpdateEventModal from "../UpdateEventModal/UpdateEventModal";
 
 const AdminEventsTable = () => {
   const [deleteEventModalData, setDeleteEventModalData] =
+    useState<IEvent | null>(null);
+  const [updateEventModalData, setUpdateEventModalData] =
     useState<IEvent | null>(null);
 
   const { ref, inView } = useInView({
@@ -66,7 +69,9 @@ const AdminEventsTable = () => {
                   <Link to={`/admin/events/${event.id}/slots`}>View</Link>
                 </td>
                 <td>
-                  <button>Update</button>
+                  <button onClick={() => setUpdateEventModalData(event)}>
+                    Update
+                  </button>
                 </td>
                 <td>
                   <button onClick={() => setDeleteEventModalData(event)}>
@@ -85,6 +90,13 @@ const AdminEventsTable = () => {
         <DeleteEventModal
           event={deleteEventModalData}
           closeModalCallback={() => setDeleteEventModalData(null)}
+        />
+      ) : null}
+
+      {updateEventModalData ? (
+        <UpdateEventModal
+          event={updateEventModalData}
+          closeModalCallback={() => setUpdateEventModalData(null)}
         />
       ) : null}
     </div>

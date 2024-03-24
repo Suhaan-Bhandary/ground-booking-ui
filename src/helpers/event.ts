@@ -1,5 +1,20 @@
 import * as Yup from "yup";
 
+export const eventStatusOptions = [
+  {
+    name: "Available",
+    value: "AVAILABLE",
+  },
+  {
+    name: "In Progress",
+    value: "IN_PROGRESS",
+  },
+  {
+    name: "Booked",
+    value: "BOOKED",
+  },
+] as const;
+
 export const createEventInitialValues = {
   date: new Date(),
 };
