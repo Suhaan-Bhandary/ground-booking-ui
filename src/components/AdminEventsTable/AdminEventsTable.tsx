@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../api/event";
-import { IEvent } from "../../types/event";
+import { eventStatusOptions } from "../../helpers/event";
+import { IEvent, TEventStatus } from "../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
 import Table from "../Table/Table";
 import UpdateEventModal from "../UpdateEventModal/UpdateEventModal";
 
 const AdminEventsTable = () => {
+  const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
+
   const [deleteEventModalData, setDeleteEventModalData] =
     useState<IEvent | null>(null);
   const [updateEventModalData, setUpdateEventModalData] =
@@ -20,8 +23,8 @@ const AdminEventsTable = () => {
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
-      queryKey: ["admin-events"],
-      queryFn: ({ pageParam }) => fetchEvents(pageParam),
+      queryKey: ["admin-events", eventStatus],
+      queryFn: ({ pageParam }) => fetchEvents({ page: pageParam, eventStatus }),
 
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPages) => {
@@ -47,6 +50,26 @@ const AdminEventsTable = () => {
 
   return (
     <div>
+      <div>
+        <label htmlFor="event_status">Event Status</label>
+        <select
+          name="event_status"
+          value={eventStatus}
+          onChange={(event) =>
+            setEventStatus(event.target.value as TEventStatus)
+          }
+        >
+          <option value="" key="">
+            All
+          </option>
+          {eventStatusOptions.map((option) => (
+            <option value={option.value} key={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <Table>
         <thead>
           <tr>
