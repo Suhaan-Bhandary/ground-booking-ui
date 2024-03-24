@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import Moment from "moment";
 import { useState } from "react";
@@ -12,6 +13,7 @@ import { IEventCreateRequest } from "../../types/event";
 import Modal from "../Modal/Modal";
 
 const CreateEvent = () => {
+  const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createEvent, createEventResult] = useCreateEventMutation();
 
@@ -30,6 +32,7 @@ const CreateEvent = () => {
 
           resetForm();
           toast.success("Event Created successfully");
+          queryClient.invalidateQueries({ queryKey: ["admin-events"] });
         } catch (error) {
           console.error("Rejected:", error);
           if (isApiErrorMessage(error)) {
