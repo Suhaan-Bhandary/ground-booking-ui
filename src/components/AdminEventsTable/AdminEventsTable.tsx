@@ -35,12 +35,12 @@ const AdminEventsTable = () => {
     return <div>Loading...</div>;
   }
 
-  if (!data?.pages.length) {
-    return <div>No events found!!</div>;
-  }
-
   // Making the data flat
   const events = data?.pages.flatMap((page) => page.events);
+
+  if (!events?.length) {
+    return <div>No events found!!</div>;
+  }
 
   return (
     <div>

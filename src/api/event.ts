@@ -8,7 +8,7 @@ export const fetchEvents = async (page = 1, limit = 10) => {
     headers: { Authorization: `Bearer ${getUserAuthToken()}` },
   });
 
-  if (!response.ok && response.status === 400) {
+  if (!response.ok) {
     return { events: [] } as IEventPaginatedResponse;
   }
 
