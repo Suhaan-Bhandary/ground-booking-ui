@@ -19,7 +19,15 @@ export const eventApi = createApi({
         headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
+
+    deleteEvent: builder.mutation<IEventCreateResponse, number>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+      }),
+    }),
   }),
 });
 
-export const { useCreateEventMutation } = eventApi;
+export const { useCreateEventMutation, useDeleteEventMutation } = eventApi;

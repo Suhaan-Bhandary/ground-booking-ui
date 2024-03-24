@@ -70,7 +70,11 @@ const CreateEvent = () => {
               ) : null}
             </div>
             <div>
-              <button type="button" onClick={closeModal}>
+              <button
+                type="button"
+                onClick={closeModal}
+                disabled={createEventResult.isLoading}
+              >
                 Close
               </button>
               <button type="submit" disabled={createEventResult.isLoading}>

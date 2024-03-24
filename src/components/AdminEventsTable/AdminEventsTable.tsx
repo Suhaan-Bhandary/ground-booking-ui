@@ -1,11 +1,16 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { fetchEvents } from "../../api/event";
-import Table from "../Table/Table";
 import { Link } from "react-router-dom";
+import { fetchEvents } from "../../api/event";
+import { IEvent } from "../../types/event";
+import DeleteEventModal from "../DeleteEventButton/DeleteEventModal";
+import Table from "../Table/Table";
 
 const AdminEventsTable = () => {
+  const [deleteEventModalData, setDeleteEventModalData] =
+    useState<IEvent | null>(null);
+
   const { ref, inView } = useInView({
     threshold: 0,
   });
@@ -64,15 +69,24 @@ const AdminEventsTable = () => {
                   <button>Update</button>
                 </td>
                 <td>
-                  <button>Delete</button>
+                  <button onClick={() => setDeleteEventModalData(event)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </Table>
-
       <div>{isFetchingNextPage && <p>Fetching Events...</p>}</div>
+
+      {/* Modals */}
+      {deleteEventModalData ? (
+        <DeleteEventModal
+          event={deleteEventModalData}
+          closeModalCallback={() => setDeleteEventModalData(null)}
+        />
+      ) : null}
     </div>
   );
 };
