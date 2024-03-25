@@ -1,3 +1,4 @@
+import AdminSlotsTable from "../../../components/AdminSlotsTable/AdminSlotsTable";
 import CreateSlot from "../../../components/CreateSlot/CreateSlot";
 
 const EventSlots = () => {
@@ -9,7 +10,9 @@ const EventSlots = () => {
           <CreateSlot />
         </div>
 
-        <div></div>
+        <div>
+          <AdminSlotsTable />
+        </div>
       </div>
     </div>
   );

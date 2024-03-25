@@ -87,6 +87,7 @@ const AdminEventsTable = () => {
             </tr>
 
             <tr>
+              <th>Id</th>
               <th>Event Date</th>
               <th>Status</th>
               <th>Slots</th>
@@ -101,10 +102,15 @@ const AdminEventsTable = () => {
               const refProp = index === events.length - 1 ? { ref: ref } : {};
               return (
                 <tr key={event.id} {...refProp}>
+                  <td>{event.id}</td>
                   <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
                   <td>{eventStatusDisplayName[event.event_status]}</td>
                   <td>
-                    <Link to={`/admin/events/${event.id}/slots`}>View</Link>
+                    {event.event_status === "AVAILABLE" ? (
+                      <Link to={`/admin/events/${event.id}/slots`}>View</Link>
+                    ) : (
+                      ""
+                    )}
                   </td>
                   <td>
                     <button onClick={() => setUpdateEventModalData(event)}>
