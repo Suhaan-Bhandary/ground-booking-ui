@@ -17,9 +17,16 @@ export interface IEventCreateRequest {
   date: Date;
 }
 
+export interface IEventCreateResponse {}
+
 export interface IEventUpdateRequest {
   id: number;
   event_status: TEventStatus;
 }
 
-export interface IEventCreateResponse {}
+export interface ISlotCreateRequest {
+  status: "AVAILABLE";
+  time_slot: string;
+}
+
+export interface ISlotCreateResponse {}

@@ -37,3 +37,22 @@ export function isApiErrorMessage(
     typeof error.data.message === "string"
   );
 }
+
+export interface ApiDataErrorResponse {
+  status: number;
+  data: { error: string };
+}
+
+export function isApiDataError(error: unknown): error is ApiDataErrorResponse {
+  return (
+    typeof error === "object" &&
+    error != null &&
+    "status" in error &&
+    typeof error.status === "number" &&
+    "data" in error &&
+    typeof error.data === "object" &&
+    error.data != null &&
+    "error" in error.data &&
+    typeof error.data.error === "string"
+  );
+}

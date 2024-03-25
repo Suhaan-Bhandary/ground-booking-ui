@@ -5,7 +5,8 @@ import {
   IEventCreateRequest,
   IEventCreateResponse,
   IEventUpdateRequest,
-  TEventStatus,
+  ISlotCreateRequest,
+  ISlotCreateResponse,
 } from "../../types/event";
 
 export const eventApi = createApi({
@@ -41,6 +42,18 @@ export const eventApi = createApi({
         headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
+
+    createSlot: builder.mutation<
+      ISlotCreateResponse,
+      { eventId: number; slot: ISlotCreateRequest }
+    >({
+      query: (data) => ({
+        url: `/${data.eventId}/slots`,
+        method: "POST",
+        body: { slot: data.slot },
+        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+      }),
+    }),
   }),
 });
 
@@ -48,4 +61,5 @@ export const {
   useCreateEventMutation,
   useUpdateEventMutation,
   useDeleteEventMutation,
+  useCreateSlotMutation,
 } = eventApi;
