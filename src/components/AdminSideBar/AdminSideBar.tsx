@@ -22,9 +22,9 @@ const sideBarLinks = [
     link: "/admin/events",
   },
   {
-    title: "Registerations",
+    title: "Registrations",
     Icon: GrNotes,
-    link: "/admin/registerations",
+    link: "/admin/registrations",
   },
   {
     title: "Users",

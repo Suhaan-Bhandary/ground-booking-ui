@@ -3,8 +3,8 @@ import useUserLoginStatus from "../hooks/useUserLoginStatus";
 import Dashboard from "../pages/Admin/Dashboard/Dashboard";
 import AdminEventSlots from "../pages/Admin/EventSlots/EventSlots";
 import AdminEvents from "../pages/Admin/Events/Events";
-import Registerations from "../pages/Admin/Registerations/Registerations";
-import UserRegisterations from "../pages/Admin/UserRegisterations/UserRegisterations";
+import Registrations from "../pages/Admin/Registrations/Registrations";
+import UserRegistrations from "../pages/Admin/UserRegistrations/UserRegistrations";
 import Users from "../pages/Admin/Users/Users";
 import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
@@ -48,11 +48,11 @@ const Router = () => {
         <Route path="" Component={Dashboard} />
         <Route path="events" Component={AdminEvents} />
         <Route path="events/:eventId/slots" Component={AdminEventSlots} />
-        <Route path="registerations" Component={Registerations} />
+        <Route path="registrations" Component={Registrations} />
         <Route path="users" Component={Users} />
         <Route
-          path="users/:userId/registerations"
-          Component={UserRegisterations}
+          path="users/:userId/registrations"
+          Component={UserRegistrations}
         />
       </Route>
     </Routes>
