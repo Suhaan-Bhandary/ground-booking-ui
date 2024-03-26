@@ -102,11 +102,7 @@ const AdminEventsTable = () => {
                   <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
                   <td>{eventStatusDisplayName[event.event_status]}</td>
                   <td>
-                    {event.event_status === "AVAILABLE" ? (
-                      <Link to={`/admin/events/${event.id}/slots`}>View</Link>
-                    ) : (
-                      ""
-                    )}
+                    <Link to={`/admin/events/${event.id}/slots`}>View</Link>
                   </td>
                   <td>
                     <button onClick={() => setDeleteEventModalData(event)}>
