@@ -5,22 +5,15 @@ import { ISlotPaginatedResponse } from "../types/event";
 type fetchSlotsParams = {
   event_id: number | undefined;
   page?: number;
-  limit?: number;
 };
 
-export const fetchSlots = async ({
-  event_id,
-  page = 1,
-  limit = 10,
-}: fetchSlotsParams) => {
+export const fetchSlots = async ({ event_id, page = 1 }: fetchSlotsParams) => {
   if (Number.isNaN(event_id)) {
     throw Error("Event id undefined");
   }
 
   const url = new URL(`${API_BASE_URL}/events/${event_id}/slots`);
-
   url.searchParams.set("page", String(page));
-  url.searchParams.set("limit", String(limit));
 
   const response = await fetch(url, {
     headers: { Authorization: `Bearer ${getUserAuthToken()}` },
