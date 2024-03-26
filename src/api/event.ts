@@ -15,8 +15,7 @@ export const fetchEvents = async ({ page = 1, eventStatus = "" }) => {
   });
 
   if (!response.ok) {
-    if (response.status !== 400) throw Error("Something went wrong");
-    return { events: [] } as IEventPaginatedResponse;
+    throw Error("Something went wrong");
   }
 
   return response.json() as Promise<IEventPaginatedResponse>;

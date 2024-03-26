@@ -27,7 +27,9 @@ const Users = () => {
 
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.users.length > 0 ? allPages.length + 1 : undefined;
+      return allPages.length + 1 <= lastPage.total_pages
+        ? allPages.length + 1
+        : undefined;
     },
   });
 

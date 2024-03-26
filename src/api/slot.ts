@@ -20,8 +20,7 @@ export const fetchSlots = async ({ event_id, page = 1 }: fetchSlotsParams) => {
   });
 
   if (!response.ok) {
-    if (response.status !== 400) throw Error("Something went wrong");
-    return { slots: [] } as ISlotPaginatedResponse;
+    throw Error("Something went wrong");
   }
 
   return response.json() as Promise<ISlotPaginatedResponse>;

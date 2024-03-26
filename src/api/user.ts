@@ -14,11 +14,15 @@ export const fetchUsers = async ({ page = 1, username = "", mobile = "" }) => {
   });
 
   if (!response.ok) {
-    if (response.status !== 400 && response.status !== 404) {
+    if (response.status !== 404) {
       throw Error("Something went wrong");
     }
 
-    return { users: [] } as IUserPaginatedResponse;
+    return {
+      users: [],
+      total_pages: 1,
+      total_records: 0,
+    } as IUserPaginatedResponse;
   }
 
   return response.json() as Promise<IUserPaginatedResponse>;

@@ -10,6 +10,8 @@ export interface IEvent {
 
 export interface IEventPaginatedResponse {
   events: IEvent[];
+  total_pages: number;
+  total_records: number;
 }
 
 export interface IEventCreateRequest {
@@ -32,6 +34,8 @@ export interface ISlot {
 
 export interface ISlotPaginatedResponse {
   slots: ISlot[];
+  total_pages: number;
+  total_records: number;
 }
 
 export interface ISlotCreateRequest {
