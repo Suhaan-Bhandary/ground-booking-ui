@@ -4,10 +4,8 @@ import { getUserAuthToken } from "../../helpers/authToken";
 import {
   IEventCreateRequest,
   IEventCreateResponse,
-  IEventUpdateRequest,
   ISlotCreateRequest,
   ISlotCreateResponse,
-  ISlotUpdateRequest,
 } from "../../types/event";
 
 export const eventApi = createApi({
@@ -23,15 +21,6 @@ export const eventApi = createApi({
         url: "",
         method: "POST",
         body: data,
-        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
-      }),
-    }),
-
-    updateEvent: builder.mutation<IEventCreateResponse, IEventUpdateRequest>({
-      query: (data) => ({
-        url: `/${data.id}`,
-        method: "PUT",
-        body: { event: { event_status: data.event_status } },
         headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
@@ -63,23 +52,12 @@ export const eventApi = createApi({
         headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
-
-    updateSlot: builder.mutation<void, ISlotUpdateRequest>({
-      query: (data) => ({
-        url: `/${data.eventId}/slots/${data.slotId}`,
-        method: "PUT",
-        body: { slot: { status: data.slotStatus } },
-        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
-      }),
-    }),
   }),
 });
 
 export const {
   useCreateEventMutation,
-  useUpdateEventMutation,
   useDeleteEventMutation,
   useCreateSlotMutation,
   useDeleteSlotMutation,
-  useUpdateSlotMutation,
 } = eventApi;

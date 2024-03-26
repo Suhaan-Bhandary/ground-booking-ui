@@ -19,11 +19,6 @@ export interface IEventCreateRequest {
 
 export interface IEventCreateResponse {}
 
-export interface IEventUpdateRequest {
-  id: number;
-  event_status: TEventStatus;
-}
-
 export type TSlotStatus = "AVAILABLE" | "BOOKED";
 
 export interface ISlot {
@@ -45,9 +40,3 @@ export interface ISlotCreateRequest {
 }
 
 export interface ISlotCreateResponse {}
-
-export interface ISlotUpdateRequest {
-  eventId: number;
-  slotId: number;
-  slotStatus: TSlotStatus;
-}

@@ -10,7 +10,6 @@ import {
 import { IEvent, TEventStatus } from "../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
 import Table from "../Table/Table";
-import UpdateEventModal from "../UpdateEventModal/UpdateEventModal";
 import styles from "./AdminEventsTable.module.css";
 import Moment from "moment";
 
@@ -18,8 +17,6 @@ const AdminEventsTable = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
 
   const [deleteEventModalData, setDeleteEventModalData] =
-    useState<IEvent | null>(null);
-  const [updateEventModalData, setUpdateEventModalData] =
     useState<IEvent | null>(null);
 
   const { ref, inView } = useInView({
@@ -91,7 +88,6 @@ const AdminEventsTable = () => {
               <th>Event Date</th>
               <th>Status</th>
               <th>Slots</th>
-              <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -113,11 +109,6 @@ const AdminEventsTable = () => {
                     )}
                   </td>
                   <td>
-                    <button onClick={() => setUpdateEventModalData(event)}>
-                      Update
-                    </button>
-                  </td>
-                  <td>
                     <button onClick={() => setDeleteEventModalData(event)}>
                       Delete
                     </button>
@@ -137,13 +128,6 @@ const AdminEventsTable = () => {
         <DeleteEventModal
           event={deleteEventModalData}
           closeModalCallback={() => setDeleteEventModalData(null)}
-        />
-      ) : null}
-
-      {updateEventModalData ? (
-        <UpdateEventModal
-          event={updateEventModalData}
-          closeModalCallback={() => setUpdateEventModalData(null)}
         />
       ) : null}
     </div>

@@ -7,17 +7,12 @@ import { slotStatusDisplayName } from "../../helpers/slot";
 import { ISlot } from "../../types/event";
 import DeleteSlotModal from "../DeleteSlotModal/DeleteSlotModal";
 import Table from "../Table/Table";
-import UpdateSlotModal from "../UpdateSlotModal/UpdateSlotModal";
 import styles from "./AdminSlotsTable.module.css";
 
 const AdminSlotsTable = () => {
   const { eventId } = useParams();
 
   const [deleteSlotModalData, setDeleteSlotModalData] = useState<ISlot | null>(
-    null,
-  );
-
-  const [updateSlotModalData, setUpdateSlotModalData] = useState<ISlot | null>(
     null,
   );
 
@@ -71,8 +66,7 @@ const AdminSlotsTable = () => {
             <tr>
               <th>Time</th>
               <th>Status</th>
-              <th>Registerations</th>
-              <th>Update</th>
+              <th>Registrations</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -87,11 +81,6 @@ const AdminSlotsTable = () => {
                   <td>{slotStatusDisplayName[slot.status]}</td>
                   <td>
                     <Link to={`/`}>View</Link>
-                  </td>
-                  <td>
-                    <button onClick={() => setUpdateSlotModalData(slot)}>
-                      Update
-                    </button>
                   </td>
                   <td>
                     <button onClick={() => setDeleteSlotModalData(slot)}>
@@ -113,13 +102,6 @@ const AdminSlotsTable = () => {
         <DeleteSlotModal
           slot={deleteSlotModalData}
           closeModalCallback={() => setDeleteSlotModalData(null)}
-        />
-      ) : null}
-
-      {updateSlotModalData ? (
-        <UpdateSlotModal
-          slot={updateSlotModalData}
-          closeModalCallback={() => setUpdateSlotModalData(null)}
         />
       ) : null}
     </div>
