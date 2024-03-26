@@ -64,3 +64,11 @@ export interface IUserLoginResponse {
   user: IUser;
   token: string;
 }
+
+export interface IUserPaginatedResponse {
+  users: {
+    user_name: string;
+    mobile_no: string;
+    access_role_id: number;
+  }[];
+}
