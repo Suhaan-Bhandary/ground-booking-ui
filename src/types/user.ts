@@ -67,6 +67,7 @@ export interface IUserLoginResponse {
 
 export interface IUserPaginatedResponse {
   users: {
+    id: number;
     user_name: string;
     mobile_no: string;
     access_role_id: number;
