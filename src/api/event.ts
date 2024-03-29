@@ -13,9 +13,7 @@ export const fetchEvents = async ({ page = 1, eventStatus = "" }) => {
     url.searchParams.set("event_status", eventStatus);
   }
 
-  const response = await fetch(url, {
-    headers: { Authorization: `Bearer ${getUserAuthToken()}` },
-  });
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw Error("Something went wrong");

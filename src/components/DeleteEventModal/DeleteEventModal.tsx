@@ -18,7 +18,7 @@ const DeleteEventModal = ({ event, closeModalCallback }: DeleteEventProps) => {
     try {
       await deleteEvent(event.id).unwrap();
       toast.success("Event Deleted Successfully");
-      queryClient.invalidateQueries({ queryKey: ["admin-events"] });
+      queryClient.invalidateQueries({ queryKey: ["events"] });
 
       closeModalCallback();
     } catch (error) {

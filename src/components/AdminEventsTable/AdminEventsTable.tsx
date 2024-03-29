@@ -31,7 +31,7 @@ const AdminEventsTable = () => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["admin-events", eventStatus],
+    queryKey: ["events", eventStatus],
     queryFn: ({ pageParam }) => fetchEvents({ page: pageParam, eventStatus }),
 
     initialPageParam: 1,
