@@ -1,13 +1,21 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { fetchUserRegisterations } from "../../api/event";
+import PaymentDetailModal from "../../components/PaymentDetailModal/PaymentDetailModal";
+import PaymentModal from "../../components/PaymentModal/PaymentModal";
 import Table from "../../components/Table/Table";
 import { registrationStatusDisplayName } from "../../helpers/event";
 import { useAppSelector } from "../../hooks/redux";
+import { IRegistration } from "../../types/event";
 
 const Profile = () => {
   const user = useAppSelector((state) => state.userState.user);
+
+  const [paymentModalRegistration, setPaymentModalRegistration] =
+    useState<IRegistration | null>(null);
+  const [paymentDetailModalRegistration, setPaymentDetailModalRegistration] =
+    useState<IRegistration | null>(null);
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -47,7 +55,6 @@ const Profile = () => {
         <p>Username: {user?.user_name}</p>
         <p>Mobile: {user?.mobile_no}</p>
       </div>
-
       <div>
         <h2>Registrations</h2>
         <ul>
@@ -83,11 +90,23 @@ const Profile = () => {
                       <td>{registration.receipt_url || "NA"}</td>
                       <td>
                         {registration.status === "PENDING" && (
-                          <button>Pay</button>
+                          <button
+                            onClick={() =>
+                              setPaymentModalRegistration(registration)
+                            }
+                          >
+                            Pay
+                          </button>
                         )}
 
                         {registration.status === "CONFIRMED" && (
-                          <button>View</button>
+                          <button
+                            onClick={() =>
+                              setPaymentDetailModalRegistration(registration)
+                            }
+                          >
+                            View
+                          </button>
                         )}
                       </td>
                     </tr>
@@ -105,6 +124,21 @@ const Profile = () => {
           <div>No user registrations found!!</div>
         )}
       </div>
+
+      {/* Modals */}
+      {paymentModalRegistration ? (
+        <PaymentModal
+          registration={paymentModalRegistration}
+          closeModalCallback={() => setPaymentModalRegistration(null)}
+        />
+      ) : null}
+
+      {paymentDetailModalRegistration ? (
+        <PaymentDetailModal
+          registration={paymentDetailModalRegistration}
+          closeModalCallback={() => setPaymentModalRegistration(null)}
+        />
+      ) : null}
     </div>
   );
 };
