@@ -64,3 +64,9 @@ export interface IRegistrationPaginatedResponse {
   total_pages: number;
   total_records: number;
 }
+
+export interface IUserRegistrationPaginatedResponse {
+  users: IRegistration[];
+  total_pages: number;
+  total_records: number;
+}

@@ -3,6 +3,7 @@ import { getUserAuthToken } from "../helpers/authToken";
 import {
   IEventPaginatedResponse,
   IRegistrationPaginatedResponse,
+  IUserRegistrationPaginatedResponse,
 } from "../types/event";
 
 export const fetchEvents = async ({ page = 1, eventStatus = "" }) => {
@@ -52,4 +53,27 @@ export const fetchRegisterations = async ({
   }
 
   return response.json() as Promise<IRegistrationPaginatedResponse>;
+};
+
+export const fetchUserRegisterations = async ({ page = 1 }) => {
+  const url = new URL(`${API_BASE_URL}/user/registrations`);
+  url.searchParams.set("page", String(page));
+
+  const response = await fetch(url, {
+    headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+  });
+
+  if (!response.ok) {
+    if (response.status !== 404) {
+      throw Error("Something went wrong");
+    }
+
+    return {
+      users: [],
+      total_pages: 1,
+      total_records: 0,
+    } as IUserRegistrationPaginatedResponse;
+  }
+
+  return response.json() as Promise<IUserRegistrationPaginatedResponse>;
 };
