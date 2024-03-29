@@ -70,3 +70,13 @@ export interface IUserRegistrationPaginatedResponse {
   total_pages: number;
   total_records: number;
 }
+
+export interface IPayment {
+  id: number;
+  amount: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
+  registration_id: number;
+}

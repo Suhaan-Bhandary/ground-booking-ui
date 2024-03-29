@@ -136,7 +136,7 @@ const Profile = () => {
       {paymentDetailModalRegistration ? (
         <PaymentDetailModal
           registration={paymentDetailModalRegistration}
-          closeModalCallback={() => setPaymentModalRegistration(null)}
+          closeModalCallback={() => setPaymentDetailModalRegistration(null)}
         />
       ) : null}
     </div>
