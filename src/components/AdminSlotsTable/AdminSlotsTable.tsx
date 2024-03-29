@@ -82,7 +82,7 @@ const AdminSlotsTable = () => {
                   <td>{slot.time_slot}</td>
                   <td>{slotStatusDisplayName[slot.status]}</td>
                   <td>
-                    <Link to={`/`}>View</Link>
+                    <Link to={`/registrations?slot_id=${slot.id}`}>View</Link>
                   </td>
                   <td>
                     <button onClick={() => setDeleteSlotModalData(slot)}>

@@ -44,3 +44,23 @@ export interface ISlotCreateRequest {
 }
 
 export interface ISlotCreateResponse {}
+
+export type TRegisterationStatus = "PENDING" | "CONFIRMED" | "CANCELED";
+
+export interface IRegistration {
+  id: number;
+  status: TRegisterationStatus;
+  created_at: string;
+  updated_at: string;
+  user_id: number;
+  slot_id: number;
+
+  receipt_url: string | null;
+  payment_id: number | null;
+}
+
+export interface IRegistrationPaginatedResponse {
+  registrations: IRegistration[];
+  total_pages: number;
+  total_records: number;
+}

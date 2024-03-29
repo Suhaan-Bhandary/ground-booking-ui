@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { AiOutlineHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { GrNotes } from "react-icons/gr";
-import { MdCalendarMonth, MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdCalendarMonth } from "react-icons/md";
 import { Link } from "react-router-dom";
 import AdminSideBarLink from "../AdminSideBarLink/AdminSideBarLink";
 import Logout from "../Logout/Logout";
@@ -12,24 +11,19 @@ import styles from "./AdminSideBar.module.css";
 
 const sideBarLinks = [
   {
-    title: "Dashboard",
-    Icon: MdOutlineSpaceDashboard,
-    link: "/admin",
-  },
-  {
     title: "Events",
     Icon: MdCalendarMonth,
-    link: "/admin/events",
+    link: "/events",
   },
   {
     title: "Registrations",
     Icon: GrNotes,
-    link: "/admin/registrations",
+    link: "/registrations",
   },
   {
     title: "Users",
     Icon: FaUsers,
-    link: "/admin/users",
+    link: "/users",
   },
 ];
 
@@ -83,12 +77,6 @@ function SideNavbar() {
             </ul>
 
             <div className={styles.bottomContent}>
-              <li className={styles.list}>
-                <Link to="/" className={styles.navLink}>
-                  <AiOutlineHome className={styles.navIcon} />
-                  <span className={styles.link}>Home</span>
-                </Link>
-              </li>
               <li className={styles.list}>
                 <Logout className={styles.navLink}>
                   <>

@@ -34,3 +34,24 @@ export const createEventSchema = Yup.object({
       "Event cannot before current date",
     ),
 });
+
+export const registrationStatusOptions = [
+  {
+    name: "Pending",
+    value: "PENDING",
+  },
+  {
+    name: "Confirmed",
+    value: "CONFIRMED",
+  },
+  {
+    name: "Canceled",
+    value: "CANCELED",
+  },
+] as const;
+
+export const registrationStatusDisplayName = {
+  PENDING: "Pending",
+  CONFIRMED: "Confirmed",
+  CANCELED: "Canceled",
+};
