@@ -4,7 +4,6 @@ import useUserLoginStatus from "../hooks/useUserLoginStatus";
 import AdminEventSlots from "../pages/Admin/EventSlots/EventSlots";
 import AdminEvents from "../pages/Admin/Events/Events";
 import Registrations from "../pages/Admin/Registrations/Registrations";
-import UserRegistrations from "../pages/Admin/UserRegistrations/UserRegistrations";
 import Users from "../pages/Admin/Users/Users";
 import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
@@ -20,22 +19,17 @@ import DefaultLayout from "./layouts/DefaultLayout";
 
 const Router = () => {
   const userData = useUserLoginStatus();
-  console.log(userData);
 
   if (userData?.role === ADMIN_ROLE) {
     return (
+      // Admin Routes
       <Routes>
-        {/* Admin Routes */}
         <Route element={<AdminLayout />}>
           <Route index Component={AdminEvents} />
           <Route path="events" Component={AdminEvents} />
           <Route path="events/:eventId/slots" Component={AdminEventSlots} />
           <Route path="registrations" Component={Registrations} />
           <Route path="users" Component={Users} />
-          <Route
-            path="users/:userId/registrations"
-            Component={UserRegistrations}
-          />
         </Route>
       </Routes>
     );
