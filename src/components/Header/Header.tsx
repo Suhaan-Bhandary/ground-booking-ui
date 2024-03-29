@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux";
 import Logout from "../Logout/Logout";
+import styles from "./Header.module.css";
 
 const Header = () => {
   const userData = useAppSelector((state) => state.userState.user);
   const isLoggedIn = userData ? true : false;
 
   return (
-    <header>
+    <header className={styles.Header}>
       <div>
         <h1>Ground Booking</h1>
       </div>
       <nav>
-        <ul>
+        <ul className={styles.navLinks}>
           <li>
             <Link to="/">Home</Link>
           </li>
