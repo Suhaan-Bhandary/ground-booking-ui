@@ -28,7 +28,7 @@ const AdminSlotsTable = () => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["admin-slots", eventId],
+    queryKey: ["slots", eventId],
     queryFn: ({ pageParam }) => {
       return fetchSlots({
         page: pageParam,

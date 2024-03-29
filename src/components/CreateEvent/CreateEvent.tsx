@@ -32,7 +32,7 @@ const CreateEvent = () => {
 
           resetForm();
           toast.success("Event Created successfully");
-          queryClient.invalidateQueries({ queryKey: ["admin-events"] });
+          queryClient.invalidateQueries({ queryKey: ["events"] });
         } catch (error) {
           console.error("Rejected:", error);
           if (isApiResponse(error)) {

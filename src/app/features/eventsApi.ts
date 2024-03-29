@@ -52,6 +52,14 @@ export const eventApi = createApi({
         headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
+
+    registerSlot: builder.mutation<void, { eventId: number; slotId: number }>({
+      query: (data) => ({
+        url: `/${data.eventId}/slots/${data.slotId}/registrations`,
+        method: "POST",
+        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+      }),
+    }),
   }),
 });
 
@@ -60,4 +68,5 @@ export const {
   useDeleteEventMutation,
   useCreateSlotMutation,
   useDeleteSlotMutation,
+  useRegisterSlotMutation,
 } = eventApi;

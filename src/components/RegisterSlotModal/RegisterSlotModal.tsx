@@ -1,27 +1,30 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useDeleteSlotMutation } from "../../app/features/eventsApi";
+import { useRegisterSlotMutation } from "../../app/features/eventsApi";
 import { isApiErrorMessage } from "../../helpers/api";
 import { ISlot } from "../../types/event";
 import Modal from "../Modal/Modal";
 
-type DeleteSlotProps = {
+type RegisterSlotModalProps = {
   slot: ISlot;
   closeModalCallback: () => void;
 };
 
-const DeleteSlotModal = ({ slot, closeModalCallback }: DeleteSlotProps) => {
+const RegisterSlotModal = ({
+  slot,
+  closeModalCallback,
+}: RegisterSlotModalProps) => {
   const queryClient = useQueryClient();
-  const [deleteSlot, deleteSlotResult] = useDeleteSlotMutation();
+  const [registerSlot, registerSlotResult] = useRegisterSlotMutation();
 
-  const handleSlotDelete = async () => {
+  const handleRegisterSlot = async () => {
     try {
-      await deleteSlot({
+      await registerSlot({
         eventId: slot.event_id,
         slotId: slot.id,
-      }).unwrap();
+      });
 
-      toast.success("Slot Deleted Successfully");
+      toast.success("Slot registered Successfully");
       queryClient.invalidateQueries({ queryKey: ["slots"] });
 
       closeModalCallback();
@@ -37,29 +40,27 @@ const DeleteSlotModal = ({ slot, closeModalCallback }: DeleteSlotProps) => {
 
   return (
     <Modal>
-      <h1>Delete Slot</h1>
-      <p>
-        Delete the slot of {slot.time_slot} with status {slot.status} for the
-        event {slot.event_id}
-      </p>
+      <h1>
+        Register Slot: {slot.time_slot} of event {slot.event_id}
+      </h1>
       <div>
         <button
           type="button"
           onClick={closeModalCallback}
-          disabled={deleteSlotResult.isLoading}
+          disabled={registerSlotResult.isLoading}
         >
           Close
         </button>
         <button
           type="button"
-          onClick={handleSlotDelete}
-          disabled={deleteSlotResult.isLoading}
+          onClick={handleRegisterSlot}
+          disabled={registerSlotResult.isLoading}
         >
-          Delete Slot
+          Register Slot
         </button>
       </div>
     </Modal>
   );
 };
 
-export default DeleteSlotModal;
+export default RegisterSlotModal;

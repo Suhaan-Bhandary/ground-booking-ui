@@ -1,0 +1,11 @@
+.events {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-block: 1rem;
+}
+
+.event {
+  padding: 1rem 2rem;
+  border: 1px solid black;
+}

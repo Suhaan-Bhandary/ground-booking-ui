@@ -45,7 +45,7 @@ const CreateSlot = () => {
 
           resetForm();
           toast.success("Slot Created successfully");
-          queryClient.invalidateQueries({ queryKey: ["admin-slots"] });
+          queryClient.invalidateQueries({ queryKey: ["slots"] });
         } catch (error) {
           console.error("Rejected:", error);
           if (isApiResponse(error)) {
