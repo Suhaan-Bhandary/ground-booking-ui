@@ -1,0 +1,21 @@
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 1rem;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navLinks li {
+  list-style: none;
+}
+
+.navLinks a {
+  text-decoration: none;
+}
