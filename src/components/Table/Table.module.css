@@ -1,0 +1,21 @@
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  box-shadow: var(--box-shadow);
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+
+  background-color: #e5e0e0;
+}
+
+.table :where(table, th, td) {
+  padding: 1rem;
+  text-align: center;
+}

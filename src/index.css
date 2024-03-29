@@ -130,3 +130,9 @@ code {
   white-space: nowrap;
   border: 0;
 }
+
+/* For error text */
+.error {
+  font-size: 0.9rem;
+  color: red;
+}
