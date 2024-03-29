@@ -1,16 +1,23 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 import { fetchUserRegisterations } from "../../api/event";
+import { useDeleteRegistrationMutation } from "../../app/features/registrationApi";
 import PaymentDetailModal from "../../components/PaymentDetailModal/PaymentDetailModal";
 import PaymentModal from "../../components/PaymentModal/PaymentModal";
 import Table from "../../components/Table/Table";
+import { isApiErrorMessage } from "../../helpers/api";
 import { registrationStatusDisplayName } from "../../helpers/event";
 import { useAppSelector } from "../../hooks/redux";
 import { IRegistration } from "../../types/event";
 
 const Profile = () => {
+  const queryClient = useQueryClient();
+
   const user = useAppSelector((state) => state.userState.user);
+  const [deleteRegistration, deleteRegistrationResult] =
+    useDeleteRegistrationMutation();
 
   const [paymentModalRegistration, setPaymentModalRegistration] =
     useState<IRegistration | null>(null);
@@ -40,13 +47,29 @@ const Profile = () => {
     },
   });
 
+  // Making the data flat
+  const registrations = data?.pages.flatMap((page) => page.users);
+
   useEffect(() => {
     if (!inView || !hasNextPage) return;
     fetchNextPage();
   }, [inView, hasNextPage, fetchNextPage]);
 
-  // Making the data flat
-  const registrations = data?.pages.flatMap((page) => page.users);
+  const handleDeleteRegistration = async (registration: IRegistration) => {
+    try {
+      await deleteRegistration({ registrationId: registration.id }).unwrap();
+
+      toast.success("Registration Deleted Successfully");
+      queryClient.invalidateQueries({ queryKey: ["profile-registerations"] });
+    } catch (error) {
+      console.error("Rejected:", error);
+      if (isApiErrorMessage(error)) {
+        toast.error(error.data.message);
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
+  };
 
   return (
     <div>
@@ -69,6 +92,7 @@ const Profile = () => {
                   <th>Payment Id</th>
                   <th>Receipt Url</th>
                   <th>Payment</th>
+                  <th>Delete Registration</th>
                 </tr>
               </thead>
 
@@ -108,6 +132,14 @@ const Profile = () => {
                             View
                           </button>
                         )}
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handleDeleteRegistration(registration)}
+                          disabled={deleteRegistrationResult.isLoading}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   );

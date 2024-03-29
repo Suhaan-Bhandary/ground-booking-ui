@@ -24,7 +24,16 @@ export const registrationApi = createApi({
         }),
       },
     ),
+
+    deleteRegistration: builder.mutation<void, { registrationId: number }>({
+      query: ({ registrationId }) => ({
+        url: `/${registrationId}`,
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+      }),
+    }),
   }),
 });
 
-export const { usePaymentMutation } = registrationApi;
+export const { usePaymentMutation, useDeleteRegistrationMutation } =
+  registrationApi;
