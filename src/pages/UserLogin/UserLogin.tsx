@@ -1,19 +1,25 @@
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { BiEnvelope, BiLockAlt } from "react-icons/bi";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
 import { isApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
 import { IUserLocalStorage, IUserLoginRequest } from "../../types/user";
+import styles from "./UserLogin.module.css";
+import { useState } from "react";
 
 const UserLogin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [loginUser, loginUserResult] = useLoginUserMutation();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -50,41 +56,74 @@ const UserLogin = () => {
     });
 
   return (
-    <div>
-      <h1>User Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="mobile_no">Mobile</label>
-          <input
-            name="mobile_no"
-            type="text"
-            value={values.mobile_no}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.mobile_no && errors.mobile_no ? (
-            <span>{errors.mobile_no}</span>
-          ) : null}
-        </div>
+    <div className={styles.Login}>
+      <div className={styles.container}>
+        <div className={`${styles.form} ${styles.login}`}>
+          <span className={styles.title}>Login</span>
+          <form onSubmit={handleSubmit}>
+            <div
+              className={`${styles.inputField} ${
+                touched.mobile_no && errors.mobile_no
+                  ? styles.inputFieldError
+                  : ""
+              }`}
+            >
+              <input
+                type="mobile_no"
+                placeholder="Enter your mobile no"
+                name="mobile_no"
+                value={values.mobile_no}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <BiEnvelope className={styles.icon} />
+            </div>
+            <div
+              className={`${styles.inputField} ${
+                touched.password && errors.password
+                  ? styles.inputFieldError
+                  : ""
+              }`}
+            >
+              <input
+                type={showPassword ? "text" : "password"}
+                className={styles.password}
+                placeholder="Enter your password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <BiLockAlt className={styles.icon} />
+              {showPassword ? (
+                <AiOutlineEye
+                  className={`${styles.icon} ${styles.eyeIcon}`}
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <AiOutlineEyeInvisible
+                  className={`${styles.icon} ${styles.eyeIcon}`}
+                  onClick={() => setShowPassword(true)}
+                />
+              )}
+            </div>
+            <div className={`${styles.inputField} ${styles.button}`}>
+              <input
+                type="submit"
+                value="Login"
+                disabled={loginUserResult.isLoading}
+              />
+            </div>
+          </form>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            type="text"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.password && errors.password ? (
-            <span>{errors.password}</span>
-          ) : null}
+          <div className={styles.loginSignUp}>
+            <span className={styles.signUpText}>
+              Not a member?
+              <Link to="/register">Register</Link>
+            </span>
+          </div>
         </div>
-
-        <button type="submit" disabled={loginUserResult.isLoading}>
-          Submit
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

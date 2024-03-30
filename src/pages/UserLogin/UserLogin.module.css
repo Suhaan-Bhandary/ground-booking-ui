@@ -1,0 +1,172 @@
+.Login {
+  padding-top: 5rem;
+}
+
+.container {
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  margin-inline: auto;
+  backdrop-filter: blur(4px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  transition: height 0.2s ease;
+  transition: margin-left 0.18s ease;
+
+  padding: 30px;
+}
+
+.title {
+  position: relative;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  background-color: var(--accent-color);
+  border-radius: 25px;
+}
+
+.inputField {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.inputField > input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0 35px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-bottom: 2px solid #ccc;
+  border-top: 2px solid transparent;
+  transition: all 0.2s ease;
+
+  color: var(--text-color);
+  background-color: var(--bg-light);
+}
+
+.inputField > input:where(:focus, :valid) {
+  border-bottom-color: var(--accent-color);
+}
+
+.inputFieldError > input {
+  border-bottom-color: red;
+}
+
+.icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 23px;
+  transition: all 0.2s ease;
+}
+
+.inputField input:is(:focus, :valid) ~ i {
+  color: var(--accent-color);
+}
+
+.eyeIcon {
+  right: 0;
+  left: auto;
+  font-size: 45px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1rem;
+  color: #333;
+  font-size: 14px;
+}
+
+.signUpText {
+  color: #333;
+  font-size: 14px;
+}
+
+.signUpText > a {
+  margin-left: 0.2rem;
+}
+
+.forgotPassword,
+.signUpText > a {
+  padding-left: 5px;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+.forgotPassword:hover,
+.signUpText > a:hover {
+  text-decoration: underline;
+}
+
+.form .button {
+  margin-top: 35px;
+}
+
+.form .button input {
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button input:hover {
+  background-color: #265df2;
+}
+
+.button input:disabled {
+  background-color: grey;
+}
+
+.form .loginSignUp {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.orLabel {
+  text-align: center;
+  color: var(--text-color-light);
+  font-weight: 500;
+  margin-block: 1rem;
+}
+
+.Login input:-webkit-autofill,
+.Login input:-webkit-autofill:hover,
+.Login input:-webkit-autofill:focus,
+.Login input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #23232329;
+}

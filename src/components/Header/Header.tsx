@@ -8,39 +8,39 @@ const Header = () => {
   const isLoggedIn = userData ? true : false;
 
   return (
-    <header className={styles.Header}>
-      <div>
-        <h1>Ground Booking</h1>
+    <header className={styles.headerWrapper}>
+      <div className={`container ${styles.Header}`}>
+        <h1 className={styles.title}>Ground Booking</h1>
+        <nav>
+          <ul className={styles.navLinks}>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/events">Events</Link>
+            </li>
+            {isLoggedIn ? (
+              <>
+                <li>
+                  <Link to="/profile">{userData?.user_name}</Link>
+                </li>
+                <li>
+                  <Logout>Logout</Logout>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul className={styles.navLinks}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/events">Events</Link>
-          </li>
-          {isLoggedIn ? (
-            <>
-              <li>
-                <Link to="/profile">{userData?.user_name}</Link>
-              </li>
-              <li>
-                <Logout>Logout</Logout>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </nav>
     </header>
   );
 };
