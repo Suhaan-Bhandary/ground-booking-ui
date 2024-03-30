@@ -4,12 +4,14 @@
 
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(4px);
+  z-index: 1000;
 }
 
 .Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1000;
 }
 
 .title {
@@ -20,7 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .navLinks li {
@@ -29,4 +31,91 @@
 
 .navLinks a {
   text-decoration: none;
+}
+
+.mobileNavToggle {
+  display: none;
+}
+
+.button {
+  display: inline-block;
+
+  background-color: hsla(0, 0%, 98%, 0.1);
+  padding: 0.25rem 1rem;
+
+  border-radius: 0.375rem;
+}
+
+@media (max-width: 700px) {
+  .headerWrapper {
+    background-color: var(--bg-primary);
+    position: relative;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .mobileNavToggle {
+    display: flex;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 1rem 0.5em;
+    font-size: 1.5rem;
+  }
+
+  .backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .backdropOpen {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+
+    overflow: hidden;
+    height: 0;
+
+    padding-block: 0rem;
+
+    transition: all 0.3s ease-in-out;
+    background-color: var(--bg-primary);
+  }
+
+  .navOpen {
+    padding: 1rem;
+    padding-bottom: 2rem;
+    height: 250px;
+  }
+
+  .navLinks {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .backdropOpen {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
 }
