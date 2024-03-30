@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
@@ -12,6 +12,7 @@ import {
 } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
 import { IUserLocalStorage, IUserRegisterRequest } from "../../types/user";
+import styles from "./UserRegister.module.css";
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -54,69 +55,101 @@ const UserRegister = () => {
     });
 
   return (
-    <div>
-      <h1>User Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="user_name">Username</label>
-          <input
-            name="user_name"
-            type="text"
-            value={values.user_name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.user_name && errors.user_name ? (
-            <span>{errors.user_name}</span>
-          ) : null}
-        </div>
+    <div className={styles.UserRegister}>
+      <div className={styles.container}>
+        <header className={styles.title}>Registration Form</header>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.inputField}>
+            <label htmlFor="username">
+              {touched.user_name && errors.user_name ? (
+                <p className="error-color">{errors.user_name}</p>
+              ) : (
+                <p>Username</p>
+              )}
+              <input
+                type="text"
+                name="user_name"
+                placeholder="username"
+                autoComplete="username"
+                value={values.user_name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </label>
+          </div>
+          <div className={styles.inputField}>
+            <label htmlFor="mobile_no">
+              {touched.mobile_no && errors.mobile_no ? (
+                <p className="error-color">{errors.mobile_no}</p>
+              ) : (
+                <p>Mobile No</p>
+              )}
+              <input
+                type="tel"
+                name="mobile_no"
+                autoComplete="mobile tel"
+                value={values.mobile_no}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </label>
+          </div>
+          <div className={styles.inputField}>
+            <label htmlFor="password">
+              {touched.password && errors.password ? (
+                <p className="error-color">{errors.password}</p>
+              ) : (
+                <p>Password</p>
+              )}
+              <input
+                type="password"
+                name="password"
+                placeholder="*****"
+                autoComplete="off"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </label>
+          </div>
 
-        <div>
-          <label htmlFor="mobile_no">Mobile</label>
-          <input
-            name="mobile_no"
-            type="text"
-            value={values.mobile_no}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.mobile_no && errors.mobile_no ? (
-            <span>{errors.mobile_no}</span>
-          ) : null}
-        </div>
+          <div className={styles.inputField}>
+            <label htmlFor="password">
+              {
+                // prettier-ignore
+                touched.confirmPassword
+                    && errors.confirmPassword
+                      ? <p className="error-color">{errors.confirmPassword}</p> 
+                      : <p>Confirm Password</p>
+              }
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="*****"
+                autoComplete="off"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </label>
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            type="text"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.password && errors.password ? (
-            <span>{errors.password}</span>
-          ) : null}
-        </div>
+          <button
+            type="submit"
+            className={styles.registerButton}
+            disabled={registerUserResult.isLoading}
+          >
+            Register
+          </button>
+        </form>
 
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
-            name="confirmPassword"
-            type="text"
-            value={values.confirmPassword}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.confirmPassword && errors.confirmPassword ? (
-            <span>{errors.confirmPassword}</span>
-          ) : null}
+        <div className={styles.loginSignUp}>
+          <span className={styles.signUpText}>
+            <span>Already have an Account ?</span>
+            <Link to="/login">Log in</Link>
+          </span>
         </div>
-
-        <button type="submit" disabled={registerUserResult.isLoading}>
-          Submit
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,158 @@
+.UserRegister {
+  padding: 1rem;
+  padding-top: 3rem;
+}
+
+.container {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  box-shadow: var(--box-shadow);
+  margin-inline: auto;
+  backdrop-filter: blur(4px);
+}
+
+.container header {
+  font-size: 1.7rem;
+  color: var(--text-color);
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.inputField {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.inputField label {
+  color: var(--text-color);
+}
+
+.form
+  :where(
+    .inputField input,
+    .inputField textarea,
+    .inputField select,
+    .inputField option
+  ) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline-color: transparent;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: transparent;
+  border-radius: 6px;
+
+  padding: 0 15px;
+
+  color: var(--text-color);
+  background-color: hsla(0, 0%, 98%, 0.1);
+}
+
+.form .inputFieldError :where(input, select, textarea) {
+  border-color: red;
+}
+
+.form
+  :where(
+    .inputField input:focus,
+    .inputField textarea:focus,
+    .inputField select:focus,
+    .inputField option:focus
+  ) {
+  outline: 1px solid black;
+  border-color: transparent;
+}
+
+.inputField textarea {
+  height: 200px;
+  resize: vertical;
+}
+
+.inputField input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.registerButton {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--accent-color);
+  border-radius: 6px;
+}
+
+.registerButton:disabled {
+  background-color: gray;
+}
+
+.loginSignUp {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.signUpText {
+  color: #333;
+  font-size: 14px;
+}
+
+.signUpText > a {
+  padding-left: 5px;
+  color: var(--accent-color);
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.UserRegister input:-webkit-autofill,
+.UserRegister input:-webkit-autofill:hover,
+.UserRegister input:-webkit-autofill:focus,
+.UserRegister input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #23232329;
+  background-color: hsla(0, 0%, 98%, 0.1);
+}
+
+@media screen and (max-width: 480px) {
+  .UserRegister {
+    padding: 1rem;
+  }
+
+  .container {
+    margin-top: 2rem;
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
+  .container header {
+    position: relative;
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .container header::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 3rem;
+    background-color: var(--accent-color);
+    border-radius: 25px;
+  }
+}
