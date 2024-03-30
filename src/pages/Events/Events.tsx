@@ -52,12 +52,11 @@ const Events = () => {
 
   return (
     <div className={`container ${styles.EventsContainer}`}>
+      <h1>Events</h1>
       <div>
         <div>
-          <label htmlFor="event_status" className={styles.eventStatus}>
-            Event Status
-          </label>
           <select
+            aria-label="event status"
             name="event_status"
             value={eventStatus}
             onChange={(event) =>

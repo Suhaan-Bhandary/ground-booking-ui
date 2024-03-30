@@ -55,22 +55,38 @@ const Slots = () => {
   }
 
   return (
-    <div>
+    <div className={`container ${styles.SlotsContainer}`}>
+      <h1>Slots</h1>
       <div className={styles.slots}>
         {slots?.map((slot, index) => {
+          const slotTypeClassName =
+            slot.status === "AVAILABLE"
+              ? styles.slotAvailable
+              : styles.slotBooked;
+
           // Conditionally adding ref
           const refProp = index === slots.length - 1 ? { ref: ref } : {};
           return (
-            <div key={slot.id} className={styles.event} {...refProp}>
-              <p>{slot.time_slot}</p>
-              <p>{slotStatusDisplayName[slot.status]}</p>
+            <div key={slot.id} className={styles.slot} {...refProp}>
+              <p>Time: {slot.time_slot}</p>
+              <p>
+                Status:{" "}
+                <span className={slotTypeClassName}>
+                  {slotStatusDisplayName[slot.status]}
+                </span>
+              </p>
               {slot.status === "AVAILABLE" ? (
                 userRole ? (
-                  <button onClick={() => setSlotSelectedForRegisteration(slot)}>
-                    Register
+                  <button
+                    className={styles.registerSlotButton}
+                    onClick={() => setSlotSelectedForRegisteration(slot)}
+                  >
+                    Book
                   </button>
                 ) : (
-                  <Link to="/login">Login to Register</Link>
+                  <Link className={styles.registerSlotButton} to="/login">
+                    Login to Book
+                  </Link>
                 )
               ) : null}
             </div>
