@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import Moment from "moment";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
@@ -11,6 +12,8 @@ import { isApiErrorMessage } from "../../helpers/api";
 import { registrationStatusDisplayName } from "../../helpers/event";
 import { useAppSelector } from "../../hooks/redux";
 import { IRegistration } from "../../types/event";
+import styles from "./Profile.module.css";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const queryClient = useQueryClient();
@@ -72,9 +75,9 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>User Profile</h1>
+    <div className={`container ${styles.profile}`}>
+      <div className={styles.detail}>
+        <h1>Profile</h1>
         <p>Username: {user?.user_name}</p>
         <p>Mobile: {user?.mobile_no}</p>
       </div>
@@ -82,22 +85,30 @@ const Profile = () => {
         <h2>Registrations</h2>
         <ul>
           {registrations && registrations.length !== 0 && (
-            <Table>
+            <Table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Registration Id</th>
-                  <th>Slot Id</th>
+                  <th>Registration</th>
+                  <th>Slot</th>
                   <th>Status</th>
                   <th>Registered On</th>
                   <th>Payment Id</th>
-                  <th>Receipt Url</th>
+                  <th>Receipt</th>
                   <th>Payment</th>
-                  <th>Delete Registration</th>
+                  <th>Cancel Registration</th>
                 </tr>
               </thead>
 
               <tbody>
                 {registrations.map((registration, index) => {
+                  let registrationTypeClassName = styles.registrationConfirmed;
+                  if (registration.status === "PENDING") {
+                    registrationTypeClassName = styles.registrationPending;
+                  }
+                  if (registration.status === "CANCELED") {
+                    registrationTypeClassName = styles.registrationCanceled;
+                  }
+
                   // Conditionally adding ref
                   const refProp =
                     index === registrations.length - 1 ? { ref: ref } : {};
@@ -106,15 +117,28 @@ const Profile = () => {
                       <td>{registration.id}</td>
                       <td>{registration.slot_id}</td>
                       <td>
-                        {registrationStatusDisplayName[registration.status]}
+                        <p
+                          className={`${styles.registrationStatus} ${registrationTypeClassName}`}
+                        >
+                          {registrationStatusDisplayName[registration.status]}
+                        </p>
                       </td>
-                      <td>{registration.created_at}</td>
+                      <td>
+                        {Moment(registration.created_at).format("DD/MM/YYYY")}
+                      </td>
 
                       <td>{registration.payment_id || "NA"}</td>
-                      <td>{registration.receipt_url || "NA"}</td>
+                      <td>
+                        {registration.receipt_url ? (
+                          <Link to={registration.receipt_url}>Receipt</Link>
+                        ) : (
+                          "NA"
+                        )}
+                      </td>
                       <td>
                         {registration.status === "PENDING" && (
                           <button
+                            className={`${styles.button} ${styles.payButton}`}
                             onClick={() =>
                               setPaymentModalRegistration(registration)
                             }
@@ -125,6 +149,7 @@ const Profile = () => {
 
                         {registration.status === "CONFIRMED" && (
                           <button
+                            className={`${styles.button} ${styles.viewButton}`}
                             onClick={() =>
                               setPaymentDetailModalRegistration(registration)
                             }
@@ -134,12 +159,19 @@ const Profile = () => {
                         )}
                       </td>
                       <td>
-                        <button
-                          onClick={() => handleDeleteRegistration(registration)}
-                          disabled={deleteRegistrationResult.isLoading}
-                        >
-                          Delete
-                        </button>
+                        {registration.status === "PENDING" ? (
+                          <button
+                            className={`${styles.button} ${styles.deleteButton}`}
+                            onClick={() =>
+                              handleDeleteRegistration(registration)
+                            }
+                            disabled={deleteRegistrationResult.isLoading}
+                          >
+                            Cancel
+                          </button>
+                        ) : (
+                          <p>Cannot Cancel</p>
+                        )}
                       </td>
                     </tr>
                   );

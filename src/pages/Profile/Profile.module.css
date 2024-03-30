@@ -1,0 +1,62 @@
+.profile {
+  padding-block: 1rem;
+}
+
+.detail {
+  margin-bottom: 2rem;
+}
+
+.table {
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(4);
+}
+
+.table thead {
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(4);
+}
+
+.table tr,
+.table th {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table tr:last-child {
+  border-bottom: none;
+}
+
+.registrationStatus {
+  color: var(--registration-status-color);
+}
+
+.registrationConfirmed {
+  --registration-status-color: #008000;
+}
+
+.registrationPending {
+  --registration-status-color: #ffa500;
+}
+
+.registrationCanceled {
+  --registration-status-color: #ff0000;
+}
+
+.button {
+  width: 100%;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.viewButton {
+  background-color: var(--accent-color);
+}
+
+.payButton {
+  background-color: #008000;
+}
+
+.deleteButton {
+  width: auto;
+  background-color: #ff0000;
+}
