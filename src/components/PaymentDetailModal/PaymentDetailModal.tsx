@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import Moment from "moment";
+import { fetchRegistrationPaymentDetail } from "../../api/payment";
 import { IRegistration } from "../../types/event";
 import Modal from "../Modal/Modal";
-import { fetchRegistrationPaymentDetail } from "../../api/payment";
+import styles from "./PaymentDetailModal.module.css";
 
 type PaymentDetailModalProps = {
   registration: IRegistration;
@@ -19,15 +21,25 @@ const PaymentDetailModal = ({
 
   return (
     <Modal>
-      <h1>Payment Detail for slot {registration.slot_id}</h1>
-      <p>Amount: {data?.amount}</p>
-      <p>Payment made on: {data?.created_at}</p>
+      <h1>Payment Detail</h1>
+      <div className={styles.detail}>
+        <p>Slot: {registration.slot_id}</p>
+        <p>Amount: {data?.amount}</p>
+        <p>
+          Payment made on:{" "}
+          {Moment(registration.created_at).format("DD/MM/YYYY")}
+        </p>
+      </div>
 
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error fetching registration Details</p>}
 
-      <div>
-        <button type="button" onClick={closeModalCallback}>
+      <div className={styles.buttons}>
+        <button
+          className={styles.closeButton}
+          type="button"
+          onClick={closeModalCallback}
+        >
           Close
         </button>
       </div>

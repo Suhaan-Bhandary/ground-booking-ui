@@ -1,0 +1,17 @@
+.detail {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeButton {
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 5px;
+  font-weight: 500;
+  background-color: #ff0000;
+}

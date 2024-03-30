@@ -1,9 +1,10 @@
+import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { usePaymentMutation } from "../../app/features/registrationApi";
+import { isApiErrorMessage } from "../../helpers/api";
 import { IRegistration } from "../../types/event";
 import Modal from "../Modal/Modal";
-import { useQueryClient } from "@tanstack/react-query";
-import { isApiErrorMessage } from "../../helpers/api";
-import { usePaymentMutation } from "../../app/features/registrationApi";
+import styles from "./PaymentModal.module.css";
 
 const AMOUNT_DEDUCTED_FROM_USER = 1000;
 
@@ -43,9 +44,10 @@ const PaymentModal = ({
   return (
     <Modal>
       <h1>Payment for slot {registration.slot_id}</h1>
-      <div>
+      <div className={styles.buttons}>
         <button
           type="button"
+          className={`${styles.button} ${styles.closeButton}`}
           onClick={closeModalCallback}
           disabled={doPaymentResult.isLoading}
         >
@@ -53,6 +55,7 @@ const PaymentModal = ({
         </button>
         <button
           type="button"
+          className={`${styles.button} ${styles.payButton}`}
           onClick={handlePayment}
           disabled={doPaymentResult.isLoading}
         >
