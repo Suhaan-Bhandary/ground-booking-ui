@@ -1,30 +1,28 @@
-import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import Moment from "moment";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 import { fetchUserRegisterations } from "../../api/event";
-import { useDeleteRegistrationMutation } from "../../app/features/registrationApi";
 import PaymentDetailModal from "../../components/PaymentDetailModal/PaymentDetailModal";
 import PaymentModal from "../../components/PaymentModal/PaymentModal";
+import RegistrationCancelModal from "../../components/RegistrationCancelModal/RegistrationCancelModal";
 import Table from "../../components/Table/Table";
-import { isApiErrorMessage } from "../../helpers/api";
 import { registrationStatusDisplayName } from "../../helpers/event";
 import { useAppSelector } from "../../hooks/redux";
 import { IRegistration } from "../../types/event";
 import styles from "./Profile.module.css";
-import { Link } from "react-router-dom";
 
 const Profile = () => {
-  const queryClient = useQueryClient();
-
   const user = useAppSelector((state) => state.userState.user);
-  const [deleteRegistration, deleteRegistrationResult] =
-    useDeleteRegistrationMutation();
 
   const [paymentModalRegistration, setPaymentModalRegistration] =
     useState<IRegistration | null>(null);
+
   const [paymentDetailModalRegistration, setPaymentDetailModalRegistration] =
+    useState<IRegistration | null>(null);
+
+  const [registrationCancelModal, setRegistrationCancelModal] =
     useState<IRegistration | null>(null);
 
   const { ref, inView } = useInView({
@@ -57,22 +55,6 @@ const Profile = () => {
     if (!inView || !hasNextPage) return;
     fetchNextPage();
   }, [inView, hasNextPage, fetchNextPage]);
-
-  const handleDeleteRegistration = async (registration: IRegistration) => {
-    try {
-      await deleteRegistration({ registrationId: registration.id }).unwrap();
-
-      toast.success("Registration Deleted Successfully");
-      queryClient.invalidateQueries({ queryKey: ["profile-registerations"] });
-    } catch (error) {
-      console.error("Rejected:", error);
-      if (isApiErrorMessage(error)) {
-        toast.error(error.data.message);
-      } else {
-        toast.error("Something went wrong");
-      }
-    }
-  };
 
   return (
     <div className={`container ${styles.profile}`}>
@@ -163,9 +145,8 @@ const Profile = () => {
                           <button
                             className={`${styles.button} ${styles.deleteButton}`}
                             onClick={() =>
-                              handleDeleteRegistration(registration)
+                              setRegistrationCancelModal(registration)
                             }
-                            disabled={deleteRegistrationResult.isLoading}
                           >
                             Cancel
                           </button>
@@ -201,6 +182,13 @@ const Profile = () => {
         <PaymentDetailModal
           registration={paymentDetailModalRegistration}
           closeModalCallback={() => setPaymentDetailModalRegistration(null)}
+        />
+      ) : null}
+
+      {registrationCancelModal ? (
+        <RegistrationCancelModal
+          registration={registrationCancelModal}
+          closeModalCallback={() => setRegistrationCancelModal(null)}
         />
       ) : null}
     </div>
