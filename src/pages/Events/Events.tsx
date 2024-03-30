@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Moment from "moment";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
@@ -50,10 +51,12 @@ const Events = () => {
   }
 
   return (
-    <div>
+    <div className={`container ${styles.EventsContainer}`}>
       <div>
         <div>
-          <label htmlFor="event_status">Event Status</label>
+          <label htmlFor="event_status" className={styles.eventStatus}>
+            Event Status
+          </label>
           <select
             name="event_status"
             value={eventStatus}
@@ -75,14 +78,31 @@ const Events = () => {
 
       <div className={styles.events}>
         {events?.map((event, index) => {
+          let eventTypeClassName = styles.eventAvailable;
+          if (event.event_status === "IN_PROGRESS") {
+            eventTypeClassName = styles.eventInProgress;
+          }
+          if (event.event_status === "BOOKED") {
+            eventTypeClassName = styles.eventBooked;
+          }
+
           // Conditionally adding ref
           const refProp = index === events.length - 1 ? { ref: ref } : {};
           return (
-            <div key={event.id} className={styles.event} {...refProp}>
-              <p>{event.date}</p>
-              <p>{eventStatusDisplayName[event.event_status]}</p>
+            <div
+              key={event.id}
+              className={`${styles.event} ${eventTypeClassName}`}
+              {...refProp}
+            >
+              <p>Date: {Moment(event.date).format("DD/MM/YYYY")}</p>
+              <p>Status: {eventStatusDisplayName[event.event_status]}</p>
               {event.event_status === "AVAILABLE" && (
-                <Link to={`/events/${event.id}/slots`}>View Slots</Link>
+                <Link
+                  to={`/events/${event.id}/slots`}
+                  className={styles.viewSlots}
+                >
+                  View Slots
+                </Link>
               )}
             </div>
           );

@@ -7,7 +7,7 @@
 
   --bg-primary: rgb(10, 10, 10);
   --bg-secondary: hsla(0, 0%, 9%, 0.5);
-  --bg-light: rgb(245, 245, 245 / 10%);
+  --bg-light: hsla(0, 0%, 98%, 0.1);
 
   --border-color: rgb(38, 38, 38);
 
