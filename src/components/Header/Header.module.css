@@ -104,6 +104,11 @@
     flex-direction: column;
   }
 
+  .navLinks a {
+    width: 100px;
+    text-align: center;
+  }
+
   .backdrop {
     display: block;
     position: fixed;
