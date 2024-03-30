@@ -4,7 +4,14 @@ import Router from "./routes/Router";
 function App() {
   return (
     <>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster
+        position="top-right"
+        containerStyle={{
+          top: 80,
+          zIndex: 100000,
+        }}
+      />
+
       <Router />
     </>
   );
