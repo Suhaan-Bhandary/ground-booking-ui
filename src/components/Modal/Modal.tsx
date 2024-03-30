@@ -3,11 +3,12 @@ import styles from "./Modal.module.css";
 
 type ModalProps = {
   children: React.ReactNode;
+  isDarkMode?: boolean;
 };
 
-function Modal({ children }: ModalProps) {
+function Modal({ children, isDarkMode = true }: ModalProps) {
   return (
-    <div className={styles.Modal}>
+    <div className={`${styles.Modal} ${isDarkMode ? styles.darkMode : ""}`}>
       <div className={styles.container}>{children}</div>
     </div>
   );
