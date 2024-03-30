@@ -13,6 +13,15 @@
 
   --navbar-height: 60px;
   --sidebar-width: 260px;
+
+  --bg-white: 255, 255, 255;
+  --text-color-dark: 12, 20, 37;
+  --text-color-light: 66, 80, 108;
+
+  --brown-dark-color: 51, 51, 51;
+
+  --admin-accent-color: 64, 112, 244;
+  --admin-accent-color-dark: 60, 98, 202;
 }
 
 /* CSS Reset */

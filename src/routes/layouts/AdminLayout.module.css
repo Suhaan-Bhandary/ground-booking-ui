@@ -1,6 +1,7 @@
 .Dashboard {
   min-height: 100vh;
   background-color: rgb(245, 246, 250);
+  color: rgb(var(--brown-dark-color));
 }
 
 .dashboardWrapper {

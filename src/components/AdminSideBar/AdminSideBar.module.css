@@ -85,11 +85,11 @@
 }
 
 .activeList a {
-  background-color: rgb(var(--accent-color));
+  background-color: rgb(var(--admin-accent-color));
 }
 
 .lists a:hover {
-  background-color: rgb(var(--accent-color), 0.7);
+  background-color: rgb(var(--admin-accent-color), 0.7);
 }
 
 .bottomContent a:hover {
