@@ -12,6 +12,10 @@ const Header = () => {
   const userData = useAppSelector((state) => state.userState.user);
   const isLoggedIn = userData ? true : false;
 
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
   const toggleNav = () => {
     setIsNavOpen((state) => !state);
   };
@@ -37,15 +41,21 @@ const Header = () => {
           <nav className={`${styles.nav} ${isNavOpen ? styles.navOpen : ""}`}>
             <ul className={styles.navLinks}>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/" onClick={closeNav}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to="/events">Events</Link>
+                <Link to="/events" onClick={closeNav}>
+                  Events
+                </Link>
               </li>
               {isLoggedIn ? (
                 <>
                   <li>
-                    <Link to="/profile">{userData?.user_name}</Link>
+                    <Link to="/profile" onClick={closeNav}>
+                      {userData?.user_name}
+                    </Link>
                   </li>
                   <li>
                     <Logout className={styles.button}>Logout</Logout>
@@ -54,12 +64,20 @@ const Header = () => {
               ) : (
                 <>
                   <li>
-                    <Link to="/login" className={styles.button}>
+                    <Link
+                      to="/login"
+                      className={styles.button}
+                      onClick={closeNav}
+                    >
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link to="/register" className={styles.button}>
+                    <Link
+                      to="/register"
+                      className={styles.button}
+                      onClick={closeNav}
+                    >
                       Register
                     </Link>
                   </li>
