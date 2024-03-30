@@ -4,6 +4,7 @@ import { useRegisterSlotMutation } from "../../app/features/eventsApi";
 import { isApiErrorMessage } from "../../helpers/api";
 import { ISlot } from "../../types/event";
 import Modal from "../Modal/Modal";
+import styles from "./RegisterSlotModal.module.css";
 
 type RegisterSlotModalProps = {
   slot: ISlot;
@@ -40,12 +41,16 @@ const RegisterSlotModal = ({
 
   return (
     <Modal>
-      <h1>
-        Register Slot: {slot.time_slot} of event {slot.event_id}
-      </h1>
-      <div>
+      <div className={styles.content}>
+        <h1>Register Slot</h1>
+        <p>
+          Register a slot of {slot.time_slot} for event with id {slot.event_id}
+        </p>
+      </div>
+      <div className={styles.buttons}>
         <button
           type="button"
+          className={`${styles.button} ${styles.closeButton}`}
           onClick={closeModalCallback}
           disabled={registerSlotResult.isLoading}
         >
@@ -53,10 +58,11 @@ const RegisterSlotModal = ({
         </button>
         <button
           type="button"
+          className={`${styles.button} ${styles.registerButton}`}
           onClick={handleRegisterSlot}
           disabled={registerSlotResult.isLoading}
         >
-          Register Slot
+          Register
         </button>
       </div>
     </Modal>

@@ -25,5 +25,5 @@
 
 .darkMode .container {
   background: var(--bg-secondary);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
