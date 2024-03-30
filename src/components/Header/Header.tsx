@@ -10,7 +10,10 @@ const Header = () => {
   return (
     <header className={styles.headerWrapper}>
       <div className={`container ${styles.Header}`}>
-        <h1 className={styles.title}>Ground Booking</h1>
+        <Link to="/">
+          <h1 className={styles.title}>Ground Booking</h1>
+        </Link>
+
         <nav>
           <ul className={styles.navLinks}>
             <li>
