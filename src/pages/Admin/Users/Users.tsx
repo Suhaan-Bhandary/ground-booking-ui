@@ -103,10 +103,14 @@ const Users = () => {
               </Table>
             )}
 
-            {isError && <p>Error loading users</p>}
-            {isLoading && <div>Loading...</div>}
-            {isFetchingNextPage && <p>Fetching users...</p>}
-            {!isError && !users?.length && <div>No users found!!</div>}
+            {isError && <p className="text-center">Error loading users</p>}
+            {isLoading && <p className="text-center">Loading...</p>}
+            {isFetchingNextPage && (
+              <p className="text-center">Fetching users...</p>
+            )}
+            {!isError && !users?.length && (
+              <p className="text-center">No users found!!</p>
+            )}
           </div>
         </div>
       </div>

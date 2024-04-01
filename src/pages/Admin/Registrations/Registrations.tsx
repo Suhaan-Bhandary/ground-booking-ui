@@ -151,11 +151,15 @@ const Registrations = () => {
               </Table>
             )}
 
-            {isError && <p>Error loading registrations</p>}
-            {isLoading && <div>Loading...</div>}
-            {isFetchingNextPage && <p>Fetching registrations...</p>}
+            {isError && (
+              <p className="text-center">Error loading registrations</p>
+            )}
+            {isLoading && <p className="text-center">Loading...</p>}
+            {isFetchingNextPage && (
+              <p className="text-center">Fetching registrations...</p>
+            )}
             {!isError && !registrations?.length && (
-              <div>No registrations found!!</div>
+              <p className="text-center">No registrations found!!</p>
             )}
           </div>
         </div>

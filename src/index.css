@@ -156,3 +156,8 @@ code {
   display: flex;
   flex-direction: column;
 }
+
+.text-center {
+  text-align: center;
+  padding-block: 1rem;
+}

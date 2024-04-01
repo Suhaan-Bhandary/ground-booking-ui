@@ -48,7 +48,7 @@ const AdminEventsTable = () => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   // Making the data flat
@@ -118,8 +118,8 @@ const AdminEventsTable = () => {
         </Table>
       )}
 
-      {isError && <p>Error loading events</p>}
-      {isFetchingNextPage && <p>Fetching events...</p>}
+      {isError && <p className="text-center">Error loading events</p>}
+      {isFetchingNextPage && <p className="text-center">Fetching events...</p>}
 
       {/* Modals */}
       {deleteEventModalData ? (

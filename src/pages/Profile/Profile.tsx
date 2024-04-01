@@ -162,11 +162,15 @@ const Profile = () => {
           )}
         </div>
 
-        {isError && <p>Error loading user registrations</p>}
-        {isLoading && <div>Loading...</div>}
-        {isFetchingNextPage && <p>Fetching user registrations...</p>}
+        {isError && (
+          <p className="text-center">Error loading user registrations</p>
+        )}
+        {isLoading && <p className="text-center">Loading...</p>}
+        {isFetchingNextPage && (
+          <p className="text-center">Fetching user registrations...</p>
+        )}
         {!isError && !registrations?.length && (
-          <div>No user registrations found!!</div>
+          <p className="text-center">No user registrations found!!</p>
         )}
       </div>
 

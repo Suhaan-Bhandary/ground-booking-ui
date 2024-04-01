@@ -47,11 +47,11 @@ const Slots = () => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   if (!isError && !slots?.length) {
-    return <div>No slots found!!</div>;
+    return <div className="text-center">No slots found!!</div>;
   }
 
   return (
@@ -93,8 +93,8 @@ const Slots = () => {
           );
         })}
 
-        {isError && <p>Error loading slots</p>}
-        {isFetchingNextPage && <p>Fetching slots...</p>}
+        {isError && <p className="text-center">Error loading slots</p>}
+        {isFetchingNextPage && <p className="text-center">Fetching slots...</p>}
       </div>
 
       {slotSelectedForRegisteration ? (

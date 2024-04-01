@@ -31,8 +31,10 @@ const PaymentDetailModal = ({
         </p>
       </div>
 
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error fetching registration Details</p>}
+      {isLoading && <p className="text-center">Loading...</p>}
+      {isError && (
+        <p className="text-center">Error fetching registration Details</p>
+      )}
 
       <div className={styles.buttons}>
         <button
