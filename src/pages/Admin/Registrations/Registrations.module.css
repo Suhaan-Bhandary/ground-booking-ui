@@ -1,0 +1,65 @@
+.viewReceipt {
+  background-color: rgb(var(--admin-accent-color), 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.registrationConfirmed {
+  color: #00bb45;
+}
+
+.registrationPending {
+  color: #ffa500;
+}
+
+.registrationCanceled {
+  color: #ff0000;
+}
+
+.inputFields {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+  margin-block: 0.25rem;
+}
+
+.inputField label {
+  font-size: 1.1rem;
+}
+
+.inputField :where(select, input) {
+  cursor: pointer;
+
+  position: relative;
+  height: 40px;
+  width: 100%;
+
+  font-size: 1rem;
+  color: #707070;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+.tableWrapper {
+  overflow: auto;
+}
+
+@media (min-width: 600px) {
+  .inputFields {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    gap: 1rem;
+  }
+
+  .inputField :where(select, input) {
+    width: 10rem;
+  }
+}

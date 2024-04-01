@@ -1,13 +1,15 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Moment from "moment";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { fetchRegisterations } from "../../../api/event";
 import Table from "../../../components/Table/Table";
 import {
   registrationStatusDisplayName,
   registrationStatusOptions,
 } from "../../../helpers/event";
+import styles from "./Registrations.module.css";
 
 const Registrations = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -61,11 +63,12 @@ const Registrations = () => {
         </div>
 
         <div>
-          <div>
-            <div>
+          <div className={styles.inputFields}>
+            <div className={styles.inputField}>
               <label>User Id</label>
               <input
                 type="text"
+                placeholder="User Id"
                 value={user_id}
                 onChange={(event) =>
                   setSearchParams({
@@ -76,10 +79,11 @@ const Registrations = () => {
               />
             </div>
 
-            <div>
+            <div className={styles.inputField}>
               <label>Slot Id</label>
               <input
                 type="text"
+                placeholder="Slot Id"
                 value={slot_id}
                 onChange={(event) =>
                   setSearchParams({
@@ -90,7 +94,7 @@ const Registrations = () => {
               />
             </div>
 
-            <div>
+            <div className={styles.inputField}>
               <label htmlFor="registration_status">Status</label>
               <select
                 name="registration_status"
@@ -113,43 +117,69 @@ const Registrations = () => {
           </div>
 
           <div>
-            {registrations && registrations.length !== 0 && (
-              <Table>
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>User Id</th>
-                    <th>Slot Id</th>
-                    <th>Status</th>
-                    <th>Registered On</th>
-                    <th>Payment Id</th>
-                    <th>Receipt Url</th>
-                  </tr>
-                </thead>
+            <div className={styles.tableWrapper}>
+              {registrations && registrations.length !== 0 && (
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>User Id</th>
+                      <th>Slot Id</th>
+                      <th>Status</th>
+                      <th>Registered On</th>
+                      <th>Payment Id</th>
+                      <th>Receipt Url</th>
+                    </tr>
+                  </thead>
 
-                <tbody>
-                  {registrations.map((registration, index) => {
-                    // Conditionally adding ref
-                    const refProp =
-                      index === registrations.length - 1 ? { ref: ref } : {};
-                    return (
-                      <tr key={registration.id} {...refProp}>
-                        <td>{registration.id}</td>
-                        <td>{registration.user_id}</td>
-                        <td>{registration.slot_id}</td>
-                        <td>
-                          {registrationStatusDisplayName[registration.status]}
-                        </td>
-                        <td>{registration.created_at}</td>
+                  <tbody>
+                    {registrations.map((registration, index) => {
+                      let registrationStatusClass =
+                        styles.registrationConfirmed;
+                      if (registration.status === "PENDING") {
+                        registrationStatusClass = styles.registrationPending;
+                      }
+                      if (registration.status === "CANCELED") {
+                        registrationStatusClass = styles.registrationCanceled;
+                      }
 
-                        <td>{registration.payment_id || "NA"}</td>
-                        <td>{registration.receipt_url || "NA"}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
-            )}
+                      // Conditionally adding ref
+                      const refProp =
+                        index === registrations.length - 1 ? { ref: ref } : {};
+                      return (
+                        <tr key={registration.id} {...refProp}>
+                          <td>{registration.id}</td>
+                          <td>{registration.user_id}</td>
+                          <td>{registration.slot_id}</td>
+                          <td className={registrationStatusClass}>
+                            {registrationStatusDisplayName[registration.status]}
+                          </td>
+                          <td>
+                            {Moment(registration.created_at).format(
+                              "DD/MM/YYYY",
+                            )}
+                          </td>
+
+                          <td>{registration.payment_id || "NA"}</td>
+                          <td>
+                            {registration.receipt_url ? (
+                              <Link
+                                to={registration.receipt_url}
+                                className={styles.viewReceipt}
+                              >
+                                View Receipt
+                              </Link>
+                            ) : (
+                              "NA"
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              )}
+            </div>
 
             {isError && (
               <p className="text-center">Error loading registrations</p>
