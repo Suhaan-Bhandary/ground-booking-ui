@@ -22,6 +22,8 @@
 
   --admin-accent-color: 64, 112, 244;
   --admin-accent-color-dark: 60, 98, 202;
+
+  --box-shadow: 0 2px 8px 0 rgb(117 76 255 / 25%);
 }
 
 /* CSS Reset */
