@@ -9,7 +9,7 @@
   width: 100%;
   background: var(--bg-secondary);
   border-radius: 1rem;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-dark);
   overflow: hidden;
   margin-inline: auto;
   backdrop-filter: blur(4px);

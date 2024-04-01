@@ -11,7 +11,7 @@
   padding: 25px;
   border-radius: 8px;
   background: var(--bg-secondary);
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-dark);
   margin-inline: auto;
   backdrop-filter: blur(4px);
 }
