@@ -6,6 +6,10 @@
   margin-bottom: 2rem;
 }
 
+.tableContainer {
+  overflow: auto;
+}
+
 .table {
   background-color: var(--bg-secondary);
   backdrop-filter: blur(4);

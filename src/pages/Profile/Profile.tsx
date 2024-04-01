@@ -65,7 +65,7 @@ const Profile = () => {
       </div>
       <div>
         <h2>Registrations</h2>
-        <ul>
+        <div className={styles.tableContainer}>
           {registrations && registrations.length !== 0 && (
             <Table className={styles.table}>
               <thead>
@@ -160,7 +160,7 @@ const Profile = () => {
               </tbody>
             </Table>
           )}
-        </ul>
+        </div>
 
         {isError && <p>Error loading user registrations</p>}
         {isLoading && <div>Loading...</div>}
