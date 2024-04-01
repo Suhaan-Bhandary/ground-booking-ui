@@ -10,6 +10,7 @@ import {
 } from "../../helpers/event";
 import { TEventStatus } from "../../types/event";
 import styles from "./Events.module.css";
+import EventsSkeletonLoader from "../../components/SkeletonLoaders/EventsSkeletonLoader/EventsSkeletonLoader";
 
 const Events = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
@@ -39,14 +40,10 @@ const Events = () => {
     fetchNextPage();
   }, [inView, hasNextPage, fetchNextPage]);
 
-  if (isLoading) {
-    return <div className="text-center">Loading...</div>;
-  }
-
   // Making the data flat
   const events = data?.pages.flatMap((page) => page.events);
 
-  if (!isError && !events?.length) {
+  if (!isLoading && !isError && !events?.length) {
     return <div>No events found!!</div>;
   }
 
@@ -107,6 +104,18 @@ const Events = () => {
             </div>
           );
         })}
+
+        {isLoading ? (
+          <>
+            <EventsSkeletonLoader />
+            <EventsSkeletonLoader />
+            <EventsSkeletonLoader />
+            <EventsSkeletonLoader />
+            <EventsSkeletonLoader />
+            <EventsSkeletonLoader />
+            <EventsSkeletonLoader />
+          </>
+        ) : null}
 
         {isError && <p className="text-center">Error loading events</p>}
         {isFetchingNextPage && (

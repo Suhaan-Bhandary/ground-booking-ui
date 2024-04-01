@@ -8,6 +8,7 @@ import { slotStatusDisplayName } from "../../helpers/slot";
 import { useAppSelector } from "../../hooks/redux";
 import { ISlot } from "../../types/event";
 import styles from "./Slots.module.css";
+import SlotsSkeletonLoader from "../../components/SkeletonLoaders/SlotsSkeletonLoader/SlotsSkeletonLoader";
 
 const Slots = () => {
   const { eventId } = useParams();
@@ -46,11 +47,7 @@ const Slots = () => {
     fetchNextPage();
   }, [inView, hasNextPage, fetchNextPage]);
 
-  if (isLoading) {
-    return <div className="text-center">Loading...</div>;
-  }
-
-  if (!isError && !slots?.length) {
+  if (!isLoading && !isError && !slots?.length) {
     return <div className="text-center">No slots found!!</div>;
   }
 
@@ -92,6 +89,17 @@ const Slots = () => {
             </div>
           );
         })}
+
+        {isLoading ? (
+          <>
+            <SlotsSkeletonLoader />
+            <SlotsSkeletonLoader />
+            <SlotsSkeletonLoader />
+            <SlotsSkeletonLoader />
+            <SlotsSkeletonLoader />
+            <SlotsSkeletonLoader />
+          </>
+        ) : null}
 
         {isError && <p className="text-center">Error loading slots</p>}
         {isFetchingNextPage && <p className="text-center">Fetching slots...</p>}

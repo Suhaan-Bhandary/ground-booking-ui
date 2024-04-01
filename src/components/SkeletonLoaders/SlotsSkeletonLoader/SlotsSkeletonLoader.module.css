@@ -1,0 +1,39 @@
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+.wrapper {
+  padding: 1rem 1rem;
+}
+
+.time {
+  width: 40%;
+  height: 1rem;
+}
+
+.status {
+  width: 45%;
+  height: 1rem;
+
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  width: 50%;
+  height: 1.5rem;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsla(0, 0%, 9%, 0.5);
+  }
+
+  100% {
+    background-color: hsla(0, 0%, 7%, 0.5);
+  }
+}
