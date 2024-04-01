@@ -41,14 +41,23 @@
   padding: 0 15px;
 }
 
-.viewButton {
-  background-color: rgb(var(--admin-accent-color), 0.8);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  gap: 1rem;
 }
 
-.deleteButton {
-  background-color: rgb(250, 0, 0, 0.8);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+.viewLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(var(--admin-accent-color));
+}
+
+.deleteIcon {
+  cursor: pointer;
+  font-size: 2.5rem;
+  fill: rgb(250, 0, 0, 0.8);
 }

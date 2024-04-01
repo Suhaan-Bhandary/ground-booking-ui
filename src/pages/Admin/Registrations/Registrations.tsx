@@ -9,6 +9,7 @@ import {
   registrationStatusDisplayName,
   registrationStatusOptions,
 } from "../../../helpers/event";
+import { IoReceiptOutline } from "react-icons/io5";
 import styles from "./Registrations.module.css";
 
 const Registrations = () => {
@@ -167,7 +168,7 @@ const Registrations = () => {
                                 to={registration.receipt_url}
                                 className={styles.viewReceipt}
                               >
-                                View Receipt
+                                <IoReceiptOutline />
                               </Link>
                             ) : (
                               "NA"

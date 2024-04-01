@@ -1,6 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Moment from "moment";
 import { useEffect, useState } from "react";
+import { CiSquareRemove } from "react-icons/ci";
+import { IoListOutline } from "react-icons/io5";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../api/event";
@@ -91,11 +93,9 @@ const AdminEventsTable = () => {
                 <th>Id</th>
                 <th>Event Date</th>
                 <th>Status</th>
-                <th>Slots</th>
-                <th>Delete</th>
+                <th>Actions</th>
               </tr>
             </thead>
-
             <tbody>
               {events.map((event, index) => {
                 // Conditionally adding ref
@@ -106,20 +106,19 @@ const AdminEventsTable = () => {
                     <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
                     <td>{eventStatusDisplayName[event.event_status]}</td>
                     <td>
-                      <Link
-                        className={styles.viewButton}
-                        to={`/events/${event.id}/slots`}
-                      >
-                        View
-                      </Link>
-                    </td>
-                    <td>
-                      <button
-                        className={styles.deleteButton}
-                        onClick={() => setDeleteEventModalData(event)}
-                      >
-                        Delete
-                      </button>
+                      <div className={styles.actions}>
+                        <Link
+                          className={styles.viewLink}
+                          to={`/events/${event.id}/slots`}
+                        >
+                          <IoListOutline />
+                        </Link>
+
+                        <CiSquareRemove
+                          className={styles.deleteIcon}
+                          onClick={() => setDeleteEventModalData(event)}
+                        />
+                      </div>
                     </td>
                   </tr>
                 );

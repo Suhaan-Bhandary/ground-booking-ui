@@ -2,6 +2,12 @@
   background-color: rgb(var(--admin-accent-color), 0.8);
   padding: 0.5rem 1rem;
   border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin-inline: auto;
 }
 
 .registrationConfirmed {

@@ -67,7 +67,7 @@ const Profile = () => {
         <h2>Registrations</h2>
         <div className={styles.tableContainer}>
           {registrations && registrations.length !== 0 && (
-            <Table className={styles.table}>
+            <Table className={styles.table} isDarkMode={true}>
               <thead>
                 <tr>
                   <th>Registration</th>

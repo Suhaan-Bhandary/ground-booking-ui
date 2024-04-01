@@ -1,4 +1,4 @@
-.table {
+.table.whiteMode {
   width: 100%;
 
   border-collapse: collapse;
@@ -9,35 +9,58 @@
   overflow: hidden;
 }
 
-.table thead {
+.table.whiteMode thead {
   position: sticky;
   top: 0;
 }
 
-.table thead tr {
+.table.whiteMode thead tr {
   color: var(--text-color);
   background-color: #36304a;
 }
 
-.table th {
+.table.whiteMode th {
   font-weight: 400;
   line-height: 1.2;
   font-size: 1.1rem;
 }
 
-.table tr {
+.table.whiteMode tr {
   color: #4c4c4c;
   line-height: 1.2;
   background-color: white;
 }
 
-.table tbody tr:nth-child(even) {
+.table.whiteMode tbody tr:nth-child(even) {
   background-color: #e9e9e9;
 }
 
-.table tbody tr:hover {
+.table.whiteMode tbody tr:hover {
   color: black;
   font-weight: 500;
+}
+
+.table.whiteMode :where(table, th, td) {
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Dark mode */
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  box-shadow: var(--box-shadow);
+}
+
+.table thead {
+  position: sticky;
+  top: 0;
+
+  background-color: #e5e0e0;
 }
 
 .table :where(table, th, td) {

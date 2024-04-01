@@ -1,5 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { CiSquareRemove } from "react-icons/ci";
+import { IoListOutline } from "react-icons/io5";
 import { useInView } from "react-intersection-observer";
 import { Link, useParams } from "react-router-dom";
 import { fetchSlots } from "../../api/slot";
@@ -68,8 +70,7 @@ const AdminSlotsTable = () => {
             <tr>
               <th>Time</th>
               <th>Status</th>
-              <th>Registrations</th>
-              <th>Delete</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -82,20 +83,19 @@ const AdminSlotsTable = () => {
                   <td>{slot.time_slot}</td>
                   <td>{slotStatusDisplayName[slot.status]}</td>
                   <td>
-                    <Link
-                      className={styles.viewButton}
-                      to={`/registrations?slot_id=${slot.id}`}
-                    >
-                      View
-                    </Link>
-                  </td>
-                  <td>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => setDeleteSlotModalData(slot)}
-                    >
-                      Delete
-                    </button>
+                    <div className={styles.actions}>
+                      <Link
+                        className={styles.viewLink}
+                        to={`/registrations?slot_id=${slot.id}`}
+                      >
+                        <IoListOutline />
+                      </Link>
+
+                      <CiSquareRemove
+                        className={styles.deleteIcon}
+                        onClick={() => setDeleteSlotModalData(slot)}
+                      />
+                    </div>
                   </td>
                 </tr>
               );
