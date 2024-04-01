@@ -1,5 +1,7 @@
 .banner {
   padding-block: 12rem;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .bannerTitle {
@@ -12,10 +14,31 @@
 }
 
 .bannerButton {
-  background-color: var(--accent-color);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   border-radius: 4px;
   font-weight: 500;
+  width: fit-content;
+
+  background-image: linear-gradient(
+    to right,
+    #ff512f 0%,
+    #f09819 51%,
+    #ff512f 100%
+  );
+
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+}
+
+.bannerButton:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
 }
 
 .bannerImage {
