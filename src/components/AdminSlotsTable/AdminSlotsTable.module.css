@@ -18,3 +18,15 @@
 .slotStatusCell select {
   cursor: pointer;
 }
+
+.viewButton {
+  background-color: rgb(var(--admin-accent-color), 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.deleteButton {
+  background-color: rgb(250, 0, 0, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}

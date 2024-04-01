@@ -4,6 +4,7 @@ import { useDeleteSlotMutation } from "../../app/features/eventsApi";
 import { isApiErrorMessage } from "../../helpers/api";
 import { ISlot } from "../../types/event";
 import Modal from "../Modal/Modal";
+import styles from "./DeleteSlotModal.module.css";
 
 type DeleteSlotProps = {
   slot: ISlot;
@@ -36,15 +37,16 @@ const DeleteSlotModal = ({ slot, closeModalCallback }: DeleteSlotProps) => {
   };
 
   return (
-    <Modal>
+    <Modal isDarkMode={false}>
       <h1>Delete Slot</h1>
       <p>
         Delete the slot of {slot.time_slot} with status {slot.status} for the
         event {slot.event_id}
       </p>
-      <div>
+      <div className={styles.buttons}>
         <button
           type="button"
+          className={`${styles.button} ${styles.closeButton}`}
           onClick={closeModalCallback}
           disabled={deleteSlotResult.isLoading}
         >
@@ -52,6 +54,7 @@ const DeleteSlotModal = ({ slot, closeModalCallback }: DeleteSlotProps) => {
         </button>
         <button
           type="button"
+          className={`${styles.button} ${styles.deleteButton}`}
           onClick={handleSlotDelete}
           disabled={deleteSlotResult.isLoading}
         >

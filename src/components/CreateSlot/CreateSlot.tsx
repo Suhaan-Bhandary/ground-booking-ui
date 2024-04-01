@@ -16,6 +16,7 @@ import {
 } from "../../helpers/slot";
 import { ISlotCreateRequest } from "../../types/event";
 import Modal from "../Modal/Modal";
+import styles from "./CreateSlot.module.css";
 
 const CreateSlot = () => {
   const { eventId } = useParams();
@@ -73,48 +74,59 @@ const CreateSlot = () => {
 
   return (
     <>
-      <button onClick={openModal}>Create Slot</button>
+      <button onClick={openModal} className={styles.createSlotButton}>
+        Create Slot
+      </button>
 
       {isModalOpen && (
-        <Modal>
+        <Modal isDarkMode={false}>
           <h1>Create Slot</h1>
           <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="startTime">Start Time</label>
-              <input
-                name="startTime"
-                type="number"
-                min="1"
-                max="12"
-                value={values.startTime}
-                onChange={handleChange}
-              />
+            <div className={styles.column}>
+              <div className={styles.inputField}>
+                <label htmlFor="startTime">Start Time</label>
+                <input
+                  name="startTime"
+                  type="number"
+                  min="1"
+                  max="12"
+                  value={values.startTime}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className={styles.inputField}>
+                <label htmlFor="AM_PM">AM/PM</label>
+                <select
+                  name="AM_PM"
+                  value={values.AM_PM}
+                  onChange={(event) =>
+                    setFieldValue("AM_PM", event.target.value)
+                  }
+                >
+                  {["AM", "PM"].map((option) => (
+                    <option value={option} key={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            <div>
-              <label htmlFor="AM_PM">AM/PM</label>
-              <select
-                name="AM_PM"
-                value={values.AM_PM}
-                onChange={(event) => setFieldValue("AM_PM", event.target.value)}
-              >
-                {["AM", "PM"].map((option) => (
-                  <option value={option} key={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
+            <div className={styles.buttons}>
               <button
                 type="button"
+                className={`${styles.button} ${styles.closeButton}`}
                 onClick={closeModal}
                 disabled={createSlotResult.isLoading}
               >
                 Close
               </button>
-              <button type="submit" disabled={createSlotResult.isLoading}>
+              <button
+                type="submit"
+                className={`${styles.button} ${styles.createSlotButtonModal}`}
+                disabled={createSlotResult.isLoading}
+              >
                 Create Slot
               </button>
             </div>

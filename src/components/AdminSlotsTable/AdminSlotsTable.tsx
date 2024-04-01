@@ -82,10 +82,18 @@ const AdminSlotsTable = () => {
                   <td>{slot.time_slot}</td>
                   <td>{slotStatusDisplayName[slot.status]}</td>
                   <td>
-                    <Link to={`/registrations?slot_id=${slot.id}`}>View</Link>
+                    <Link
+                      className={styles.viewButton}
+                      to={`/registrations?slot_id=${slot.id}`}
+                    >
+                      View
+                    </Link>
                   </td>
                   <td>
-                    <button onClick={() => setDeleteSlotModalData(slot)}>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => setDeleteSlotModalData(slot)}
+                    >
                       Delete
                     </button>
                   </td>
