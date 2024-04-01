@@ -1,5 +1,6 @@
 .tableContainer {
   margin-bottom: 3rem;
+  overflow: auto;
 }
 
 .inputField {
@@ -15,7 +16,7 @@
 
   position: relative;
   height: 40px;
-  width: 15rem;
+  width: min(15rem, 100%);
 
   font-size: 1rem;
   color: #707070;

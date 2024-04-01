@@ -82,49 +82,52 @@ const AdminEventsTable = () => {
           </select>
         </div>
       </td>
-      {events && events.length !== 0 && (
-        <Table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Event Date</th>
-              <th>Status</th>
-              <th>Slots</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            {events.map((event, index) => {
-              // Conditionally adding ref
-              const refProp = index === events.length - 1 ? { ref: ref } : {};
-              return (
-                <tr key={event.id} {...refProp}>
-                  <td>{event.id}</td>
-                  <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
-                  <td>{eventStatusDisplayName[event.event_status]}</td>
-                  <td>
-                    <Link
-                      className={styles.viewButton}
-                      to={`/events/${event.id}/slots`}
-                    >
-                      View
-                    </Link>
-                  </td>
-                  <td>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => setDeleteEventModalData(event)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      )}
+      <div className={styles.tableWrapper}>
+        {events && events.length !== 0 && (
+          <Table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Event Date</th>
+                <th>Status</th>
+                <th>Slots</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {events.map((event, index) => {
+                // Conditionally adding ref
+                const refProp = index === events.length - 1 ? { ref: ref } : {};
+                return (
+                  <tr key={event.id} {...refProp}>
+                    <td>{event.id}</td>
+                    <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
+                    <td>{eventStatusDisplayName[event.event_status]}</td>
+                    <td>
+                      <Link
+                        className={styles.viewButton}
+                        to={`/events/${event.id}/slots`}
+                      >
+                        View
+                      </Link>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.deleteButton}
+                        onClick={() => setDeleteEventModalData(event)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        )}
+      </div>
 
       {isError && <p className="text-center">Error loading events</p>}
       {isFetchingNextPage && <p className="text-center">Fetching events...</p>}

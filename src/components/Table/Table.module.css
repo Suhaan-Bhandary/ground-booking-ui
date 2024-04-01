@@ -6,7 +6,6 @@
   backdrop-filter: blur(7px);
   box-shadow: var(--box-shadow);
 
-  border-radius: 8px;
   overflow: hidden;
 }
 
