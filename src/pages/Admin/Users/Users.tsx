@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { fetchUsers } from "../../../api/user";
 import Table from "../../../components/Table/Table";
 import { Link } from "react-router-dom";
+import styles from "./Users.module.css";
 
 const Users = () => {
   const [inputUsername, setInputUsername] = useState("");
@@ -55,19 +56,19 @@ const Users = () => {
         </div>
 
         <div>
-          <form onSubmit={handleUsernameSearch}>
-            <div>
-              <label>Username</label>
-              <input
-                type="text"
-                value={inputUsername}
-                onChange={(event) => setInputUsername(event.target.value)}
-              />
-            </div>
-            <button type="submit">Search</button>
+          <form className={styles.inputField} onSubmit={handleUsernameSearch}>
+            <input
+              type="text"
+              placeholder="Username"
+              value={inputUsername}
+              onChange={(event) => setInputUsername(event.target.value)}
+            />
+            <button className={styles.searchButton} type="submit">
+              Search
+            </button>
           </form>
 
-          <div>
+          <div className={styles.tableContainer}>
             {users && users.length !== 0 && (
               <Table>
                 <thead>
@@ -92,7 +93,10 @@ const Users = () => {
                         <td>{user.mobile_no}</td>
                         <td>{user.access_role_id}</td>
                         <td>
-                          <Link to={`/registrations?user_id=${user.id}`}>
+                          <Link
+                            className={styles.viewButton}
+                            to={`/registrations?user_id=${user.id}`}
+                          >
                             View
                           </Link>
                         </td>
