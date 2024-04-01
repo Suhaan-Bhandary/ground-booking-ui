@@ -11,6 +11,7 @@ import {
 } from "../../helpers/event";
 import { IEventCreateRequest } from "../../types/event";
 import Modal from "../Modal/Modal";
+import styles from "./CreateEvent.module.css";
 
 const CreateEvent = () => {
   const queryClient = useQueryClient();
@@ -58,13 +59,15 @@ const CreateEvent = () => {
 
   return (
     <>
-      <button onClick={openModal}>Create Event</button>
+      <button onClick={openModal} className={styles.createEventButton}>
+        Create Event
+      </button>
 
       {isModalOpen && (
-        <Modal>
+        <Modal isDarkMode={false}>
           <h1>Create Event</h1>
           <form onSubmit={handleSubmit}>
-            <div>
+            <div className={styles.inputField}>
               <label htmlFor="date">Event Date</label>
               <input
                 name="date"
@@ -76,15 +79,20 @@ const CreateEvent = () => {
                 <span className="error">{String(errors.date)}</span>
               ) : null}
             </div>
-            <div>
+            <div className={styles.buttons}>
               <button
                 type="button"
+                className={`${styles.button} ${styles.closeButton}`}
                 onClick={closeModal}
                 disabled={createEventResult.isLoading}
               >
                 Close
               </button>
-              <button type="submit" disabled={createEventResult.isLoading}>
+              <button
+                className={`${styles.button} ${styles.createEventButtonModal}`}
+                type="submit"
+                disabled={createEventResult.isLoading}
+              >
                 Create Event
               </button>
             </div>

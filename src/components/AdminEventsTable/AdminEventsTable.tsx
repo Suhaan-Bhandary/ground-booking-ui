@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Moment from "moment";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
@@ -11,7 +12,6 @@ import { IEvent, TEventStatus } from "../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
 import Table from "../Table/Table";
 import styles from "./AdminEventsTable.module.css";
-import Moment from "moment";
 
 const AdminEventsTable = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
@@ -55,36 +55,36 @@ const AdminEventsTable = () => {
   const events = data?.pages.flatMap((page) => page.events);
 
   if (!isError && !events?.length) {
-    return <div>No events found!!</div>;
+    return <div className="text-center">No events found!!</div>;
   }
 
   return (
     <div className={styles.AdminEventsTable}>
+      <td colSpan={5} className={styles.eventStatusCell}>
+        <div className={styles.inputField}>
+          <label htmlFor="event_status">Event Status</label>
+          <select
+            name="event_status"
+            className={styles.inputField}
+            value={eventStatus}
+            onChange={(event) =>
+              setEventStatus(event.target.value as TEventStatus)
+            }
+          >
+            <option value="" key="">
+              All
+            </option>
+            {eventStatusOptions.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </td>
       {events && events.length !== 0 && (
         <Table>
           <thead>
-            <tr>
-              <td colSpan={5} className={styles.eventStatusCell}>
-                <label htmlFor="event_status">Event Status</label>
-                <select
-                  name="event_status"
-                  value={eventStatus}
-                  onChange={(event) =>
-                    setEventStatus(event.target.value as TEventStatus)
-                  }
-                >
-                  <option value="" key="">
-                    All
-                  </option>
-                  {eventStatusOptions.map((option) => (
-                    <option value={option.value} key={option.value}>
-                      {option.name}
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-
             <tr>
               <th>Id</th>
               <th>Event Date</th>
@@ -104,10 +104,18 @@ const AdminEventsTable = () => {
                   <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
                   <td>{eventStatusDisplayName[event.event_status]}</td>
                   <td>
-                    <Link to={`/events/${event.id}/slots`}>View</Link>
+                    <Link
+                      className={styles.viewButton}
+                      to={`/events/${event.id}/slots`}
+                    >
+                      View
+                    </Link>
                   </td>
                   <td>
-                    <button onClick={() => setDeleteEventModalData(event)}>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => setDeleteEventModalData(event)}
+                    >
                       Delete
                     </button>
                   </td>

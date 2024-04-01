@@ -27,7 +27,7 @@
 }
 
 .table tr {
-  color: gray;
+  color: #4c4c4c;
   line-height: 1.2;
   background-color: white;
 }
@@ -37,7 +37,8 @@
 }
 
 .table tbody tr:hover {
-  color: #555;
+  color: black;
+  font-weight: 500;
 }
 
 .table :where(table, th, td) {

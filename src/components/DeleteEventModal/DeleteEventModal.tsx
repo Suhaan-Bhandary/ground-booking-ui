@@ -4,6 +4,7 @@ import { useDeleteEventMutation } from "../../app/features/eventsApi";
 import { isApiErrorMessage } from "../../helpers/api";
 import { IEvent } from "../../types/event";
 import Modal from "../Modal/Modal";
+import styles from "./DeleteEventModal.module.css";
 
 type DeleteEventProps = {
   event: IEvent;
@@ -32,14 +33,15 @@ const DeleteEventModal = ({ event, closeModalCallback }: DeleteEventProps) => {
   };
 
   return (
-    <Modal>
+    <Modal isDarkMode={false}>
       <h1>Delete Event</h1>
       <p>
         Delete the event on {event.date} with status {event.event_status}
       </p>
-      <div>
+      <div className={styles.buttons}>
         <button
           type="button"
+          className={`${styles.button} ${styles.closeButton}`}
           onClick={closeModalCallback}
           disabled={deleteEventResult.isLoading}
         >
@@ -47,6 +49,7 @@ const DeleteEventModal = ({ event, closeModalCallback }: DeleteEventProps) => {
         </button>
         <button
           type="button"
+          className={`${styles.button} ${styles.deleteButton}`}
           onClick={handleEventDelete}
           disabled={deleteEventResult.isLoading}
         >

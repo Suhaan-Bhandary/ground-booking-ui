@@ -15,6 +15,40 @@
   padding-left: 0.5rem;
 }
 
-.eventStatusCell select {
+.inputField {
+  display: block;
+  margin-block: 0.25rem;
+}
+
+.inputField label {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.inputField select {
   cursor: pointer;
+
+  position: relative;
+  height: 40px;
+  width: 10rem;
+
+  outline-color: transparent;
+  font-size: 1rem;
+  color: #707070;
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+.viewButton {
+  background-color: rgb(var(--admin-accent-color), 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.deleteButton {
+  background-color: rgb(250, 0, 0, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
 }
