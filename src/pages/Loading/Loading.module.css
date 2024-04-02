@@ -1,0 +1,9 @@
+.Loading {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
