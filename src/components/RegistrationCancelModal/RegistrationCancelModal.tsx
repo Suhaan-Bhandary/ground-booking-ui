@@ -38,7 +38,11 @@ const RegistrationCancelModal = ({
 
   return (
     <Modal>
-      <h1>Cancel Registration for slot {registration.slot_id}</h1>
+      <h1>Cancel Registration</h1>
+      <p>
+        Are you sure you want to cancel registration for slot{" "}
+        {registration.slot_id}?
+      </p>
       <div className={styles.buttons}>
         <button
           type="button"

@@ -20,7 +20,7 @@ const PaymentDetailModal = ({
   });
 
   return (
-    <Modal>
+    <Modal isDarkMode={true}>
       <h1>Payment Detail</h1>
       <div className={styles.detail}>
         <p>Slot: {registration.slot_id}</p>
