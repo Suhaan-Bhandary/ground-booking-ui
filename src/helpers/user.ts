@@ -8,8 +8,13 @@ export const userRegisterInitialValues = {
 };
 
 export const userRegisterSchema = Yup.object({
-  user_name: Yup.string().required("Username is required"),
-  mobile_no: Yup.string().required("Mobile is required"),
+  user_name: Yup.string()
+    .required("Username is required")
+    .matches(/[a-zA-Z]/, "Username should only contain letters"),
+  mobile_no: Yup.string()
+    .required("Mobile is required")
+    .matches(/[0-9]/, "Mobile should only contain digits")
+    .min(10, "Mobile number should contain 10 digits"),
   password: Yup.string().required("Password is required"),
   confirmPassword: Yup.string()
     .when("password", {
