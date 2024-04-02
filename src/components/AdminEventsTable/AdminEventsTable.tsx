@@ -62,28 +62,26 @@ const AdminEventsTable = () => {
 
   return (
     <div className={styles.AdminEventsTable}>
-      <td colSpan={5} className={styles.eventStatusCell}>
-        <div className={styles.inputField}>
-          <label htmlFor="event_status">Event Status</label>
-          <select
-            name="event_status"
-            className={styles.inputField}
-            value={eventStatus}
-            onChange={(event) =>
-              setEventStatus(event.target.value as TEventStatus)
-            }
-          >
-            <option value="" key="">
-              All
+      <div className={styles.inputField}>
+        <label htmlFor="event_status">Event Status</label>
+        <select
+          name="event_status"
+          className={styles.inputField}
+          value={eventStatus}
+          onChange={(event) =>
+            setEventStatus(event.target.value as TEventStatus)
+          }
+        >
+          <option value="" key="">
+            All
+          </option>
+          {eventStatusOptions.map((option) => (
+            <option value={option.value} key={option.value}>
+              {option.name}
             </option>
-            {eventStatusOptions.map((option) => (
-              <option value={option.value} key={option.value}>
-                {option.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </td>
+          ))}
+        </select>
+      </div>
 
       <div className={styles.tableWrapper}>
         {events && events.length !== 0 && (
