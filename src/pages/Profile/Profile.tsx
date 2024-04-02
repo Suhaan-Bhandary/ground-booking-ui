@@ -169,7 +169,7 @@ const Profile = () => {
         {isFetchingNextPage && (
           <p className="text-center">Fetching user registrations...</p>
         )}
-        {!isError && !registrations?.length && (
+        {!isLoading && !isError && !registrations?.length && (
           <p className="text-center">No user registrations found!!</p>
         )}
       </div>
