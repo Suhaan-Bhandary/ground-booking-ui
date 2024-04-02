@@ -20,7 +20,7 @@ const Home = () => {
               </Link>
             </div>
             <div className={styles.bannerImage}>
-              <img src={sportsImage} alt="sports" />
+              <img src={sportsImage} alt="sports" width="432" height="432" />
             </div>
           </div>
         </section>

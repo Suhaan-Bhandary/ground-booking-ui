@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../constants/app";
+import { getUserAuthToken } from "../../helpers/authToken";
 import {
   IUserLoginRawResponse,
   IUserLoginRequest,
@@ -7,6 +8,7 @@ import {
   IUserRegisterRawResponse,
   IUserRegisterRequest,
   IUserRegisterResponse,
+  IUserStatusResponse,
   TUserRole,
 } from "../../types/user";
 
@@ -61,7 +63,19 @@ export const userApi = createApi({
         };
       },
     }),
+
+    getUser: builder.query<IUserStatusResponse, void>({
+      query: () => ({
+        url: "/current_user",
+        method: "GET",
+        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation } = userApi;
+export const {
+  useRegisterUserMutation,
+  useLoginUserMutation,
+  useGetUserQuery,
+} = userApi;

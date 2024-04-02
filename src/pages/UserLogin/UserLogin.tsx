@@ -37,7 +37,10 @@ const UserLogin = () => {
           const payload = await loginUser(responseBody).unwrap();
 
           toast.success("User Login successfully");
-          setLocalStorage<IUserLocalStorage>(USER_LOALSTORAGE_KEY, payload);
+          setLocalStorage<IUserLocalStorage>(USER_LOALSTORAGE_KEY, {
+            token: payload.token,
+          });
+
           dispatch(userActions.setUser(payload.user));
 
           // Navigating to Home Page

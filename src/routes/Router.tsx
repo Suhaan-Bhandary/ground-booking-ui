@@ -16,9 +16,14 @@ import NotLoggedInRoutes from "./conditionalRoutes/NotLoggedInRoutes";
 import UserRoutes from "./conditionalRoutes/UserRoutes";
 import AdminLayout from "./layouts/AdminLayout";
 import DefaultLayout from "./layouts/DefaultLayout";
+import Loading from "../pages/Loading/Loading";
 
 const Router = () => {
-  const userData = useUserLoginStatus();
+  const { userData, isLoading } = useUserLoginStatus();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (userData?.role === ADMIN_ROLE) {
     return (

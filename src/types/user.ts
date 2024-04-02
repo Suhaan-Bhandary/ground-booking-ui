@@ -12,7 +12,6 @@ export interface IUserReduxSlice {
 }
 
 export interface IUserLocalStorage {
-  user: IUser;
   token: string;
 }
 
@@ -63,6 +62,15 @@ export interface IUserLoginRawResponse {
 export interface IUserLoginResponse {
   user: IUser;
   token: string;
+}
+
+export interface IUserStatusResponse {
+  isLoggedin: boolean;
+  user: {
+    user_name: string;
+    mobile_no: string;
+    access_role: string;
+  } | null;
 }
 
 export interface IUserPaginatedResponse {
