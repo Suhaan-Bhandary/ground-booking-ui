@@ -22,16 +22,20 @@ const PaymentDetailModal = ({
   return (
     <Modal isDarkMode={true}>
       <h1>Payment Detail</h1>
-      <div className={styles.detail}>
-        <p>Slot: {registration.slot_id}</p>
-        <p>Amount: {data?.amount}</p>
-        <p>
-          Payment made on:{" "}
-          {Moment(registration.created_at).format("DD/MM/YYYY")}
-        </p>
-      </div>
 
-      {isLoading && <p className="text-center">Loading...</p>}
+      {isLoading ? (
+        <p className="text-center">Loading...</p>
+      ) : (
+        <div className={styles.detail}>
+          <p>Slot: {registration.slot_id}</p>
+          <p>Amount: {data?.amount}</p>
+          <p>
+            Payment made on:{" "}
+            {Moment(registration.created_at).format("DD/MM/YYYY")}
+          </p>
+        </div>
+      )}
+
       {isError && (
         <p className="text-center">Error fetching registration Details</p>
       )}
