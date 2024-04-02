@@ -69,8 +69,8 @@ const UserRegister = () => {
               <input
                 type="text"
                 name="user_name"
-                placeholder="username"
-                autoComplete="username"
+                placeholder="Username"
+                autoComplete="off"
                 value={values.user_name}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -87,7 +87,8 @@ const UserRegister = () => {
               <input
                 type="tel"
                 name="mobile_no"
-                autoComplete="mobile tel"
+                placeholder="Mobile"
+                autoComplete="off"
                 value={values.mobile_no}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -105,7 +106,7 @@ const UserRegister = () => {
                 type="password"
                 name="password"
                 placeholder="*****"
-                autoComplete="off"
+                autoComplete="new-password"
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -126,7 +127,7 @@ const UserRegister = () => {
                 type="password"
                 name="confirmPassword"
                 placeholder="*****"
-                autoComplete="off"
+                autoComplete="new-password"
                 value={values.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
