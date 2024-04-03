@@ -16,6 +16,9 @@ const Events = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
   const { ref, inView } = useInView({ threshold: 0 });
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
   const {
     data,
     isLoading,
@@ -24,8 +27,9 @@ const Events = () => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["events", eventStatus],
-    queryFn: ({ pageParam }) => fetchEvents({ page: pageParam, eventStatus }),
+    queryKey: ["events", eventStatus, startDate, endDate],
+    queryFn: ({ pageParam }) =>
+      fetchEvents({ page: pageParam, eventStatus, startDate, endDate }),
 
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
@@ -51,24 +55,49 @@ const Events = () => {
     <div className={`container ${styles.EventsContainer}`}>
       <h1>Events</h1>
       <div>
-        <div>
-          <select
-            aria-label="event status"
-            name="event_status"
-            value={eventStatus}
-            onChange={(event) =>
-              setEventStatus(event.target.value as TEventStatus)
-            }
-          >
-            <option value="" key="">
-              All
-            </option>
-            {eventStatusOptions.map((option) => (
-              <option value={option.value} key={option.value}>
-                {option.name}
+        <div className={styles.filterContainer}>
+          <div>
+            <select
+              aria-label="event status"
+              name="event_status"
+              value={eventStatus}
+              onChange={(event) =>
+                setEventStatus(event.target.value as TEventStatus)
+              }
+            >
+              <option value="" key="">
+                All
               </option>
-            ))}
-          </select>
+              {eventStatusOptions.map((option) => (
+                <option value={option.value} key={option.value}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.dateContainer}>
+            <div>
+              <label htmlFor="start_date">From</label>
+              <input
+                aria-label="Start Date"
+                type="date"
+                name="start_date"
+                value={startDate}
+                onChange={(event) => setStartDate(event.target.value)}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="end_date">To</label>
+              <input
+                aria-label="Start Date"
+                type="date"
+                name="end_date"
+                value={endDate}
+                onChange={(event) => setEndDate(event.target.value)}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

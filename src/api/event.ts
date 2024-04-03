@@ -6,12 +6,23 @@ import {
   IUserRegistrationPaginatedResponse,
 } from "../types/event";
 
-export const fetchEvents = async ({ page = 1, eventStatus = "" }) => {
+export const fetchEvents = async ({
+  page = 1,
+  eventStatus = "",
+  startDate = "",
+  endDate = "",
+}) => {
   const url = new URL(`${API_BASE_URL}/events`);
 
   url.searchParams.set("page", String(page));
   if (eventStatus) {
     url.searchParams.set("event_status", eventStatus);
+  }
+  if (startDate) {
+    url.searchParams.set("start_date", startDate);
+  }
+  if (endDate) {
+    url.searchParams.set("end_date", endDate);
   }
 
   const response = await fetch(url);
