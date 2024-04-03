@@ -15,17 +15,31 @@
   padding-left: 0.5rem;
 }
 
+.filterContainer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.dateContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .inputField {
   display: block;
   margin-block: 0.25rem;
 }
 
 .inputField label {
+  display: block;
   font-size: 1.1rem;
   margin-bottom: 0.25rem;
 }
 
-.inputField select {
+.inputField :where(select, input) {
   cursor: pointer;
 
   position: relative;
@@ -39,6 +53,10 @@
   background-color: white;
   border-radius: 6px;
   padding: 0 15px;
+}
+
+.tableWrapper {
+  overflow: auto;
 }
 
 .actions {
@@ -60,4 +78,14 @@
   cursor: pointer;
   font-size: 2.5rem;
   fill: rgb(250, 0, 0, 0.8);
+}
+
+@media (min-width: 700px) {
+  .filterContainer {
+    gap: 1rem;
+  }
+
+  .dateContainer {
+    gap: 1rem;
+  }
 }

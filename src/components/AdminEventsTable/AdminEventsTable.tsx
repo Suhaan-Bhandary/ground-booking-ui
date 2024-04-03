@@ -16,6 +16,8 @@ import Table from "../Table/Table";
 import styles from "./AdminEventsTable.module.css";
 
 const AdminEventsTable = () => {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
 
   const [deleteEventModalData, setDeleteEventModalData] =
@@ -33,8 +35,9 @@ const AdminEventsTable = () => {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["events", eventStatus],
-    queryFn: ({ pageParam }) => fetchEvents({ page: pageParam, eventStatus }),
+    queryKey: ["events", eventStatus, startDate, endDate],
+    queryFn: ({ pageParam }) =>
+      fetchEvents({ page: pageParam, eventStatus, startDate, endDate }),
 
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
@@ -62,25 +65,51 @@ const AdminEventsTable = () => {
 
   return (
     <div className={styles.AdminEventsTable}>
-      <div className={styles.inputField}>
-        <label htmlFor="event_status">Event Status</label>
-        <select
-          name="event_status"
-          className={styles.inputField}
-          value={eventStatus}
-          onChange={(event) =>
-            setEventStatus(event.target.value as TEventStatus)
-          }
-        >
-          <option value="" key="">
-            All
-          </option>
-          {eventStatusOptions.map((option) => (
-            <option value={option.value} key={option.value}>
-              {option.name}
+      <div className={styles.filterContainer}>
+        <div className={styles.inputField}>
+          <label htmlFor="event_status">Event Status</label>
+          <select
+            name="event_status"
+            className={styles.inputField}
+            value={eventStatus}
+            onChange={(event) =>
+              setEventStatus(event.target.value as TEventStatus)
+            }
+          >
+            <option value="" key="">
+              All
             </option>
-          ))}
-        </select>
+            {eventStatusOptions.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className={styles.dateContainer}>
+          <div className={styles.inputField}>
+            <label htmlFor="start_date">From</label>
+            <input
+              aria-label="Start Date"
+              type="date"
+              name="start_date"
+              value={startDate}
+              onChange={(event) => setStartDate(event.target.value)}
+            />
+          </div>
+
+          <div className={styles.inputField}>
+            <label htmlFor="end_date">To</label>
+            <input
+              aria-label="Start Date"
+              type="date"
+              name="end_date"
+              value={endDate}
+              onChange={(event) => setEndDate(event.target.value)}
+            />
+          </div>
+        </div>
       </div>
 
       <div className={styles.tableWrapper}>
