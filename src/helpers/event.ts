@@ -17,7 +17,7 @@ export const eventStatusOptions = [
 
 export const eventStatusDisplayName = {
   AVAILABLE: "Available",
-  IN_PROGRESS: "In Progress",
+  IN_PROGRESS: "Slots Filling Fast",
   BOOKED: "Booked",
 };
 

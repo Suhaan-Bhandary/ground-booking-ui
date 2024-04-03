@@ -122,7 +122,7 @@ const Events = () => {
               <p>Date: {Moment(event.date).format("DD/MM/YYYY")}</p>
               <p>Event {Moment(event.date).fromNow()}</p>
               <p>Status: {eventStatusDisplayName[event.event_status]}</p>
-              {event.event_status === "AVAILABLE" && (
+              {event.event_status !== "BOOKED" && (
                 <Link
                   to={`/events/${event.id}/slots`}
                   className={styles.viewSlots}

@@ -53,6 +53,8 @@
 }
 
 .EventsContainer :where(select, input) {
+  color-scheme: dark;
+
   position: relative;
   display: block;
 
