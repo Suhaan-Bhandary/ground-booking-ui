@@ -1,10 +1,8 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { fetchSlots } from "../../api/slot";
 import { slotStatusDisplayName } from "../../helpers/slot";
 import { useAppSelector } from "../../hooks/redux";
+import useInfiniteQuerySlots from "../../hooks/useInfiniteQuerySlots";
 import { ISlot } from "../../types/event";
 import styles from "./Slots.module.css";
 import RegisterSlotModal from "./components/RegisterSlotModal/RegisterSlotModal";
@@ -12,40 +10,13 @@ import SlotsSkeletonLoader from "./components/SlotsSkeletonLoader/SlotsSkeletonL
 
 const Slots = () => {
   const { eventId } = useParams();
-  const { ref, inView } = useInView({ threshold: 0 });
-
   const userRole = useAppSelector((state) => state.userState.user?.role);
 
   const [slotSelectedForRegisteration, setSlotSelectedForRegisteration] =
     useState<ISlot | null>(null);
 
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["slots"],
-    queryFn: ({ pageParam }) =>
-      fetchSlots({ page: pageParam, event_id: Number(eventId) }),
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
-  });
-
-  // Making the data flat
-  const slots = data?.pages.flatMap((page) => page.slots);
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
+  const { slots, isLoading, isError, isFetchingNextPage, ref } =
+    useInfiniteQuerySlots({ eventId: Number(eventId) });
 
   if (!isLoading && !isError && !slots?.length) {
     return <div className="text-center">No slots found!!</div>;
@@ -90,7 +61,7 @@ const Slots = () => {
           );
         })}
 
-        {isLoading ? <SlotsSkeletonLoader eventCount={6} /> : null}
+        {isLoading ? <SlotsSkeletonLoader slotCount={6} /> : null}
 
         {isError && <p className="text-center">Error loading slots</p>}
         {isFetchingNextPage && <p className="text-center">Fetching slots...</p>}

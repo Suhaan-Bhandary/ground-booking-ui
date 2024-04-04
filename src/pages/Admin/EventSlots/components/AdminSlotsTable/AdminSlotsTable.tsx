@@ -1,15 +1,13 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CiSquareRemove } from "react-icons/ci";
 import { IoListOutline } from "react-icons/io5";
-import { useInView } from "react-intersection-observer";
 import { Link, useParams } from "react-router-dom";
-import styles from "./AdminSlotsTable.module.css";
-import { fetchSlots } from "../../../../../api/slot";
 import Table from "../../../../../components/Table/Table";
-import DeleteSlotModal from "../DeleteSlotModal/DeleteSlotModal";
 import { slotStatusDisplayName } from "../../../../../helpers/slot";
 import { ISlot } from "../../../../../types/event";
+import DeleteSlotModal from "../DeleteSlotModal/DeleteSlotModal";
+import styles from "./AdminSlotsTable.module.css";
+import useInfiniteQuerySlots from "../../../../../hooks/useInfiniteQuerySlots";
 
 const AdminSlotsTable = () => {
   const { eventId } = useParams();
@@ -18,49 +16,8 @@ const AdminSlotsTable = () => {
     null,
   );
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
-
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["slots", eventId],
-    queryFn: ({ pageParam }) => {
-      return fetchSlots({
-        page: pageParam,
-        event_id: Number(eventId),
-      });
-    },
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
-  });
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
-
-  if (isLoading) {
-    return <div className="text-center">Loading...</div>;
-  }
-
-  // Making the data flat
-  const slots = data?.pages.flatMap((page) => page.slots);
-
-  if (!isError && !slots?.length) {
-    return <div className="text-center">No slots found!!</div>;
-  }
+  const { slots, isLoading, isError, isFetchingNextPage, ref } =
+    useInfiniteQuerySlots({ eventId: Number(eventId) });
 
   return (
     <div className={styles.AdminSlotsTable}>
@@ -104,6 +61,10 @@ const AdminSlotsTable = () => {
         </Table>
       )}
 
+      {isLoading ? <div className="text-center">Loading...</div> : null}
+      {!isLoading && !isError && !slots?.length ? (
+        <div className="text-center">No slots found!!</div>
+      ) : null}
       {isError && <p className="text-center">Error loading slots</p>}
       {isFetchingNextPage && <p className="text-center">Fetching slots...</p>}
 
