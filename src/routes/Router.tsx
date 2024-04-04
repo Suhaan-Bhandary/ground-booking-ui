@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import { ADMIN_ROLE } from "../constants/user";
 import useUserLoginStatus from "../hooks/useUserLoginStatus";
+import AdminNotFound from "../pages/Admin/AdminNotFound/AdminNotFound";
 import AdminEventSlots from "../pages/Admin/EventSlots/EventSlots";
 import AdminEvents from "../pages/Admin/Events/Events";
 import Registrations from "../pages/Admin/Registrations/Registrations";
 import Users from "../pages/Admin/Users/Users";
 import Events from "../pages/Events/Events";
 import Home from "../pages/Home/Home";
+import Loading from "../pages/Loading/Loading";
 import NotFound from "../pages/NotFound/NotFound";
 import Profile from "../pages/Profile/Profile";
 import Slots from "../pages/Slots/Slots";
@@ -16,7 +18,6 @@ import NotLoggedInRoutes from "./conditionalRoutes/NotLoggedInRoutes";
 import UserRoutes from "./conditionalRoutes/UserRoutes";
 import AdminLayout from "./layouts/AdminLayout";
 import DefaultLayout from "./layouts/DefaultLayout";
-import Loading from "../pages/Loading/Loading";
 
 const Router = () => {
   const { userData, isLoading } = useUserLoginStatus();
@@ -35,6 +36,7 @@ const Router = () => {
           <Route path="events/:eventId/slots" Component={AdminEventSlots} />
           <Route path="registrations" Component={Registrations} />
           <Route path="users" Component={Users} />
+          <Route path="*" Component={AdminNotFound} />
         </Route>
       </Routes>
     );

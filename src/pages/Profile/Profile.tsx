@@ -7,12 +7,12 @@ import { fetchUserRegisterations } from "../../api/event";
 import PaymentDetailModal from "../../components/PaymentDetailModal/PaymentDetailModal";
 import PaymentModal from "../../components/PaymentModal/PaymentModal";
 import RegistrationCancelModal from "../../components/RegistrationCancelModal/RegistrationCancelModal";
+import DarkTableRowSkeletonLoader from "../../components/SkeletonLoaders/DarkTableRowSkeletonLoader/DarkTableRowSkeletonLoader";
 import Table from "../../components/Table/Table";
 import { registrationStatusDisplayName } from "../../helpers/event";
 import { useAppSelector } from "../../hooks/redux";
 import { IRegistration } from "../../types/event";
 import styles from "./Profile.module.css";
-import DarkTableRowSkeletonLoader from "../../components/SkeletonLoaders/DarkTableRowSkeletonLoader/DarkTableRowSkeletonLoader";
 
 const Profile = () => {
   const user = useAppSelector((state) => state.userState.user);
