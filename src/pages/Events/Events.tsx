@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../api/event";
+import EventsSkeletonLoader from "../../components/SkeletonLoaders/EventsSkeletonLoader/EventsSkeletonLoader";
 import {
   eventStatusDisplayName,
   eventStatusOptions,
 } from "../../helpers/event";
 import { TEventStatus } from "../../types/event";
 import styles from "./Events.module.css";
-import EventsSkeletonLoader from "../../components/SkeletonLoaders/EventsSkeletonLoader/EventsSkeletonLoader";
+import toast from "react-hot-toast";
 
 const Events = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
@@ -47,9 +48,25 @@ const Events = () => {
   // Making the data flat
   const events = data?.pages.flatMap((page) => page.events);
 
-  if (!isLoading && !isError && !events?.length) {
-    return <div>No events found!!</div>;
-  }
+  const handleStartDateChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (endDate && new Date(event.target.value) > new Date(endDate)) {
+      toast.error("Start Date cannot be greater than end date");
+      return;
+    }
+
+    setStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (startDate && new Date(startDate) > new Date(event.target.value)) {
+      toast.error("End date cannot be less than start date");
+      return;
+    }
+
+    setEndDate(event.target.value);
+  };
 
   return (
     <div className={`container ${styles.EventsContainer}`}>
@@ -83,7 +100,7 @@ const Events = () => {
                 type="date"
                 name="start_date"
                 value={startDate}
-                onChange={(event) => setStartDate(event.target.value)}
+                onChange={handleStartDateChange}
               />
             </div>
 
@@ -94,7 +111,7 @@ const Events = () => {
                 type="date"
                 name="end_date"
                 value={endDate}
-                onChange={(event) => setEndDate(event.target.value)}
+                onChange={handleEndDateChange}
               />
             </div>
           </div>
@@ -145,6 +162,10 @@ const Events = () => {
             <EventsSkeletonLoader />
           </>
         ) : null}
+
+        {!isLoading && !isError && !events?.length && (
+          <p className="text-center">No events Found</p>
+        )}
 
         {isError && <p className="text-center">Error loading events</p>}
         {isFetchingNextPage && (

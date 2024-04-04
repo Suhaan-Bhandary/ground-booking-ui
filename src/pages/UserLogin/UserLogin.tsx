@@ -1,18 +1,18 @@
 import { useFormik } from "formik";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { BiEnvelope, BiLockAlt } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { BiEnvelope, BiLockAlt } from "react-icons/bi";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
-import { isApiDataError, isApiResponse } from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
 import { IUserLocalStorage, IUserLoginRequest } from "../../types/user";
 import styles from "./UserLogin.module.css";
-import { useState } from "react";
 
 const UserLogin = () => {
   const navigate = useNavigate();
@@ -46,12 +46,9 @@ const UserLogin = () => {
           // Navigating to Home Page
           navigate("/");
         } catch (error) {
-          console.error("Rejected:", error);
-          if (isApiDataError(error)) {
-            toast.error(error.data.error);
-          } else {
-            toast.error("Something went wrong");
-          }
+          console.error("User Login:", error);
+          const errors = getErrorFromApiResponse(error);
+          errors.forEach((errMessage) => toast.error(errMessage));
         }
       },
     });

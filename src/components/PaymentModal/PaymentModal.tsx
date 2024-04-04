@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { usePaymentMutation } from "../../app/features/registrationApi";
-import { isApiErrorMessage } from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import { IRegistration } from "../../types/event";
 import Modal from "../Modal/Modal";
 import styles from "./PaymentModal.module.css";
@@ -32,12 +32,9 @@ const PaymentModal = ({
 
       closeModalCallback();
     } catch (error) {
-      console.error("Rejected:", error);
-      if (isApiErrorMessage(error)) {
-        toast.error(error.data.message);
-      } else {
-        toast.error("Something went wrong");
-      }
+      console.error("Payment Slot:", error);
+      const errors = getErrorFromApiResponse(error);
+      errors.forEach((errMessage) => toast.error(errMessage));
     }
   };
 

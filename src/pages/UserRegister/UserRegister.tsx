@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
-import { isApiResponse } from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import {
-  userRegisterInitialValues,
-  userRegisterSchema,
+    userRegisterInitialValues,
+    userRegisterSchema,
 } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
 import { IUserLocalStorage, IUserRegisterRequest } from "../../types/user";
@@ -42,14 +42,9 @@ const UserRegister = () => {
           // Navigating to Home Page
           navigate("/");
         } catch (error) {
-          console.error("Rejected:", error);
-          if (isApiResponse(error)) {
-            error.data.errors.forEach((errMessage) => {
-              toast.error(errMessage);
-            });
-          } else {
-            toast.error("Something went wrong");
-          }
+          console.error("User Register:", error);
+          const errors = getErrorFromApiResponse(error);
+          errors.forEach((errMessage) => toast.error(errMessage));
         }
       },
     });

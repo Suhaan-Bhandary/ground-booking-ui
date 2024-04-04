@@ -14,6 +14,7 @@ import { IEvent, TEventStatus } from "../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
 import Table from "../Table/Table";
 import styles from "./AdminEventsTable.module.css";
+import toast from "react-hot-toast";
 
 const AdminEventsTable = () => {
   const [startDate, setStartDate] = useState("");
@@ -59,9 +60,25 @@ const AdminEventsTable = () => {
   // Making the data flat
   const events = data?.pages.flatMap((page) => page.events);
 
-  if (!isError && !events?.length) {
-    return <div className="text-center">No events found!!</div>;
-  }
+  const handleStartDateChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (endDate && new Date(event.target.value) > new Date(endDate)) {
+      toast.error("Start Date cannot be greater than end date");
+      return;
+    }
+
+    setStartDate(event.target.value);
+  };
+
+  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (startDate && new Date(startDate) > new Date(event.target.value)) {
+      toast.error("End date cannot be less than start date");
+      return;
+    }
+
+    setEndDate(event.target.value);
+  };
 
   return (
     <div className={styles.AdminEventsTable}>
@@ -95,7 +112,7 @@ const AdminEventsTable = () => {
               type="date"
               name="start_date"
               value={startDate}
-              onChange={(event) => setStartDate(event.target.value)}
+              onChange={handleStartDateChange}
             />
           </div>
 
@@ -106,7 +123,7 @@ const AdminEventsTable = () => {
               type="date"
               name="end_date"
               value={endDate}
-              onChange={(event) => setEndDate(event.target.value)}
+              onChange={handleEndDateChange}
             />
           </div>
         </div>
@@ -155,6 +172,9 @@ const AdminEventsTable = () => {
         )}
       </div>
 
+      {!isError && !events?.length ? (
+        <div className="text-center">No events found!!</div>
+      ) : null}
       {isError && <p className="text-center">Error loading events</p>}
       {isFetchingNextPage && <p className="text-center">Fetching events...</p>}
 

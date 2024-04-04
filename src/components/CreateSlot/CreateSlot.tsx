@@ -4,11 +4,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { useCreateSlotMutation } from "../../app/features/eventsApi";
-import {
-  isApiDataError,
-  isApiErrorMessage,
-  isApiResponse,
-} from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import {
   createSlotInitialValues,
   createSlotSchema,
@@ -48,18 +44,9 @@ const CreateSlot = () => {
           toast.success("Slot Created successfully");
           queryClient.invalidateQueries({ queryKey: ["slots"] });
         } catch (error) {
-          console.error("Rejected:", error);
-          if (isApiResponse(error)) {
-            error.data.errors.forEach((errMessage) => {
-              toast.error(errMessage);
-            });
-          } else if (isApiErrorMessage(error)) {
-            toast.error(error.data.message);
-          } else if (isApiDataError(error)) {
-            toast.error(error.data.error);
-          } else {
-            toast.error("Something went wrong");
-          }
+          console.error("Create Slot:", error);
+          const errors = getErrorFromApiResponse(error);
+          errors.forEach((errMessage) => toast.error(errMessage));
         }
       },
     });

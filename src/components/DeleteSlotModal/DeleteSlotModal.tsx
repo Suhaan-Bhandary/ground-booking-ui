@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDeleteSlotMutation } from "../../app/features/eventsApi";
-import { isApiErrorMessage } from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import { ISlot } from "../../types/event";
 import Modal from "../Modal/Modal";
 import styles from "./DeleteSlotModal.module.css";
@@ -27,12 +27,9 @@ const DeleteSlotModal = ({ slot, closeModalCallback }: DeleteSlotProps) => {
 
       closeModalCallback();
     } catch (error) {
-      console.error("Rejected:", error);
-      if (isApiErrorMessage(error)) {
-        toast.error(error.data.message);
-      } else {
-        toast.error("Something went wrong");
-      }
+      console.error("Delete Slot:", error);
+      const errors = getErrorFromApiResponse(error);
+      errors.forEach((errMessage) => toast.error(errMessage));
     }
   };
 

@@ -1,9 +1,21 @@
-export interface ApiErrorResponse {
-  status: number;
-  data: { errors: [] };
+export function getErrorFromApiResponse(error: unknown): string[] {
+  if (isErrorArray(error)) {
+    return error.data.errors;
+  } else if (isErrorInMessage(error)) {
+    return [error.data.message];
+  } else if (isErrorInError(error)) {
+    return [error.data.error];
+  }
+
+  return ["Something went wrong"];
 }
 
-export function isApiResponse(error: unknown): error is ApiErrorResponse {
+interface ApiErrorResponse {
+  status: number;
+  data: { errors: string[] };
+}
+
+function isErrorArray(error: unknown): error is ApiErrorResponse {
   return (
     typeof error === "object" &&
     error != null &&
@@ -17,14 +29,12 @@ export function isApiResponse(error: unknown): error is ApiErrorResponse {
   );
 }
 
-export interface ApiErrorMessageResponse {
+interface ApiErrorMessageResponse {
   status: number;
   data: { message: string };
 }
 
-export function isApiErrorMessage(
-  error: unknown,
-): error is ApiErrorMessageResponse {
+function isErrorInMessage(error: unknown): error is ApiErrorMessageResponse {
   return (
     typeof error === "object" &&
     error != null &&
@@ -38,12 +48,12 @@ export function isApiErrorMessage(
   );
 }
 
-export interface ApiDataErrorResponse {
+interface ApiDataErrorResponse {
   status: number;
   data: { error: string };
 }
 
-export function isApiDataError(error: unknown): error is ApiDataErrorResponse {
+function isErrorInError(error: unknown): error is ApiDataErrorResponse {
   return (
     typeof error === "object" &&
     error != null &&

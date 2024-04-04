@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDeleteEventMutation } from "../../app/features/eventsApi";
-import { isApiErrorMessage } from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import { IEvent } from "../../types/event";
 import Modal from "../Modal/Modal";
 import styles from "./DeleteEventModal.module.css";
@@ -23,12 +23,9 @@ const DeleteEventModal = ({ event, closeModalCallback }: DeleteEventProps) => {
 
       closeModalCallback();
     } catch (error) {
-      console.error("Rejected:", error);
-      if (isApiErrorMessage(error)) {
-        toast.error(error.data.message);
-      } else {
-        toast.error("Something went wrong");
-      }
+      console.error("Delete Event:", error);
+      const errors = getErrorFromApiResponse(error);
+      errors.forEach((errMessage) => toast.error(errMessage));
     }
   };
 

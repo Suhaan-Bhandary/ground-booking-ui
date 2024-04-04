@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDeleteRegistrationMutation } from "../../app/features/registrationApi";
-import { isApiErrorMessage } from "../../helpers/api";
+import { getErrorFromApiResponse, isErrorInMessage } from "../../helpers/api";
 import { IRegistration } from "../../types/event";
 import Modal from "../Modal/Modal";
 import styles from "./RegistrationCancelModal.module.css";
@@ -27,12 +27,9 @@ const RegistrationCancelModal = ({
       queryClient.invalidateQueries({ queryKey: ["profile-registerations"] });
       closeModalCallback();
     } catch (error) {
-      console.error("Rejected:", error);
-      if (isApiErrorMessage(error)) {
-        toast.error(error.data.message);
-      } else {
-        toast.error("Something went wrong");
-      }
+      console.error("Registration Cancel:", error);
+      const errors = getErrorFromApiResponse(error);
+      errors.forEach((errMessage) => toast.error(errMessage));
     }
   };
 

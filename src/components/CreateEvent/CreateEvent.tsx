@@ -4,7 +4,7 @@ import Moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useCreateEventMutation } from "../../app/features/eventsApi";
-import { isApiErrorMessage, isApiResponse } from "../../helpers/api";
+import { getErrorFromApiResponse } from "../../helpers/api";
 import {
   createEventInitialValues,
   createEventSchema,
@@ -35,16 +35,9 @@ const CreateEvent = () => {
           toast.success("Event Created successfully");
           queryClient.invalidateQueries({ queryKey: ["events"] });
         } catch (error) {
-          console.error("Rejected:", error);
-          if (isApiResponse(error)) {
-            error.data.errors.forEach((errMessage) => {
-              toast.error(errMessage);
-            });
-          } else if (isApiErrorMessage(error)) {
-            toast.error(error.data.message);
-          } else {
-            toast.error("Something went wrong");
-          }
+          console.error("Create Event:", error);
+          const errors = getErrorFromApiResponse(error);
+          errors.forEach((errMessage) => toast.error(errMessage));
         }
       },
     });

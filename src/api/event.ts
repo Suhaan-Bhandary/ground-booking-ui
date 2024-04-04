@@ -28,7 +28,15 @@ export const fetchEvents = async ({
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw Error("Something went wrong");
+    if (response.status !== 404) {
+      throw Error("Something went wrong");
+    }
+
+    return {
+      events: [],
+      total_pages: 1,
+      total_records: 0,
+    } as IEventPaginatedResponse;
   }
 
   return response.json() as Promise<IEventPaginatedResponse>;
