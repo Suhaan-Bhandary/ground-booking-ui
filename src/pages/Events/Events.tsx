@@ -1,52 +1,32 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Moment from "moment";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { fetchEvents } from "../../api/event";
 import {
   eventStatusDisplayName,
   eventStatusOptions,
 } from "../../helpers/event";
+import useInfiniteQueryEvents from "../../hooks/useInfiniteQueryEvents";
 import { TEventStatus } from "../../types/event";
 import styles from "./Events.module.css";
-import toast from "react-hot-toast";
 import EventsSkeletonLoader from "./components/EventsSkeletonLoader/EventsSkeletonLoader";
 
 const Events = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");
-  const { ref, inView } = useInView({ threshold: 0 });
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const {
-    data,
+    events,
     isLoading,
     isError,
     isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["events", eventStatus, startDate, endDate],
-    queryFn: ({ pageParam }) =>
-      fetchEvents({ page: pageParam, eventStatus, startDate, endDate }),
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
+    ref: eventsRef,
+  } = useInfiniteQueryEvents({
+    eventStatus,
+    startDate,
+    endDate,
   });
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
-
-  // Making the data flat
-  const events = data?.pages.flatMap((page) => page.events);
 
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -129,7 +109,7 @@ const Events = () => {
           }
 
           // Conditionally adding ref
-          const refProp = index === events.length - 1 ? { ref: ref } : {};
+          const refProp = index === events.length - 1 ? { ref: eventsRef } : {};
           return (
             <div
               key={event.id}

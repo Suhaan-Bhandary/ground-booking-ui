@@ -1,20 +1,18 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Moment from "moment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { CiSquareRemove } from "react-icons/ci";
 import { IoListOutline } from "react-icons/io5";
-import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
-import { fetchEvents } from "../../../../../api/event";
+import Table from "../../../../../components/Table/Table";
 import {
   eventStatusDisplayName,
   eventStatusOptions,
 } from "../../../../../helpers/event";
+import useInfiniteQueryEvents from "../../../../../hooks/useInfiniteQueryEvents";
 import { IEvent, TEventStatus } from "../../../../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
-import Table from "../../../../../components/Table/Table";
 import styles from "./AdminEventsTable.module.css";
-import toast from "react-hot-toast";
 
 const AdminEventsTable = () => {
   const [startDate, setStartDate] = useState("");
@@ -24,41 +22,21 @@ const AdminEventsTable = () => {
   const [deleteEventModalData, setDeleteEventModalData] =
     useState<IEvent | null>(null);
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
-
   const {
-    data,
+    events,
     isLoading,
     isError,
     isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["events", eventStatus, startDate, endDate],
-    queryFn: ({ pageParam }) =>
-      fetchEvents({ page: pageParam, eventStatus, startDate, endDate }),
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
+    ref: eventsRef,
+  } = useInfiniteQueryEvents({
+    eventStatus,
+    startDate,
+    endDate,
   });
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
 
   if (isLoading) {
     return <div className="text-center">Loading...</div>;
   }
-
-  // Making the data flat
-  const events = data?.pages.flatMap((page) => page.events);
 
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -143,7 +121,8 @@ const AdminEventsTable = () => {
             <tbody>
               {events.map((event, index) => {
                 // Conditionally adding ref
-                const refProp = index === events.length - 1 ? { ref: ref } : {};
+                const refProp =
+                  index === events.length - 1 ? { ref: eventsRef } : {};
                 return (
                   <tr key={event.id} {...refProp}>
                     <td>{event.id}</td>
