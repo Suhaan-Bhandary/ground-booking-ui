@@ -6,7 +6,7 @@ import { userActions } from "../../app/features/userSlice";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiEnvelope, BiLockAlt } from "react-icons/bi";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
-import { isApiResponse } from "../../helpers/api";
+import { isApiDataError, isApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
@@ -47,10 +47,8 @@ const UserLogin = () => {
           navigate("/");
         } catch (error) {
           console.error("Rejected:", error);
-          if (isApiResponse(error)) {
-            error.data.errors.forEach((errMessage) => {
-              toast.error(errMessage);
-            });
+          if (isApiDataError(error)) {
+            toast.error(error.data.error);
           } else {
             toast.error("Something went wrong");
           }
