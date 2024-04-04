@@ -1,15 +1,12 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Moment from "moment";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import { IoReceiptOutline } from "react-icons/io5";
 import { Link, useSearchParams } from "react-router-dom";
-import { fetchRegisterations } from "../../../api/event";
 import Table from "../../../components/Table/Table";
 import {
   registrationStatusDisplayName,
   registrationStatusOptions,
 } from "../../../helpers/event";
-import { IoReceiptOutline } from "react-icons/io5";
+import useInfiniteQueryRegistrations from "../../../hooks/useInfiniteQueryRegistrations";
 import styles from "./Registrations.module.css";
 
 const Registrations = () => {
@@ -19,42 +16,12 @@ const Registrations = () => {
   const status = searchParams.get("status") || "";
   const slot_id = searchParams.get("slot_id") || "";
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
-
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["admin-registerations", user_id, slot_id, status],
-    queryFn: ({ pageParam }) =>
-      fetchRegisterations({
-        user_id,
-        slot_id,
-        status,
-        page: pageParam,
-      }),
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
-  });
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
-
-  // Making the data flat
-  const registrations = data?.pages.flatMap((page) => page.registrations);
+  const { registrations, isLoading, isError, isFetchingNextPage, ref } =
+    useInfiniteQueryRegistrations({
+      user_id,
+      status,
+      slot_id,
+    });
 
   return (
     <div>
