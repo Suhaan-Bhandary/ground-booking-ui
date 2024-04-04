@@ -1,9 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useDeleteRegistrationMutation } from "../../app/features/registrationApi";
-import { getErrorFromApiResponse, isErrorInMessage } from "../../helpers/api";
-import { IRegistration } from "../../types/event";
-import Modal from "../Modal/Modal";
+import { useDeleteRegistrationMutation } from "../../../../app/features/registrationApi";
+import Modal from "../../../../components/Modal/Modal";
+import { getErrorFromApiResponse } from "../../../../helpers/api";
+import { IRegistration } from "../../../../types/event";
 import styles from "./RegistrationCancelModal.module.css";
 
 type RegistrationCancelModalProps = {

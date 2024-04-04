@@ -1,5 +1,5 @@
-import AdminEventsTable from "../../../components/AdminEventsTable/AdminEventsTable";
-import CreateEvent from "../../../components/CreateEvent/CreateEvent";
+import AdminEventsTable from "./components/AdminEventsTable/AdminEventsTable";
+import CreateEvent from "./components/CreateEvent/CreateEvent";
 
 const Events = () => {
   return (

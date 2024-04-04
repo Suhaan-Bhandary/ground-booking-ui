@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 import { fetchEvents } from "../../api/event";
-import EventsSkeletonLoader from "../../components/SkeletonLoaders/EventsSkeletonLoader/EventsSkeletonLoader";
 import {
   eventStatusDisplayName,
   eventStatusOptions,
@@ -12,6 +11,7 @@ import {
 import { TEventStatus } from "../../types/event";
 import styles from "./Events.module.css";
 import toast from "react-hot-toast";
+import EventsSkeletonLoader from "./components/EventsSkeletonLoader/EventsSkeletonLoader";
 
 const Events = () => {
   const [eventStatus, setEventStatus] = useState<TEventStatus | "">("");

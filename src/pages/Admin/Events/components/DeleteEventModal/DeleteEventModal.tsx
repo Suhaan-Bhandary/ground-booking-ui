@@ -1,10 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useDeleteEventMutation } from "../../app/features/eventsApi";
-import { getErrorFromApiResponse } from "../../helpers/api";
-import { IEvent } from "../../types/event";
-import Modal from "../Modal/Modal";
 import styles from "./DeleteEventModal.module.css";
+import { IEvent } from "../../../../../types/event";
+import { useDeleteEventMutation } from "../../../../../app/features/eventsApi";
+import { getErrorFromApiResponse } from "../../../../../helpers/api";
+import Modal from "../../../../../components/Modal/Modal";
 
 type DeleteEventProps = {
   event: IEvent;

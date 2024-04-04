@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Link, useParams } from "react-router-dom";
 import { fetchSlots } from "../../api/slot";
-import RegisterSlotModal from "../../components/RegisterSlotModal/RegisterSlotModal";
 import { slotStatusDisplayName } from "../../helpers/slot";
 import { useAppSelector } from "../../hooks/redux";
 import { ISlot } from "../../types/event";
 import styles from "./Slots.module.css";
-import SlotsSkeletonLoader from "../../components/SkeletonLoaders/SlotsSkeletonLoader/SlotsSkeletonLoader";
+import RegisterSlotModal from "./components/RegisterSlotModal/RegisterSlotModal";
+import SlotsSkeletonLoader from "./components/SlotsSkeletonLoader/SlotsSkeletonLoader";
 
 const Slots = () => {
   const { eventId } = useParams();

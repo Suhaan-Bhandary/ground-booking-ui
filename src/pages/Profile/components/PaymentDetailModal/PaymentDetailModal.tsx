@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import Moment from "moment";
-import { fetchRegistrationPaymentDetail } from "../../api/payment";
-import { IRegistration } from "../../types/event";
-import Modal from "../Modal/Modal";
+import { fetchRegistrationPaymentDetail } from "../../../../api/payment";
+import Modal from "../../../../components/Modal/Modal";
+import { IRegistration } from "../../../../types/event";
 import styles from "./PaymentDetailModal.module.css";
 
 type PaymentDetailModalProps = {

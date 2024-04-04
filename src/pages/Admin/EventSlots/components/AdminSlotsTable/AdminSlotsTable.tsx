@@ -4,12 +4,12 @@ import { CiSquareRemove } from "react-icons/ci";
 import { IoListOutline } from "react-icons/io5";
 import { useInView } from "react-intersection-observer";
 import { Link, useParams } from "react-router-dom";
-import { fetchSlots } from "../../api/slot";
-import { slotStatusDisplayName } from "../../helpers/slot";
-import { ISlot } from "../../types/event";
-import DeleteSlotModal from "../DeleteSlotModal/DeleteSlotModal";
-import Table from "../Table/Table";
 import styles from "./AdminSlotsTable.module.css";
+import { fetchSlots } from "../../../../../api/slot";
+import Table from "../../../../../components/Table/Table";
+import DeleteSlotModal from "../DeleteSlotModal/DeleteSlotModal";
+import { slotStatusDisplayName } from "../../../../../helpers/slot";
+import { ISlot } from "../../../../../types/event";
 
 const AdminSlotsTable = () => {
   const { eventId } = useParams();

@@ -1,9 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useDeleteSlotMutation } from "../../app/features/eventsApi";
-import { getErrorFromApiResponse } from "../../helpers/api";
-import { ISlot } from "../../types/event";
-import Modal from "../Modal/Modal";
+import { useDeleteSlotMutation } from "../../../../../app/features/eventsApi";
+import Modal from "../../../../../components/Modal/Modal";
+import { getErrorFromApiResponse } from "../../../../../helpers/api";
+import { ISlot } from "../../../../../types/event";
 import styles from "./DeleteSlotModal.module.css";
 
 type DeleteSlotProps = {

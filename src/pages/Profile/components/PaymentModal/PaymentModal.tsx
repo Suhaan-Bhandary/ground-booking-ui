@@ -1,9 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { usePaymentMutation } from "../../app/features/registrationApi";
-import { getErrorFromApiResponse } from "../../helpers/api";
-import { IRegistration } from "../../types/event";
-import Modal from "../Modal/Modal";
+import { usePaymentMutation } from "../../../../app/features/registrationApi";
+import Modal from "../../../../components/Modal/Modal";
+import { getErrorFromApiResponse } from "../../../../helpers/api";
+import { IRegistration } from "../../../../types/event";
 import styles from "./PaymentModal.module.css";
 
 const AMOUNT_DEDUCTED_FROM_USER = 1000;

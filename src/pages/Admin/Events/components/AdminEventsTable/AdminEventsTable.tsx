@@ -5,14 +5,14 @@ import { CiSquareRemove } from "react-icons/ci";
 import { IoListOutline } from "react-icons/io5";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
-import { fetchEvents } from "../../api/event";
+import { fetchEvents } from "../../../../../api/event";
 import {
   eventStatusDisplayName,
   eventStatusOptions,
-} from "../../helpers/event";
-import { IEvent, TEventStatus } from "../../types/event";
+} from "../../../../../helpers/event";
+import { IEvent, TEventStatus } from "../../../../../types/event";
 import DeleteEventModal from "../DeleteEventModal/DeleteEventModal";
-import Table from "../Table/Table";
+import Table from "../../../../../components/Table/Table";
 import styles from "./AdminEventsTable.module.css";
 import toast from "react-hot-toast";
 

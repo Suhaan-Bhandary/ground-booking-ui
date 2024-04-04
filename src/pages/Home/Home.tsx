@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import sportsImage from "../../assets/sports.png";
 import styles from "./Home.module.css";
-import Footer from "../../components/Footer/Footer";
+import Footer from "./components/Footer/Footer";
 
 const Home = () => {
   return (

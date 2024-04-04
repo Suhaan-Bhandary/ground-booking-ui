@@ -3,14 +3,14 @@ import { useFormik } from "formik";
 import Moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useCreateEventMutation } from "../../app/features/eventsApi";
-import { getErrorFromApiResponse } from "../../helpers/api";
+import { useCreateEventMutation } from "../../../../../app/features/eventsApi";
+import Modal from "../../../../../components/Modal/Modal";
+import { getErrorFromApiResponse } from "../../../../../helpers/api";
 import {
   createEventInitialValues,
   createEventSchema,
-} from "../../helpers/event";
-import { IEventCreateRequest } from "../../types/event";
-import Modal from "../Modal/Modal";
+} from "../../../../../helpers/event";
+import { IEventCreateRequest } from "../../../../../types/event";
 import styles from "./CreateEvent.module.css";
 
 const CreateEvent = () => {
