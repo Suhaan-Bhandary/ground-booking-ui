@@ -90,16 +90,7 @@ const Slots = () => {
           );
         })}
 
-        {isLoading ? (
-          <>
-            <SlotsSkeletonLoader />
-            <SlotsSkeletonLoader />
-            <SlotsSkeletonLoader />
-            <SlotsSkeletonLoader />
-            <SlotsSkeletonLoader />
-            <SlotsSkeletonLoader />
-          </>
-        ) : null}
+        {isLoading ? <SlotsSkeletonLoader eventCount={6} /> : null}
 
         {isError && <p className="text-center">Error loading slots</p>}
         {isFetchingNextPage && <p className="text-center">Fetching slots...</p>}

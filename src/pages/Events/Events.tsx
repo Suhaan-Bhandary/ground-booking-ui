@@ -151,17 +151,7 @@ const Events = () => {
           );
         })}
 
-        {isLoading ? (
-          <>
-            <EventsSkeletonLoader />
-            <EventsSkeletonLoader />
-            <EventsSkeletonLoader />
-            <EventsSkeletonLoader />
-            <EventsSkeletonLoader />
-            <EventsSkeletonLoader />
-            <EventsSkeletonLoader />
-          </>
-        ) : null}
+        {isLoading ? <EventsSkeletonLoader eventCount={7} /> : null}
 
         {!isLoading && !isError && !events?.length && (
           <p className="text-center">No events Found</p>

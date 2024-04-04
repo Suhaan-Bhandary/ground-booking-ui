@@ -1,13 +1,21 @@
 import styles from "./EventsSkeletonLoader.module.css";
 
-const EventsSkeletonLoader = () => {
+type EventsSkeletonLoaderProps = {
+  eventCount: number;
+};
+
+const EventsSkeletonLoader = ({ eventCount }: EventsSkeletonLoaderProps) => {
   return (
-    <div className={`${styles.skeleton} ${styles.wrapper}`}>
-      <div className={`${styles.time} ${styles.skeleton}`}></div>
-      <div className={`${styles.ago} ${styles.skeleton}`}></div>
-      <div className={`${styles.status} ${styles.skeleton}`}></div>
-      <div className={`${styles.button} ${styles.skeleton}`}></div>
-    </div>
+    <>
+      {[...Array(eventCount)].map((_, index) => (
+        <div key={index} className={`${styles.skeleton} ${styles.wrapper}`}>
+          <div className={`${styles.time} ${styles.skeleton}`}></div>
+          <div className={`${styles.ago} ${styles.skeleton}`}></div>
+          <div className={`${styles.status} ${styles.skeleton}`}></div>
+          <div className={`${styles.button} ${styles.skeleton}`}></div>
+        </div>
+      ))}
+    </>
   );
 };
 
