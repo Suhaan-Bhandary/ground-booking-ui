@@ -1,61 +1,29 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
 import Moment from "moment";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchUserRegisterations } from "../../api/event";
-import PaymentDetailModal from "./components/PaymentDetailModal/PaymentDetailModal";
-import PaymentModal from "./components/PaymentModal/PaymentModal";
-import RegistrationCancelModal from "./components/RegistrationCancelModal/RegistrationCancelModal";
-import DarkTableRowSkeletonLoader from "./components/DarkTableRowSkeletonLoader/DarkTableRowSkeletonLoader";
 import Table from "../../components/Table/Table";
 import { registrationStatusDisplayName } from "../../helpers/event";
 import { useAppSelector } from "../../hooks/redux";
+import useInfiniteQueryUserRegistrations from "../../hooks/useInfiniteQueryUserRegistrations";
 import { IRegistration } from "../../types/event";
 import styles from "./Profile.module.css";
+import DarkTableRowSkeletonLoader from "./components/DarkTableRowSkeletonLoader/DarkTableRowSkeletonLoader";
+import PaymentDetailModal from "./components/PaymentDetailModal/PaymentDetailModal";
+import PaymentModal from "./components/PaymentModal/PaymentModal";
+import RegistrationCancelModal from "./components/RegistrationCancelModal/RegistrationCancelModal";
 
 const Profile = () => {
   const user = useAppSelector((state) => state.userState.user);
 
   const [paymentModalRegistration, setPaymentModalRegistration] =
     useState<IRegistration | null>(null);
-
   const [paymentDetailModalRegistration, setPaymentDetailModalRegistration] =
     useState<IRegistration | null>(null);
-
   const [registrationCancelModal, setRegistrationCancelModal] =
     useState<IRegistration | null>(null);
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
-
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["profile-registerations"],
-    queryFn: ({ pageParam }) => fetchUserRegisterations({ page: pageParam }),
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
-  });
-
-  // Making the data flat
-  const registrations = data?.pages.flatMap((page) => page.users);
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
+  const { registrations, isLoading, isError, isFetchingNextPage, ref } =
+    useInfiniteQueryUserRegistrations();
 
   return (
     <div className={`container ${styles.profile}`}>
