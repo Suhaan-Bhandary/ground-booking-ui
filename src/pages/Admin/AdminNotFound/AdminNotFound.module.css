@@ -8,6 +8,10 @@
   justify-content: center;
 }
 
+.AdminNotFound p {
+  max-width: 40ch;
+}
+
 .adminPageLink {
   background-color: rgb(var(--admin-accent-color), 0.8);
   padding: 0.5rem 1rem;
