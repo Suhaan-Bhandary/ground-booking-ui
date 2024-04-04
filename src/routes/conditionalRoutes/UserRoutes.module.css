@@ -1,4 +1,4 @@
-.NotFound {
+.UserRoutes {
   padding-inline: 2rem;
   padding-block: 30vh;
 
@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-.NotFound p {
+.UserRoutes p {
   max-width: 40ch;
 }
 

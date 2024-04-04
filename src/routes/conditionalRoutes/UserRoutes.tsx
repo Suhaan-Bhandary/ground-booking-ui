@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { USER_ROLE } from "../../constants/user";
 import { IUser } from "../../types/user";
+import styles from "./UserRoutes.module.css";
 
 type UserRoutesProps = {
   userData: IUser | null;
@@ -10,7 +11,7 @@ function UserRoutes({ userData }: UserRoutesProps) {
   if (userData?.role === USER_ROLE) return <Outlet />;
 
   return (
-    <div>
+    <div className={styles.UserRoutes}>
       <div className="container">
         <div>
           <h3>User Login Required!!</h3>
@@ -20,7 +21,9 @@ function UserRoutes({ userData }: UserRoutesProps) {
             our website!
           </p>
 
-          <Link to="/login">Login</Link>
+          <Link to="/login" className={styles.homePageLink}>
+            Login
+          </Link>
         </div>
       </div>
     </div>
