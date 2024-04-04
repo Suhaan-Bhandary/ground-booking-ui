@@ -1,52 +1,20 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { fetchUsers } from "../../../api/user";
-import Table from "../../../components/Table/Table";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Table from "../../../components/Table/Table";
+import useInfiniteQueryUsers from "../../../hooks/useInfiniteQueryUsers";
 import styles from "./Users.module.css";
 
 const Users = () => {
   const [inputUsername, setInputUsername] = useState("");
   const [searchUsername, setSearchUsername] = useState("");
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
-
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["admin-users", searchUsername],
-    // TODO: add username or mobile search
-    queryFn: ({ pageParam }) =>
-      fetchUsers({ page: pageParam, username: searchUsername }),
-
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.length + 1 <= lastPage.total_pages
-        ? allPages.length + 1
-        : undefined;
-    },
-  });
-
-  useEffect(() => {
-    if (!inView || !hasNextPage) return;
-    fetchNextPage();
-  }, [inView, hasNextPage, fetchNextPage]);
+  const { users, isLoading, isError, isFetchingNextPage, ref } =
+    useInfiniteQueryUsers({ username: searchUsername });
 
   const handleUsernameSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchUsername(inputUsername);
   };
-
-  // Making the data flat
-  const users = data?.pages.flatMap((page) => page.users);
 
   return (
     <div>
