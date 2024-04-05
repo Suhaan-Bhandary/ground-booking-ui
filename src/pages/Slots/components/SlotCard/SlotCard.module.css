@@ -1,0 +1,30 @@
+.slot {
+  padding: 1rem 1rem;
+  margin-block: 1rem;
+
+  background-color: var(--bg-secondary);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+.registerSlotButton {
+  background: var(--bg-light);
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+}
+
+.slotAvailable {
+  color: #008000;
+}
+
+.slotBooked {
+  color: #ff0000;
+}
+
+@media (min-width: 400px) {
+  .slot {
+    margin: 0;
+  }
+}
