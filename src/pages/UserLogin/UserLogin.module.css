@@ -61,7 +61,7 @@
   transition: all 0.2s ease;
 
   color: var(--text-color);
-  background-color: var(--bg-light);
+  background-color: transparent;
 }
 
 .inputField > input:where(:focus, :valid) {

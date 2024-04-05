@@ -11,6 +11,7 @@ import { getErrorFromApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
+import { IoPhonePortraitOutline } from "react-icons/io5";
 import { IUserLocalStorage, IUserLoginRequest } from "../../types/user";
 import styles from "./UserLogin.module.css";
 
@@ -74,7 +75,7 @@ const UserLogin = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <BiEnvelope className={styles.icon} />
+              <IoPhonePortraitOutline className={styles.icon} />
             </div>
             <div
               className={`${styles.inputField} ${
