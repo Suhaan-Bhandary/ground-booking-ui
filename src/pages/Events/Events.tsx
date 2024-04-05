@@ -97,6 +97,7 @@ const Events = () => {
       <div className={styles.events}>
         {events?.map((event, index) => (
           <EventCard
+            key={event.id}
             event={event}
             viewRef={index === events.length - 1 ? eventsRef : null}
           />

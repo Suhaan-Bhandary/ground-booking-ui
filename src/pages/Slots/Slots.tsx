@@ -22,6 +22,7 @@ const Slots = () => {
       <div className={styles.slots}>
         {slots?.map((slot, index) => (
           <SlotCard
+            key={slot.id}
             slot={slot}
             viewRef={index === slots.length - 1 ? ref : null}
             handleSlotRegistrationCallback={() =>
