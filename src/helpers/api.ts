@@ -5,6 +5,8 @@ export function getErrorFromApiResponse(error: unknown): string[] {
     return [error.data.message];
   } else if (isErrorInError(error)) {
     return [error.data.error];
+  } else if (isErrorsInError(error)) {
+    return [error.data.errors];
   }
 
   return ["Something went wrong"];
@@ -64,5 +66,24 @@ function isErrorInError(error: unknown): error is ApiDataErrorResponse {
     error.data != null &&
     "error" in error.data &&
     typeof error.data.error === "string"
+  );
+}
+
+interface ApiDataErrorsResponse {
+  status: number;
+  data: { errors: string };
+}
+
+function isErrorsInError(error: unknown): error is ApiDataErrorsResponse {
+  return (
+    typeof error === "object" &&
+    error != null &&
+    "status" in error &&
+    typeof error.status === "number" &&
+    "data" in error &&
+    typeof error.data === "object" &&
+    error.data != null &&
+    "errors" in error.data &&
+    typeof error.data.errors === "string"
   );
 }
