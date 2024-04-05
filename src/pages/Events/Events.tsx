@@ -1,14 +1,10 @@
-import Moment from "moment";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import {
-  eventStatusDisplayName,
-  eventStatusOptions,
-} from "../../helpers/event";
+import { eventStatusOptions } from "../../helpers/event";
 import useInfiniteQueryEvents from "../../hooks/useInfiniteQueryEvents";
 import { TEventStatus } from "../../types/event";
 import styles from "./Events.module.css";
+import EventCard from "./components/EventCard/EventCard";
 import EventsSkeletonLoader from "./components/EventsSkeletonLoader/EventsSkeletonLoader";
 
 const Events = () => {
@@ -99,37 +95,12 @@ const Events = () => {
       </div>
 
       <div className={styles.events}>
-        {events?.map((event, index) => {
-          let eventTypeClassName = styles.eventAvailable;
-          if (event.event_status === "IN_PROGRESS") {
-            eventTypeClassName = styles.eventInProgress;
-          }
-          if (event.event_status === "BOOKED") {
-            eventTypeClassName = styles.eventBooked;
-          }
-
-          // Conditionally adding ref
-          const refProp = index === events.length - 1 ? { ref: eventsRef } : {};
-          return (
-            <div
-              key={event.id}
-              className={`${styles.event} ${eventTypeClassName}`}
-              {...refProp}
-            >
-              <p>Date: {Moment(event.date).format("DD/MM/YYYY")}</p>
-              <p>Event {Moment(event.date).fromNow()}</p>
-              <p>Status: {eventStatusDisplayName[event.event_status]}</p>
-              {event.event_status !== "BOOKED" && (
-                <Link
-                  to={`/events/${event.id}/slots`}
-                  className={styles.viewSlots}
-                >
-                  View Slots
-                </Link>
-              )}
-            </div>
-          );
-        })}
+        {events?.map((event, index) => (
+          <EventCard
+            event={event}
+            viewRef={index === events.length - 1 ? eventsRef : null}
+          />
+        ))}
 
         {isLoading ? <EventsSkeletonLoader eventCount={7} /> : null}
 
