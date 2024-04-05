@@ -28,7 +28,7 @@ const PaymentModal = ({
       }).unwrap();
 
       toast.success("Payment done Successfully");
-      queryClient.invalidateQueries({ queryKey: ["profile-registerations"] });
+      queryClient.invalidateQueries({ queryKey: ["user-registerations"] });
 
       closeModalCallback();
     } catch (error) {

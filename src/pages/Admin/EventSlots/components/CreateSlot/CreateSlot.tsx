@@ -6,7 +6,11 @@ import { useParams } from "react-router-dom";
 import { useCreateSlotMutation } from "../../../../../app/features/eventsApi";
 import Modal from "../../../../../components/Modal/Modal";
 import { getErrorFromApiResponse } from "../../../../../helpers/api";
-import { createSlotInitialValues, createSlotSchema, getTimeRangeFormat } from "../../../../../helpers/slot";
+import {
+  createSlotInitialValues,
+  createSlotSchema,
+  getTimeRangeFormat,
+} from "../../../../../helpers/slot";
 import { ISlotCreateRequest } from "../../../../../types/event";
 import styles from "./CreateSlot.module.css";
 

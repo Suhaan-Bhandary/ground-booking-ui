@@ -24,7 +24,7 @@ const RegistrationCancelModal = ({
       await deleteRegistration({ registrationId: registration.id }).unwrap();
 
       toast.success("Registration Deleted Successfully");
-      queryClient.invalidateQueries({ queryKey: ["profile-registerations"] });
+      queryClient.invalidateQueries({ queryKey: ["user-registerations"] });
       closeModalCallback();
     } catch (error) {
       console.error("Registration Cancel:", error);
