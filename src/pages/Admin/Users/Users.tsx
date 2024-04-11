@@ -41,10 +41,9 @@ const Users = () => {
               <Table>
                 <thead>
                   <tr>
-                    <th>User Id</th>
                     <th>Username</th>
                     <th>Mobile</th>
-                    <th>Access Id</th>
+                    <th>Role</th>
                     <th>Registrations</th>
                   </tr>
                 </thead>
@@ -56,10 +55,9 @@ const Users = () => {
                       index === users.length - 1 ? { ref: ref } : {};
                     return (
                       <tr key={user.mobile_no} {...refProp}>
-                        <td>{user.id}</td>
                         <td>{user.user_name}</td>
                         <td>{user.mobile_no}</td>
-                        <td>{user.access_role_id}</td>
+                        <td>{user.user_role}</td>
                         <td>
                           <Link
                             className={styles.viewButton}

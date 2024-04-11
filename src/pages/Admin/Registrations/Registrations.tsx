@@ -90,9 +90,9 @@ const Registrations = () => {
                 <Table>
                   <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>User Id</th>
-                      <th>Slot Id</th>
+                      <th>User</th>
+                      <th>Event</th>
+                      <th>Slot</th>
                       <th>Status</th>
                       <th>Registered On</th>
                       <th>Payment Id</th>
@@ -116,9 +116,13 @@ const Registrations = () => {
                         index === registrations.length - 1 ? { ref: ref } : {};
                       return (
                         <tr key={registration.id} {...refProp}>
-                          <td>{registration.id}</td>
-                          <td>{registration.user_id}</td>
-                          <td>{registration.slot_id}</td>
+                          <td>{registration.user_name}</td>
+                          <td>
+                            {Moment(registration.event_date).format(
+                              "DD/MM/YYYY",
+                            )}
+                          </td>
+                          <td>{registration.slot_time}</td>
                           <td className={registrationStatusClass}>
                             {registrationStatusDisplayName[registration.status]}
                           </td>

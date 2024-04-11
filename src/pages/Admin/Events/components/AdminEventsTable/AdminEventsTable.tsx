@@ -112,7 +112,6 @@ const AdminEventsTable = () => {
           <Table>
             <thead>
               <tr>
-                <th>Id</th>
                 <th>Event Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -125,7 +124,6 @@ const AdminEventsTable = () => {
                   index === events.length - 1 ? { ref: eventsRef } : {};
                 return (
                   <tr key={event.id} {...refProp}>
-                    <td>{event.id}</td>
                     <td>{Moment(event.date).format("Do MMMM YYYY")}</td>
                     <td>{eventStatusDisplayName[event.event_status]}</td>
                     <td>

@@ -79,6 +79,7 @@ export interface IUserPaginatedResponse {
     user_name: string;
     mobile_no: string;
     access_role_id: number;
+    user_role: string;
   }[];
   total_pages: number;
   total_records: number;

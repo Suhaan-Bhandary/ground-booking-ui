@@ -53,7 +53,12 @@ export interface IRegistration {
   created_at: string;
   updated_at: string;
   user_id: number;
+
   slot_id: number;
+  slot_time: string;
+  user_name: string;
+
+  event_date: string;
 
   receipt_url: string | null;
   payment_id: number | null;

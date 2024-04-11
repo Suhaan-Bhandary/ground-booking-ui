@@ -39,11 +39,10 @@ const Profile = () => {
             <Table className={styles.table} isDarkMode={true}>
               <thead>
                 <tr>
-                  <th>Registration</th>
+                  <th>Event</th>
                   <th>Slot</th>
                   <th>Status</th>
                   <th>Registered On</th>
-                  <th>Payment Id</th>
                   <th>Receipt</th>
                   <th>Payment</th>
                   <th>Cancel Registration</th>
@@ -65,8 +64,10 @@ const Profile = () => {
                     index === registrations.length - 1 ? { ref: ref } : {};
                   return (
                     <tr key={registration.id} {...refProp}>
-                      <td>{registration.id}</td>
-                      <td>{registration.slot_id}</td>
+                      <td>
+                        {Moment(registration.event_date).format("DD/MM/YYYY")}
+                      </td>
+                      <td>{registration.slot_time}</td>
                       <td>
                         <p
                           className={`${styles.registrationStatus} ${registrationTypeClassName}`}
@@ -78,7 +79,6 @@ const Profile = () => {
                         {Moment(registration.created_at).format("DD/MM/YYYY")}
                       </td>
 
-                      <td>{registration.payment_id || "NA"}</td>
                       <td>
                         {registration.receipt_url ? (
                           <Link to={registration.receipt_url}>Receipt</Link>
