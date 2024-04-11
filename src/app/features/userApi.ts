@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../constants/app";
-import { getUserAuthToken } from "../../helpers/authToken";
 import {
   IUserLoginRawResponse,
   IUserLoginRequest,
@@ -11,10 +10,18 @@ import {
   IUserStatusResponse,
   TUserRole,
 } from "../../types/user";
+import { RootState } from "../store";
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: API_BASE_URL,
+    prepareHeaders: async (headers, { getState }) => {
+      const state = getState() as RootState;
+      const token = state.tokenState.token;
+      headers.set("Authorization", `Bearer ${token}`);
+    },
+  }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
     // First is the return type and second is the Body
@@ -68,7 +75,6 @@ export const userApi = createApi({
       query: () => ({
         url: "/current_user",
         method: "GET",
-        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
   }),

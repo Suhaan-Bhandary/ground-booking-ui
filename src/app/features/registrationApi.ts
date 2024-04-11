@@ -1,11 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../constants/app";
-import { getUserAuthToken } from "../../helpers/authToken";
+import { RootState } from "../store";
 
 export const registrationApi = createApi({
   reducerPath: "registrationApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${API_BASE_URL}/registrations`,
+    prepareHeaders: async (headers, { getState }) => {
+      const state = getState() as RootState;
+      const token = state?.tokenState?.token || "";
+      headers.set("Authorization", `Bearer ${token}`);
+    },
   }),
   tagTypes: ["Registration"],
   endpoints: (builder) => ({
@@ -20,7 +25,6 @@ export const registrationApi = createApi({
               status: "PAID",
             },
           },
-          headers: { Authorization: `Bearer ${getUserAuthToken()}` },
         }),
       },
     ),
@@ -29,7 +33,6 @@ export const registrationApi = createApi({
       query: ({ registrationId }) => ({
         url: `/${registrationId}`,
         method: "DELETE",
-        headers: { Authorization: `Bearer ${getUserAuthToken()}` },
       }),
     }),
   }),

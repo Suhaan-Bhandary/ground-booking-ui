@@ -2,8 +2,10 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { BiEnvelope, BiLockAlt } from "react-icons/bi";
+import { BiLockAlt } from "react-icons/bi";
+import { IoPhonePortraitOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
+import { tokenActions } from "../../app/features/tokenSlice";
 import { useLoginUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
@@ -11,7 +13,6 @@ import { getErrorFromApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import { userLoginInitialValues, userLoginSchema } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
-import { IoPhonePortraitOutline } from "react-icons/io5";
 import { IUserLocalStorage, IUserLoginRequest } from "../../types/user";
 import styles from "./UserLogin.module.css";
 
@@ -38,11 +39,13 @@ const UserLogin = () => {
           const payload = await loginUser(responseBody).unwrap();
 
           toast.success("User Login successfully");
+
           setLocalStorage<IUserLocalStorage>(USER_LOALSTORAGE_KEY, {
             token: payload.token,
           });
 
           dispatch(userActions.setUser(payload.user));
+          dispatch(tokenActions.setToken(payload.token));
 
           // Navigating to Home Page
           navigate("/");
