@@ -1,14 +1,15 @@
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { tokenActions } from "../../app/features/tokenSlice";
 import { useRegisterUserMutation } from "../../app/features/userApi";
 import { userActions } from "../../app/features/userSlice";
 import { USER_LOALSTORAGE_KEY } from "../../constants/user";
 import { getErrorFromApiResponse } from "../../helpers/api";
 import { setLocalStorage } from "../../helpers/localStorage";
 import {
-    userRegisterInitialValues,
-    userRegisterSchema,
+  userRegisterInitialValues,
+  userRegisterSchema,
 } from "../../helpers/user";
 import { useAppDispatch } from "../../hooks/redux";
 import { IUserLocalStorage, IUserRegisterRequest } from "../../types/user";
@@ -36,7 +37,12 @@ const UserRegister = () => {
           const payload = await registerUser(responseBody).unwrap();
 
           toast.success("User registered successfully");
-          setLocalStorage<IUserLocalStorage>(USER_LOALSTORAGE_KEY, payload);
+
+          setLocalStorage<IUserLocalStorage>(USER_LOALSTORAGE_KEY, {
+            token: payload.token,
+          });
+
+          dispatch(tokenActions.setToken(payload.token));
           dispatch(userActions.setUser(payload.user));
 
           // Navigating to Home Page

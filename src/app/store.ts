@@ -3,11 +3,13 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { eventApi } from "./features/eventsApi";
 import { userApi } from "./features/userApi";
 import userStateReducer from "./features/userSlice";
+import tokenStateReducer from "./features/tokenSlice";
 import { registrationApi } from "./features/registrationApi";
 
 export const store = configureStore({
   reducer: {
     userState: userStateReducer,
+    tokenState: tokenStateReducer,
     [userApi.reducerPath]: userApi.reducer,
     [eventApi.reducerPath]: eventApi.reducer,
     [registrationApi.reducerPath]: registrationApi.reducer,

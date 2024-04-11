@@ -1,10 +1,7 @@
-import { USER_LOALSTORAGE_KEY } from "../constants/user";
-import { IUserLocalStorage } from "../types/user";
-import { getLocalStorageData } from "./localStorage";
+import { RootState, store } from "../app/store";
 
 export const getUserAuthToken = () => {
-  const data = getLocalStorageData<IUserLocalStorage>(USER_LOALSTORAGE_KEY);
-
-  if (!data) return "";
-  return data.token;
+  const state = store.getState() as RootState;
+  const token = state.tokenState.token;
+  return token;
 };
